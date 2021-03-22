@@ -3,6 +3,7 @@ O	movies
 O	star
 B-ACTOR bruce
 I-ACTOR	willis
+I-ACTOR gey
 
 O	show
 O	me
