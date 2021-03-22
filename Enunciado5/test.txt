@@ -1,0 +1,26 @@
+O	what
+O	movies
+O	star
+B-ACTOR bruce
+I-ACTOR	willis
+I-ACTOR gey
+
+O	show
+O	me
+O	films
+O	with
+B-ACTOR	drew
+I-ACTOR	barrymore
+O	from
+O	the
+B-YEAR	1980s
+
+O	what
+O	movies
+O	starred
+O	both
+B-ACTOR	al
+I-ACTOR	pacino
+O	and
+B-ACTOR	robert
+I-ACTOR	deniro
