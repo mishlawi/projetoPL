@@ -1,15 +1,34 @@
 import re
+import webbrowser
 
-fo = open("test.txt").read()
-htmlfirst = open("file.html","w")
+
 
 keyB = re.compile(r'^B-[A-Z]+')
 keyI = re.compile(r'^I-[A-Z]+')
+htmlfirst = open("file.html","w")
 
 
-def organizer():
-	global fo
-	a = fo.split('\n')
+def alpha(name):
+	fo = open(name)
+	info = {}
+	typo = []
+	n = 1
+	splits = fo.readlines()
+
+	for lines in splits:
+		if keyB.search(lines):
+			category = lines.split('-')[1].split()[0]
+			if category in info:
+				typo = info[category]
+			typo.append(n)
+			info.update({category:typo})
+			typo = []
+		n+=1
+	return info
+
+def organizer(name):
+	file = open(name).read()
+	a = file.split('\n')
 	splits = []
 	splitter = []
 
@@ -21,13 +40,13 @@ def organizer():
 			splitter = []
 	return splits
 
-def omega():
+
+def omega(name):
 	dic= {}
-	splits = organizer()
+	splits = organizer(name)
 	typo = []
 	for split in splits:
 		for elem in split:
-			
 			if keyB.search(elem):
 				category = elem.split('-')[1].split()[0]
 				catInfo = elem.split('-')[1].split()[1]
@@ -37,6 +56,7 @@ def omega():
 				dic.update({category:typo})
 				typo = []
 			else:	
+				
 				if keyI.search(elem):
 					category = elem.split('-')[1].split()[0]
 					catInfo = elem.split('-')[1].split()[1]
@@ -47,27 +67,29 @@ def omega():
 					typo.append(aux)
 					dic.update({category:typo})
 					typo = []
-	print(dic)
+	
 	return dic
 
 
-
-
-
-#esta parte está em obras
-def html():
+def html(name):
 	n=1
-	dic = omega()
+	dic = omega(name)
+	info = alpha(name)
 	htmlfirst.write("""<!DOCTYPE html>
 
-<html>)
+<html>
 	
 	<head>
 
         <title>Enunciado 5</title>
         <meta charset="UTF-8"/></head>
     <body>
-   
+    <h1> Enunciado 5, Trabalho Prático de Processamento de Linguagens, ano letivo 2020-2021</h1>
+    <p>Realizado por:</p>
+    <p> Duarte Oliveira a85517</p>
+    <p> Tiago Barata </p>
+    <p> Simão Santa-Cruz</p>
+   	<hr>
     """
     )
 
@@ -75,11 +97,12 @@ def html():
 
 		htmlfirst.write(rf"""
 			
-			<h{n}>{elem}</h{n}>
-			<p>nº de elementos nesta categoria: {len(dic[elem])} </p>
+			<h2>{elem}</h2>
+			<p>nº de elementos nesta categoria: {len(dic[elem])}</p>
 
-			""")
-		n+=1
+			"""
+			)
+
 		htmln = open(rf'categorias/{elem}.html',"w")
 		htmln.write(rf"""<!DOCTYPE html>
 
@@ -91,22 +114,44 @@ def html():
 
         <meta charset="UTF-8"/></head>
     <body>
-
     <h1>Lista de elementos da categoria {elem}</h1>
-   	<a href="../file.html"> retornar à página principal </a>
-
-
-    """)
-		for listado in dic[elem]:
-			htmln.write("<p>")
+    	<a href="../file.html"> retornar à página principal </a>
+    	<table>
+    		<tr>
+    			<th>elementos</th>
+    			<th>linha da ocorrência</th>
+    		</tr>
+    				<tr>""")
+		
+		for listado, nrs in zip(dic[elem],info[elem]):
+			htmln.write("""
+					<td>""")
+			
 			for indices in listado:
 				htmln.write(rf"""{indices} """
 			)
-			htmln.write("</p>")
-		htmlfirst.write(rf"""		<a href="categorias/{elem}.html"> mais informação {elem}</a>
+			htmln.write("""</td>
+					<td>""")
+			htmln.write(rf"""{nrs}</td>
+				</tr>
+				""")
+		htmln.write(rf"""
+		</table>
+	</body>
+</html>""")
+			
+		htmlfirst.write(rf"""<a href="categorias/{elem}.html"> mais informação categoria {elem}</a>
 			<hr>
 			""")
+	htmlfirst.write(r"""</body>
+		</html>""")
+
+def main():
+	print("Por favor, insira o nome do ficheiro a tratar:")
+	name = input()
+	html(name)
+	url = 'file.html'
+	webbrowser.open(url, new=2)  # open in new tab
 
 
-
-html()
+main()
