@@ -1,8 +1,6 @@
 import re
 import webbrowser
 
-
-
 keyB = re.compile(r'^B-[A-Z]+')
 keyI = re.compile(r'^I-[A-Z]+')
 htmlfirst = open("file.html","w")
@@ -151,6 +149,7 @@ def main():
 	name = input()
 	html(name)
 	url = 'file.html'
+
 	webbrowser.open(url, new=2)  # open in new tab
 
 
