@@ -85,8 +85,8 @@ def html(name):
     <h1> Enunciado 5, Trabalho Prático de Processamento de Linguagens, ano letivo 2020-2021</h1>
     <p>Realizado por:</p>
     <p> Duarte Oliveira a85517</p>
-    <p> Tiago Barata </p>
-    <p> Simão Santa-Cruz</p>
+    <p> Tiago Barata a81195</p>
+    <p> Simão Oliveira</p>
    	<hr>
     """
     )

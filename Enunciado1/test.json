@@ -1,0 +1,57 @@
+{
+
+   "inscritos":[
+
+      {
+
+         "nome":"MARIO PIRES",
+
+         "dataNasc":"04/04/59",
+
+         "morada":"RUA CÂNDIDO DOS REIS , nº 86 , 2º ,",
+
+         "email":"mgpires@netcabo.pt",
+
+         "prova":"Ultra Trail",
+
+         "escalao":"M50",
+
+         "equipa":"Individual"
+
+      },{
+
+         "nome":"Paulo Neto Silva",
+
+         "dataNasc":"22/04/89",
+
+         "morada":"Rua da Ermida, 235",
+
+         "email":"netosilva.francisco@gmail.com",
+
+         "prova":"Corrida da Geira",
+
+         "escalao":"SENIOR Masc",
+
+         "equipa":"individual"
+
+      },{
+
+         "nome":"José Maria Ribeiro Vieira de Figueiredo",
+
+         "dataNasc":"05/02/69",
+
+         "morada":"Braga",
+
+         "email":"osvaldo.s.oliveira@gmail.com",
+
+         "prova":"Caminhada na Geira - parte II: Museu-Travassos",
+
+         "escalao":"SENIOR Masc",
+
+         "equipa":"TURBULENTOS"
+
+      }
+
+   ]
+
+}
