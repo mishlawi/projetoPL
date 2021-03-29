@@ -6,14 +6,11 @@ keyI = re.compile(r'^I-[A-Z]+')
 htmlfirst = open("file.html","w")
 
 
-def alpha(name):
-	fo = open(name)
+def alpha(lista):
 	info = {}
 	typo = []
 	n = 1
-	splits = fo.readlines()
-
-	for lines in splits:
+	for lines in lista:
 		if keyB.search(lines):
 			category = lines.split('-')[1].split()[0]
 			if category in info:
@@ -24,13 +21,10 @@ def alpha(name):
 		n+=1
 	return info
 
-def organizer(name):
-	file = open(name).read()
-	a = file.split('\n')
+def organizer(lista):
 	splits = []
 	splitter = []
-
-	for elem in a:
+	for elem in lista:
 		if elem != '':
 			splitter.append(elem)
 		else:
@@ -39,48 +33,63 @@ def organizer(name):
 	return splits
 
 
-def omega(name):
+def omega(file):
 	dic= {}
-	splits = organizer(name)
+	splits = organizer(file)
 	typo = []
 	for split in splits:
 		for elem in split:
+			
 			if keyB.search(elem):
 				category = elem.split('-')[1].split()[0]
 				catInfo = elem.split('-')[1].split()[1]
 				if category in dic:
 					typo = dic[category]
-				typo.append([catInfo])
+				typo.append(catInfo)
 				dic.update({category:typo})
 				typo = []
-			else:	
-				
-				if keyI.search(elem):
-					category = elem.split('-')[1].split()[0]
-					catInfo = elem.split('-')[1].split()[1]
-					typo = dic[category]
-					aux = typo[-1]
-					del typo[-1]
-					aux.append(catInfo)
-					typo.append(aux)
-					dic.update({category:typo})
-					typo = []
-	
+			
+			elif keyI.search(elem):
+				category = elem.split('-')[1].split()[0]
+				catInfo = elem.split('-')[1].split()[1]
+				typo = dic[category]
+				aux = typo[-1] + " " + catInfo
+				del typo[-1]
+				typo.append(aux)
+				dic.update({category:typo})
+				typo = []
+			else:
+				pass
 	return dic
 
 
-def html(name):
+# (nome, linha)
+def beta(file):
+	repetidos = omega(file)
+	linhaRepetida = alpha(file)
+	semRepetidos = {}
+	typo = ('',[])
+	for elem in repetidos:
+		for listado, nrs in zip(repetidos[elem],linhaRepetida[elem]):
+				if elem  in semRepetidos:
+					typo = semRepetidos[elem]
+				semRepetidos.update({elem:typo})
+
+
+def html(file):
 	n=1
-	dic = omega(name)
-	info = alpha(name)
+	dic = omega(file)
+	info = alpha(file)
 	htmlfirst.write("""<!DOCTYPE html>
 
 <html>
 	
 	<head>
-
         <title>Enunciado 5</title>
-        <meta charset="UTF-8"/></head>
+        <meta charset="UTF-8"/>
+        <link href="http://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
+    	<link href="styles/style.css" rel="stylesheet" type="text/css">
+    	</head>
     <body>
     <h1> Enunciado 5, Trabalho Prático de Processamento de Linguagens, ano letivo 2020-2021</h1>
     <p>Realizado por:</p>
@@ -107,26 +116,41 @@ def html(name):
 <html>
 	
 	<head>
+		<link href="http://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
+    	<link href="../styles/style.css" rel="stylesheet" type="text/css">
+        <title>Info {elem} </title>""")
 
-        <title>Info {elem} </title>
+		htmln.write(r"""<meta charset="UTF-8"/>
 
-        <meta charset="UTF-8"/></head>
+        
+    </head>
     <body>
-    <h1>Lista de elementos da categoria {elem}</h1>
-    	<a href="../file.html"> retornar à página principal </a>
+  	   <div class="topnav">
+	  <a class="active" href="../file.html"> Home </a>
+	  <div class="search-container">
+	    <form action="/action_page.php">
+	      <input type="text" placeholder="Search.." name="search">
+	      <button type="submit"><i class="fa fa-search"></i></button>
+	    </form>
+	  </div>
+	</div>
+	</div>
+</div>
+    """)
+		htmln.write(rf"""<h1>Lista de elementos da categoria {elem}</h1>
+    	
     	<table>
     		<tr>
-    			<th>elementos</th>
-    			<th>linha da ocorrência</th>
+    			<th>Elementos</th>
+    			<th>Linha da ocorrência</th>
     		</tr>
     				<tr>""")
 		
 		for listado, nrs in zip(dic[elem],info[elem]):
 			htmln.write("""
 					<td>""")
-			
-			for indices in listado:
-				htmln.write(rf"""{indices} """
+		
+			htmln.write(rf"""{listado} """
 			)
 			htmln.write("""</td>
 					<td>""")
@@ -146,11 +170,14 @@ def html(name):
 
 def main():
 	print("Por favor, insira o nome do ficheiro a tratar:")
-	name = input()
-	html(name)
+	file = input()
+	file = open(file).read().split("\n")
+	html(file)
 	url = 'file.html'
 
 	webbrowser.open(url, new=2)  # open in new tab
 
 
-main()
+#main()
+file = open("train.txt").read().split("\n")
+beta(file)
