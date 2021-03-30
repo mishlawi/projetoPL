@@ -1,14 +1,11 @@
 import re
 import webbrowser
 
-keyB = re.compile(r'^B-[A-Z]+')
-keyI = re.compile(r'^I-[A-Z]+')
-
-
-
 def alpha(lista):
 	info = {}
 	typo = []
+	keyB = re.compile(r'^B-[A-Z]+')
+	keyI = re.compile(r'^I-[A-Z]+')
 	n = 1
 	for lines in lista:
 		if keyB.search(lines):
@@ -35,6 +32,8 @@ def organizer(lista):
 
 def omega(file):
 	dic= {}
+	keyB = re.compile(r'^B-[A-Z]+')
+	keyI = re.compile(r'^I-[A-Z]+')
 	splits = organizer(file)
 	typo = []
 	for split in splits:
@@ -63,35 +62,8 @@ def omega(file):
 	return dic
 
 
-#typo is a list of tuples (elemento, [nr das linhas])
 
-def beta(dic ,info):
-	#repetidos = omega(file)
-	semRepetidos = {}
-	typo = []
-	tof = False
-	for elem in dic:
-		for listado, nrs in zip(dic[elem],info[elem]):
-			if elem in semRepetidos:
-				for tuplo in semRepetidos[elem]:
-					tof = False
-					if tuplo[0] == listado:
-						tuplo[1].append(nrs)
-						typo.append((listado,tuplo[1]))
-						tof = True
-						typo = []
-				if not tof:
-					typo = semRepetidos[elem]
-					typo.append((listado,[nrs]))
-					semRepetidos.update({elem:typo})
-					typo = []
-			else:
-				typo.append((listado,[nrs]))
-				semRepetidos.update({elem:typo})
-			typo = []
-
-
-def betha (dic, info):
+def beta (dic, info):
 	semRepetidos = {}
 	
 	for elem in dic:
@@ -108,10 +80,10 @@ def betha (dic, info):
 		for category in semRepetidos[elem]:
 			a+=1
 		print(elem, " " , a)
+	return semRepetidos
 
 
-
-
+#HTML FUNCTIONS
 
 def htmlStyle():
 	htmlstyle = open(rf'styles/style.css',"w")
@@ -228,94 +200,116 @@ h1 {
 
 
 
+def htmlcopy(file):
+	fo = open(file,"w")
+	fo.write(r"""<meta charset="UTF-8"/>
+</head>
+<body>
+   <div class="topnav">
+      <a class="active" href="../file.html"> Home </a>
+      <div class="search-container">
+         <form action="/action_page.php">
+            <input type="text" placeholder="Search.." name="search">
+            <button type="submit"><i class="fa fa-search"></i></button>
+         </form>
+      </div>
+   </div>
+   </div>
+   </div>
 
-
-
+    """)
 
 
 def html(file):
-
 	htmlfirst = open("file.html","w")
 	n=1
 	htmlStyle()
 	dic = omega(file)
 	info = alpha(file)
+	repetidos = beta(dic,info)
 	htmlfirst.write("""<!DOCTYPE html>
-
 <html>
-	
-	<head>
-        <title>Enunciado 5</title>
-        <meta charset="UTF-8"/>
-        <link href="http://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
-    	<link href="styles/style.css" rel="stylesheet" type="text/css">
-    	</head>
-    <body>
-    <h1> Enunciado 5, Trabalho Prático de Processamento de Linguagens, ano letivo 2020-2021</h1>
-    <p>Realizado por:</p>
-    <p> Duarte Oliveira a85517</p>
-    <p> Tiago Barata a81195</p>
-    <p> Simão Oliveira</p>
-   	<hr>
+   <head>
+      <title>Enunciado 5</title>
+      <meta charset="UTF-8"/>
+      <link href="http://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
+      <link href="styles/style.css" rel="stylesheet" type="text/css">
+   </head>
+   <body>
+      <h1> Enunciado 5, Trabalho Prático de Processamento de Linguagens</h1>
+      <p>Realizado por:</p>
+      <p> Duarte Oliveira A85517</p>
+      <p> Tiago Barata A81195</p>
+      <p> Simão Oliveira A57041</p>
+      <hr>
     """
     )
 
 	for elem in dic:
 
-		htmlfirst.write(rf"""
-			
+		htmlfirst.write(
+			rf"""			
 			<h2>{elem}</h2>
 			<p>nº de elementos nesta categoria: {len(dic[elem])}</p>
-
 			"""
 			)
 
 		htmln = open(rf'categorias/{elem}.html',"w")
-		htmln.write(rf"""<!DOCTYPE html>
-
+		htmlrepeated = open("categorias/{elem}2.html","w")
+		
+		htmln.write(
+rf"""<!DOCTYPE html>
 <html>
-	
-	<head>
-		<link href="http://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
-    	<link href="../styles/style.css" rel="stylesheet" type="text/css">
-        <title>Info {elem} </title>""")
-
+   <head>
+      <link href="http://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
+      <link href="../styles/style.css" rel="stylesheet" type="text/css">
+      <title>Info {elem} </title>
+""")
 		htmln.write(r"""<meta charset="UTF-8"/>
+</head>
+<body>
+   <div class="topnav">
+      <a class="active" href="../file.html"> Home </a>
+      <div class="search-container">
+         <form action="/action_page.php">
+            <input type="text" placeholder="Search.." name="search">
+            <button type="submit"><i class="fa fa-search"></i></button>
+         </form>
+      </div>
+   </div>
+   </div>
+   </div>
 
-        
-    </head>
-    <body>
-  	   <div class="topnav">
-	  <a class="active" href="../file.html"> Home </a>
-	  <div class="search-container">
-	    <form action="/action_page.php">
-	      <input type="text" placeholder="Search.." name="search">
-	      <button type="submit"><i class="fa fa-search"></i></button>
-	    </form>
-	  </div>
-	</div>
-	</div>
-</div>
     """)
+
 		htmln.write(rf"""<h1>Lista de elementos da categoria {elem}</h1>
-    	
-    	<table>
-    		<tr>
-    			<th>Elementos</th>
-    			<th>Linha da ocorrência</th>
-    		</tr>
-    				<tr>""")
-		
+<table>
+<tr>
+   <th>Elementos</th>
+   <th>Linha da ocorrência</th>
+</tr>
+<tr>""")
+
+		#supostamente a cena de escrever no html com os repetidos esta aqui
+
+		for categoria in repetidos[elem]:
+			htmlrepeated.write(rf"""
+						<td rowspan={len(repetidos[elem][categoria])}>
+	   {categoria} 
+	</td>""")
+			for ocorrencia in repetidos[elem][categoria]:
+				htmlrepeated.write(rf"""
+	<td>{ocorrencia}</td>
+	</tr>
+					""")
+		#acaba aqui, o que está abaixo desta seccao esta bem
 		for listado, nrs in zip(dic[elem],info[elem]):
-			htmln.write("""
-					<td>""")
-		
-			htmln.write(rf"""{listado} """
-			)
-			htmln.write("""</td>
-					<td>""")
-			htmln.write(rf"""{nrs}</td>
-				</tr>
+			htmln.write(rf"""
+					<td>
+   {listado} 
+</td>
+<td>{nrs}</td>
+</tr>
 				""")
 		htmln.write(rf"""
 		</table>
@@ -323,12 +317,14 @@ def html(file):
 </html>""")
 			
 		htmlfirst.write(rf"""<a href="categorias/{elem}.html"> mais informação categoria {elem}</a>
-			<a href="categorias/{elem}Repetidos.html"> Info repetidos categoria {elem}</a>
+			<a href="categorias/{elem}2.html"> Info repetidos categoria {elem}</a>
 
 			<hr>
 			""")
 	htmlfirst.write(r"""</body>
 		</html>""")
+
+
 
 def main():
 	print("Por favor, insira o nome do ficheiro a tratar:")
