@@ -1,11 +1,10 @@
 import re
 import webbrowser
 
-def alpha(lista):
+def alpha(lista): 
 	info = {}
 	typo = []
 	keyB = re.compile(r'^B-[A-Z]+')
-	keyI = re.compile(r'^I-[A-Z]+')
 	n = 1
 	for lines in lista:
 		if keyB.search(lines):
@@ -18,20 +17,21 @@ def alpha(lista):
 		n+=1
 	return info
 
+#key -> categoria v: [nr da ocorrencia]
 def organizer(lista):
-	splits = []
-	splitter = []
+	fich = []
+	grupos = []
 	for elem in lista:
 		if elem != '':
-			splitter.append(elem)
+			grupos.append(elem)
 		else:
-			splits.append(splitter)
-			splitter = []
-	return splits
+			fich.append(grupos)
+			grupos = []
+	return fich
 
 
 def omega(file):
-	dic= {}
+	dic= {} # key -> categoria v: ['brad pitt','john stalone']
 	keyB = re.compile(r'^B-[A-Z]+')
 	keyI = re.compile(r'^I-[A-Z]+')
 	splits = organizer(file)
@@ -200,28 +200,10 @@ h1 {
 
 
 
-def htmlcopy(file):
-	fo = open(file,"w")
-	fo.write(r"""<meta charset="UTF-8"/>
-</head>
-<body>
-   <div class="topnav">
-      <a class="active" href="../file.html"> Home </a>
-      <div class="search-container">
-         <form action="/action_page.php">
-            <input type="text" placeholder="Search.." name="search">
-            <button type="submit"><i class="fa fa-search"></i></button>
-         </form>
-      </div>
-   </div>
-   </div>
-   </div>
-
-    """)
 
 
 def html(file):
-	htmlfirst = open("file.html","w")
+	htmlfirst = open("website.html","w")
 	n=1
 	htmlStyle()
 	dic = omega(file)
@@ -269,13 +251,7 @@ rf"""<!DOCTYPE html>
 </head>
 <body>
    <div class="topnav">
-      <a class="active" href="../file.html"> Home </a>
-      <div class="search-container">
-         <form action="/action_page.php">
-            <input type="text" placeholder="Search.." name="search">
-            <button type="submit"><i class="fa fa-search"></i></button>
-         </form>
-      </div>
+      <a class="active" href="../website.html"> Home </a>
    </div>
    </div>
    </div>
@@ -303,13 +279,7 @@ rf"""<!DOCTYPE html>
 </head>
 <body>
    <div class="topnav">
-      <a class="active" href="../file.html"> Home </a>
-      <div class="search-container">
-         <form action="/action_page.php">
-            <input type="text" placeholder="Search.." name="search">
-            <button type="submit"><i class="fa fa-search"></i></button>
-         </form>
-      </div>
+      <a class="active" href="../website.html"> Home </a>
    </div>
    </div>
    </div>
@@ -323,7 +293,9 @@ rf"""<!DOCTYPE html>
    <th>Linha da ocorrência</th>
 </tr>
 <tr>""")
-
+		# DICIONARIO Repetidos k: ATOR V: 
+		#								DICIONARIO Elementos k : elementos V: lista das ocorrencias
+		# Repetidos{ATOR: Elementos{bruce willis:[4,3947,6451]}}
 		for categoria in repetidos[elem]:
 			tam = len(repetidos[elem][categoria])+1
 			htmlrepeated.write(rf"""
@@ -350,8 +322,8 @@ rf"""<!DOCTYPE html>
 	</body>
 </html>""")
 			
-		htmlfirst.write(rf"""<a href="categorias/{elem}.html"> mais informação categoria {elem}</a>
-			<a href="categorias/{elem}2.html"> Info repetidos categoria {elem}</a>
+		htmlfirst.write(rf"""<a href="categorias/{elem}.html"> Informação {elem}</a>
+			<a href="categorias/{elem}2.html"> Repetidos </a>
 
 			<hr>
 			""")
@@ -363,9 +335,9 @@ rf"""<!DOCTYPE html>
 def main():
 	print("Por favor, insira o nome do ficheiro a tratar:")
 	file = input()
-	file = open(file).read().split("\n")
-	html(file)
-	url = 'file.html'
+	lista = open(file).read().split("\n")
+	html(lista)
+	url = 'website.html'
 
 	webbrowser.open(url, new=2)  # open in new tab
 
