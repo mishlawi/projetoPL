@@ -3,7 +3,7 @@ import webbrowser
 
 keyB = re.compile(r'^B-[A-Z]+')
 keyI = re.compile(r'^I-[A-Z]+')
-htmlfirst = open("file.html","w")
+
 
 
 def alpha(lista):
@@ -63,21 +63,181 @@ def omega(file):
 	return dic
 
 
-# (nome, linha)
-def beta(file):
-	repetidos = omega(file)
-	linhaRepetida = alpha(file)
+#typo is a list of tuples (elemento, [nr das linhas])
+
+def beta(dic ,info):
+	#repetidos = omega(file)
 	semRepetidos = {}
-	typo = ('',[])
-	for elem in repetidos:
-		for listado, nrs in zip(repetidos[elem],linhaRepetida[elem]):
-				if elem  in semRepetidos:
+	typo = []
+	tof = False
+	for elem in dic:
+		for listado, nrs in zip(dic[elem],info[elem]):
+			if elem in semRepetidos:
+				for tuplo in semRepetidos[elem]:
+					tof = False
+					if tuplo[0] == listado:
+						tuplo[1].append(nrs)
+						typo.append((listado,tuplo[1]))
+						tof = True
+						typo = []
+				if not tof:
 					typo = semRepetidos[elem]
+					typo.append((listado,[nrs]))
+					semRepetidos.update({elem:typo})
+					typo = []
+			else:
+				typo.append((listado,[nrs]))
 				semRepetidos.update({elem:typo})
+			typo = []
+
+
+def betha (dic, info):
+	semRepetidos = {}
+	
+	for elem in dic:
+		elemDic = {}
+		for listado, nrs in zip(dic[elem], info[elem]):
+			if listado in elemDic:
+				elemDic[listado].append(nrs)
+			else:
+				elemDic.update({listado:[nrs]})
+		semRepetidos.update({elem:elemDic})
+	#aparte
+	for elem in semRepetidos:
+		a=0
+		for category in semRepetidos[elem]:
+			a+=1
+		print(elem, " " , a)
+
+
+
+
+
+def htmlStyle():
+	htmlstyle = open(rf'styles/style.css',"w")
+	htmlstyle.write(r'''html {
+  font-size: 14px;
+  font-family: 'Open Sans', sans-serif;
+}
+
+
+h1 {
+  font-size: 60px;
+  text-align: center;
+}
+
+p, li {
+  font-size: 16px;
+  line-height: 2;
+  letter-spacing: 1px;
+}
+
+table {
+  padding-top: 5px;
+  text-align: center;
+}
+
+tr:nth-child(even) {background-color: #75E6DA;}
+
+td{
+  font-size: 16px;
+  border: 1px solid black;
+  padding: 15px;
+}
+
+th{
+  font-size: 20px; 
+  text-align: left;
+  height: 50%;
+  background-color: #05445E; 
+  color: white;
+}
+
+html {
+  background-color: #05445E;
+}
+
+body {
+  width: 1200px;
+  margin: 0 auto;
+  background-color: #75E6DA;
+  padding: 0 20px 20px 20px;
+  border: 5px solid black;
+}
+
+h1 {
+  margin: 0;
+  padding: 20px 0;
+  color: #00539F;
+  text-shadow: 3px 3px 1px black;
+}
+
+/* Add a black background color to the top navigation bar */
+.topnav {
+  overflow: hidden;
+  background-color: #e9e9e9;
+}
+
+/* Style the links inside the navigation bar */
+.topnav a {
+  float: left;
+  display: block;
+  color: black;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+/* Change the color of links on hover */
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+/* Style the "active" element to highlight the current page */
+.topnav a.active {
+  background-color: #2196F3;
+  color: white;
+}
+
+/* Style the search box inside the navigation bar */
+.topnav input[type=text] {
+  float: right;
+  padding: 6px;
+  border: none;
+  margin-top: 8px;
+  margin-right: 16px;
+  font-size: 17px;
+}
+
+/* When the screen is less than 600px wide, stack the links and the search field vertically instead of horizontally */
+@media screen and (max-width: 600px) {
+  .topnav a, .topnav input[type=text] {
+    float: none;
+    display: block;
+    text-align: left;
+    width: 100%;
+    margin: 0;
+    padding: 14px;
+  }
+  .topnav input[type=text] {
+    border: 1px solid #ccc;
+  }
+} ''')
+
+
+
+
+
+
 
 
 def html(file):
+
+	htmlfirst = open("file.html","w")
 	n=1
+	htmlStyle()
 	dic = omega(file)
 	info = alpha(file)
 	htmlfirst.write("""<!DOCTYPE html>
@@ -163,6 +323,8 @@ def html(file):
 </html>""")
 			
 		htmlfirst.write(rf"""<a href="categorias/{elem}.html"> mais informação categoria {elem}</a>
+			<a href="categorias/{elem}Repetidos.html"> Info repetidos categoria {elem}</a>
+
 			<hr>
 			""")
 	htmlfirst.write(r"""</body>
@@ -177,7 +339,4 @@ def main():
 
 	webbrowser.open(url, new=2)  # open in new tab
 
-
-#main()
-file = open("train.txt").read().split("\n")
-beta(file)
+main()
