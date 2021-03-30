@@ -255,7 +255,7 @@ def html(file):
 			)
 
 		htmln = open(rf'categorias/{elem}.html',"w")
-		htmlrepeated = open("categorias/{elem}2.html","w")
+		htmlrepeated = open(rf"categorias/{elem}2.html","w")
 		
 		htmln.write(
 rf"""<!DOCTYPE html>
@@ -289,16 +289,50 @@ rf"""<!DOCTYPE html>
    <th>Linha da ocorrência</th>
 </tr>
 <tr>""")
-
+# ______________________________________________________________________________________
 		#supostamente a cena de escrever no html com os repetidos esta aqui
+		htmlrepeated.write(
+rf"""<!DOCTYPE html>
+<html>
+   <head>
+      <link href="http://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
+      <link href="../styles/style.css" rel="stylesheet" type="text/css">
+      <title>Info {elem} </title>
+""")
+		htmlrepeated.write(r"""<meta charset="UTF-8"/>
+</head>
+<body>
+   <div class="topnav">
+      <a class="active" href="../file.html"> Home </a>
+      <div class="search-container">
+         <form action="/action_page.php">
+            <input type="text" placeholder="Search.." name="search">
+            <button type="submit"><i class="fa fa-search"></i></button>
+         </form>
+      </div>
+   </div>
+   </div>
+   </div>
+
+    """)
+
+		htmlrepeated.write(rf"""<h1>Lista de elementos da categoria {elem}</h1>
+<table>
+<tr>
+   <th>Elementos</th>
+   <th>Linha da ocorrência</th>
+</tr>
+<tr>""")
 
 		for categoria in repetidos[elem]:
+			tam = len(repetidos[elem][categoria])+1
 			htmlrepeated.write(rf"""
-						<td rowspan={len(repetidos[elem][categoria])}>
+						<td rowspan={tam}>
 	   {categoria} 
 	</td>""")
 			for ocorrencia in repetidos[elem][categoria]:
 				htmlrepeated.write(rf"""
+	<tr>
 	<td>{ocorrencia}</td>
 	</tr>
 					""")
