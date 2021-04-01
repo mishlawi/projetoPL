@@ -89,11 +89,14 @@ def beta (dic, info):
 
 
 def main():
+	html.makeDirs()
+
 	directory = 'HTML/categorias'
 	
-	if len(os.listdir('HTML/categorias'))>0:
+	if len(os.listdir(directory))>0:
 		print("Possui ficheiros (possivelmente) temporários em memória. Gostaria de os remover antes de prosseguir?(Y/N)")
-		n=input()
+		n=input().upper()
+
 		
 		if n=='Y':
 			for f in os.listdir(directory):
@@ -102,11 +105,14 @@ def main():
 		else:
 			print("Não será removido qualquer ficheiro.")
 
-	html.makeDirs()
-
 	print("Por favor, insira o nome do ficheiro a tratar:")
 	file = input()
-	lista = open(file).read().split("\n")
+
+	if(os.path.isfile(file)):
+		lista = open(file).read().split("\n")
+	else:
+		print("O ficheiro não existe")
+		return
 
 	dic = omega(lista)
 	info = alpha(lista)

@@ -14,8 +14,13 @@ def makeDirs():
 
 
 def htmlStyle():
-	htmlstyle = open(rf'HTML/styles/style.css',"w")
-	htmlstyle.write(r'''html {
+    directory = 'HTML/styles/style.css'
+    
+    if(os.path.isfile(directory)):
+        return
+
+    htmlstyle = open(directory,"w")
+    htmlstyle.write(r'''html {
     font-size: 14px;
     font-family: 'Open Sans', sans-serif;
 }
@@ -140,19 +145,19 @@ def htmlHome(dic,naoRepetidos):
         <link href="styles/style.css" rel="stylesheet" type="text/css">
     </head>
     <body>
-        <h1> Enunciado 5, Trabalho Prático de Processamento de Linguagens</h1>
+        <h1> Enunciado 5, Trabalho Pr&aacutetico de Processamento de Linguagens</h1>
         <p> Realizado por:</p>
         <p> Duarte Oliveira A85517</p>
         <p> Tiago Barata A81195</p>
-        <p> Simão Oliveira A57041</p>
+        <p> Sim&atildeo Oliveira A57041</p>
         <hr>""")
     x = 0
     for elem in dic:
         htmlfirst.write(
             rf"""           
         <h2>{elem}</h2>
-            <p>nº total de elementos nesta categoria: {len(dic[elem])} </p>
-            <p>nº total de elementos não repetidos desta categoria {naoRepetidos[x]} </p>""")
+            <p>n&ordm total de elementos nesta categoria: {len(dic[elem])} </p>
+            <p>n&ordm total de elementos n&atildeo repetidos desta categoria {naoRepetidos[x]} </p>""")
             
         htmlfirst.write(
         rf"""
@@ -176,7 +181,7 @@ def htmlRepetidos(dic, repetidos):
     <head>
         <link href="http://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
         <link href="../styles/style.css" rel="stylesheet" type="text/css">
-        <title>Informação {elem} </title>""")
+        <title>Informa&ccedil&atildeo {elem} </title>""")
         htmln.write(r"""
         <meta charset="UTF-8"/>
     </head>
@@ -190,7 +195,7 @@ def htmlRepetidos(dic, repetidos):
         <table>
             <tr>
                 <th>Elementos</th>
-                <th>Linha da ocorrência</th>
+                <th>Linha da ocorr&ecircncia</th>
             </tr>""")
 
         for listado, nrs in zip(dic[elem],repetidos[elem]):
@@ -215,7 +220,7 @@ def htmlSemRepetidos(dic, semRepetidos):
     <head>
         <link href="http://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
         <link href="../styles/style.css" rel="stylesheet" type="text/css">
-        <title>Informação sem repetidos de {elem} </title>""")
+        <title>Informa&ccedilç&atildeo sem repetidos de {elem} </title>""")
         
         htmlsemsepetidos.write(r"""
         <meta charset="UTF-8"/>
@@ -230,7 +235,7 @@ def htmlSemRepetidos(dic, semRepetidos):
         <table>
             <tr>
                <th>Elementos</th>
-               <th>Linha da ocorrência</th>
+               <th>Linha da ocorr&ecircncia</th>
             </tr>""")
 
         for categoria in semRepetidos[elem]:
