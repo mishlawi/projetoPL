@@ -1,6 +1,8 @@
 import re
 import webbrowser
 import html
+import os
+
 
 
 def alpha(lista): 
@@ -68,7 +70,7 @@ def omega(file):
 
 def beta (dic, info):
 	semRepetidos = {}
-	
+	naoRepetidos = []
 	for elem in dic:
 		elemDic = {}
 		for listado, nrs in zip(dic[elem], info[elem]):
@@ -82,11 +84,24 @@ def beta (dic, info):
 		a=0
 		for category in semRepetidos[elem]:
 			a+=1
-		print(elem, " " , a)
-	return semRepetidos
+		naoRepetidos.append(a)
+	return semRepetidos, naoRepetidos
 
 
 def main():
+	directory = 'HTML/categorias'
+	
+	if len(os.listdir('HTML/categorias'))>0:
+		print("Possui ficheiros (possivelmente) temporários em memória. Gostaria de os remover antes de prosseguir?(Y/N)")
+		n=input()
+		
+		if n=='Y':
+			for f in os.listdir(directory):
+				os.remove(os.path.join(directory, f))
+			print("Ficheiros eliminados")
+		else:
+			print("Não será removido qualquer ficheiro.")
+
 	html.makeDirs()
 
 	print("Por favor, insira o nome do ficheiro a tratar:")
@@ -95,15 +110,14 @@ def main():
 
 	dic = omega(lista)
 	info = alpha(lista)
-	semRepetidos = beta(dic,info)
+	semRepetidos, naoRepetidos = beta(dic,info)
 
 	html.htmlStyle()
-	html.htmlHome(dic)
+	html.htmlHome(dic,naoRepetidos)
 	html.htmlRepetidos(dic,info)
 	html.htmlSemRepetidos(dic,semRepetidos)
 
-	url = 'website.html'
+	webbrowser.open('file://' + os.path.realpath('HTML/website.html'), new=2)  # open in new tab
 
-	webbrowser.open(url, new=2)  # open in new tab
 
 main()

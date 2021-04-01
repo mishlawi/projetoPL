@@ -124,10 +124,11 @@ h1 {
     .topnav input[type=text] {
         border: 1px solid #ccc;
     }
-} ''')
+}  ''')
 
 
-def htmlHome(dic):
+def htmlHome(dic,naoRepetidos):
+   
     htmlfirst = open("HTML/website.html","w")
 
     htmlfirst.write("""<!DOCTYPE html>
@@ -145,19 +146,22 @@ def htmlHome(dic):
         <p> Tiago Barata A81195</p>
         <p> Simão Oliveira A57041</p>
         <hr>""")
-
+    x = 0
     for elem in dic:
         htmlfirst.write(
             rf"""           
         <h2>{elem}</h2>
-            <p>nº de elementos nesta categoria: {len(dic[elem])} </p>""")
-        
+            <p>nº total de elementos nesta categoria: {len(dic[elem])} </p>
+            <p>nº total de elementos não repetidos desta categoria {naoRepetidos[x]} </p>""")
+            
         htmlfirst.write(
         rf"""
             <a href="categorias/{elem}Info.html"> Info {elem}</a>
             <br>
             <a href="categorias/{elem}InfoSRepeticao.html"> Info {elem} sem repetidos </a>
             <hr>""")
+        x+=1
+
     htmlfirst.write(r"""
     </body>
 </html>""")
