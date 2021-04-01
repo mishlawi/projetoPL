@@ -37,17 +37,27 @@ p, li {
     letter-spacing: 1px;
 }
 
-table {
+#t01 tr:nth-child(even) {
+    background-color: #75E6DA;
+}
+
+#t01 tr:nth-child(odd) {
+    background-color: #D4F1F4;
+}
+
+#t01 table, th, td{
+    border: 1px solid black;
+    border-collapse: collapse;
     padding-top: 5px;
     text-align: center;
 }
 
-tr:nth-child(even) {background-color: #75E6DA;}
-
-td{
-    font-size: 16px;
+#t02 table, th, td{
     border: 1px solid black;
-    padding: 15px;
+    border-collapse: collapse;
+    padding-top: 5px;
+    text-align: center;
+    background-color: #75E6DA; 
 }
 
 th{
@@ -65,9 +75,10 @@ html {
 body {
     width: 1200px;
     margin: 0 auto;
-    background-color: #75E6DA;
+    background-color: #189AB4;
     padding: 0 20px 20px 20px;
     border: 5px solid black;
+
 }
 
 h1 {
@@ -192,7 +203,7 @@ def htmlRepetidos(dic, repetidos):
 
         htmln.write(rf"""
         <h1>Lista de elementos da categoria {elem}</h1>
-        <table>
+        <table id="t01">
             <tr>
                 <th>Elementos</th>
                 <th>Linha da ocorr&ecircncia</th>
@@ -232,7 +243,7 @@ def htmlSemRepetidos(dic, semRepetidos):
 
         htmlsemsepetidos.write(rf"""
         <h1>Lista de elementos da categoria {elem}</h1>
-        <table>
+        <table id="t02">
             <tr>
                <th>Elementos</th>
                <th>Linha da ocorr&ecircncia</th>
