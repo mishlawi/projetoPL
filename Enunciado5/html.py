@@ -14,7 +14,8 @@ def makeDirs():
 
 
 def htmlStyle():
-    directory = 'HTML/styles/style.css'
+    directory = 'HTML/styles/style1.css'
+    directory2 = 'HTML/styles/style2.css'
     
     if(os.path.isfile(directory)):
         return
@@ -37,17 +38,19 @@ p, li {
     letter-spacing: 1px;
 }
 
-table {
-    padding-top: 5px;
-    text-align: center;
+tr:nth-child(even) {
+    background-color: #75E6DA;
 }
 
-tr:nth-child(even) {background-color: #75E6DA;}
+tr:nth-child(odd) {
+    background-color: #D4F1F4;
+}
 
-td{
-    font-size: 16px;
+table, th, td{
     border: 1px solid black;
-    padding: 15px;
+    border-collapse: collapse;
+    padding-top: 5px;
+    text-align: center;
 }
 
 th{
@@ -65,9 +68,118 @@ html {
 body {
     width: 1200px;
     margin: 0 auto;
-    background-color: #75E6DA;
+    background-color: #189AB4;
     padding: 0 20px 20px 20px;
     border: 5px solid black;
+
+}
+
+h1 {
+    margin: 0;
+    padding: 20px 0;
+    color: #00539F;
+    text-shadow: 3px 3px 1px black;
+}
+
+/* Add a black background color to the top navigation bar */
+.topnav {
+    overflow: hidden;
+    background-color: #e9e9e9;
+}
+
+/* Style the links inside the navigation bar */
+.topnav a {
+    float: left;
+    display: block;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+/* Change the color of links on hover */
+.topnav a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+/* Style the "active" element to highlight the current page */
+.topnav a.active {
+    background-color: #2196F3;
+    color: white;
+}
+
+/* Style the search box inside the navigation bar */
+.topnav input[type=text] {
+    float: right;
+    padding: 6px;
+    border: none;
+    margin-top: 8px;
+    margin-right: 16px;
+    font-size: 17px;
+}
+
+/* When the screen is less than 600px wide, stack the links and the search field vertically instead of horizontally */
+@media screen and (max-width: 600px) {
+    .topnav a, .topnav input[type=text] {
+        float: none;
+        display: block;
+        text-align: left;
+        width: 100%;
+        margin: 0;
+        padding: 14px;
+    } 
+    .topnav input[type=text] {
+        border: 1px solid #ccc;
+    }
+}  ''')
+
+    htmlstyle = open(directory2,"w")
+    htmlstyle.write(r'''html {
+    font-size: 14px;
+    font-family: 'Open Sans', sans-serif;
+}
+
+
+h1 {
+    font-size: 60px;
+    text-align: center;
+}
+
+p, li {
+    font-size: 16px;
+    line-height: 2;
+    letter-spacing: 1px;
+}
+
+table, th, td{
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding-top: 5px;
+    text-align: center;
+    background-color: #75E6DA; 
+}
+
+th{
+    font-size: 20px; 
+    text-align: left;
+    height: 50%;
+    background-color: #05445E; 
+    color: white;
+}
+
+html {
+    background-color: #05445E;
+}
+
+body {
+    width: 1200px;
+    margin: 0 auto;
+    background-color: #189AB4;
+    padding: 0 20px 20px 20px;
+    border: 5px solid black;
+
 }
 
 h1 {
@@ -142,14 +254,21 @@ def htmlHome(dic,naoRepetidos):
         <title>Enunciado 5</title>
         <meta charset="UTF-8"/>
         <link href="http://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
-        <link href="styles/style.css" rel="stylesheet" type="text/css">
+        <link href="styles/style1.css" rel="stylesheet" type="text/css">
     </head>
     <body>
-        <h1> Enunciado 5, Trabalho Pr&aacutetico de Processamento de Linguagens</h1>
-        <p> Realizado por:</p>
-        <p> Duarte Oliveira A85517</p>
-        <p> Tiago Barata A81195</p>
-        <p> Sim&atildeo Oliveira A57041</p>
+        <h1> 
+            <b>Processamento de Linguagens</b>
+            <br>
+            Enunciado 5
+        </h1>
+        <p><h3><b> Realizado por: </b></h3></p>
+        
+            Duarte Oliveira A85517
+            <br> 
+            Tiago Barata A81195
+            <br>
+            Sim&atildeo Oliveira A57041
         <hr>""")
     x = 0
     for elem in dic:
@@ -180,7 +299,7 @@ def htmlRepetidos(dic, repetidos):
 <html>
     <head>
         <link href="http://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
-        <link href="../styles/style.css" rel="stylesheet" type="text/css">
+        <link href="../styles/style1.css" rel="stylesheet" type="text/css">
         <title>Informa&ccedil&atildeo {elem} </title>""")
         htmln.write(r"""
         <meta charset="UTF-8"/>
@@ -219,7 +338,7 @@ def htmlSemRepetidos(dic, semRepetidos):
 <html>
     <head>
         <link href="http://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
-        <link href="../styles/style.css" rel="stylesheet" type="text/css">
+        <link href="../styles/style2.css" rel="stylesheet" type="text/css">
         <title>Informa&ccedilç&atildeo sem repetidos de {elem} </title>""")
         
         htmlsemsepetidos.write(r"""
