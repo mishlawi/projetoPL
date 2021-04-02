@@ -271,18 +271,18 @@ def htmlHome(dic,naoRepetidos):
             Sim&atildeo Oliveira A57041
         <hr>""")
     x = 0
-    for elem in dic:
+    for categoria in dic:
         htmlfirst.write(
             rf"""           
-        <h2>{elem}</h2>
-            <p>n&ordm total de elementos nesta categoria: {len(dic[elem])} </p>
+        <h2>{categoria}</h2>
+            <p>n&ordm total de elementos nesta categoria: {len(dic[categoria])} </p>
             <p>n&ordm total de elementos n&atildeo repetidos desta categoria {naoRepetidos[x]} </p>""")
             
         htmlfirst.write(
         rf"""
-            <a href="categorias/{elem}Info.html"> Info {elem}</a>
+            <a href="categorias/{categoria}Info.html"> Info {categoria}</a>
             <br>
-            <a href="categorias/{elem}InfoSRepeticao.html"> Info {elem} sem repetidos </a>
+            <a href="categorias/{categoria}InfoSRepeticao.html"> Info {categoria} sem repetidos </a>
             <hr>""")
         x+=1
 
@@ -292,15 +292,15 @@ def htmlHome(dic,naoRepetidos):
 
 
 def htmlRepetidos(dic, repetidos):
-    for elem in dic:
-        htmln = open(rf'HTML/categorias/{elem}Info.html',"w")
+    for categoria in dic:
+        htmln = open(rf'HTML/categorias/{categoria}Info.html',"w")
         htmln.write(rf"""
 <!DOCTYPE html>
 <html>
     <head>
         <link href="http://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
         <link href="../styles/style1.css" rel="stylesheet" type="text/css">
-        <title>Informa&ccedil&atildeo {elem} </title>""")
+        <title>Informa&ccedil&atildeo {categoria} </title>""")
         htmln.write(r"""
         <meta charset="UTF-8"/>
     </head>
@@ -310,18 +310,18 @@ def htmlRepetidos(dic, repetidos):
         </div>""")
 
         htmln.write(rf"""
-        <h1>Lista de elementos da categoria {elem}</h1>
+        <h1>Lista de elementos da categoria {categoria}</h1>
         <table>
             <tr>
                 <th>Elementos</th>
                 <th>Linha da ocorr&ecircncia</th>
             </tr>""")
 
-        for listado, nrs in zip(dic[elem],repetidos[elem]):
+        for elemento, ocorrencia in zip(dic[categoria],repetidos[categoria]):
             htmln.write(rf"""
             <tr>
-                <td>{listado}</td>
-                <td>{nrs}</td>
+                <td>{elemento}</td>
+                <td>{ocorrencia}</td>
             </tr>""")
         
         htmln.write(rf"""
@@ -331,15 +331,15 @@ def htmlRepetidos(dic, repetidos):
 
 
 def htmlSemRepetidos(dic, semRepetidos):
-    for elem in dic:
-        htmlsemsepetidos = open(rf"HTML/categorias/{elem}InfoSRepeticao.html","w")
+    for categoria in dic:
+        htmlsemsepetidos = open(rf"HTML/categorias/{categoria}InfoSRepeticao.html","w")
         htmlsemsepetidos.write(rf"""
 <!DOCTYPE html>
 <html>
     <head>
         <link href="http://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
         <link href="../styles/style2.css" rel="stylesheet" type="text/css">
-        <title>Informa&ccedilç&atildeo sem repetidos de {elem} </title>""")
+        <title>Informa&ccedilç&atildeo sem repetidos de {categoria} </title>""")
         
         htmlsemsepetidos.write(r"""
         <meta charset="UTF-8"/>
@@ -350,19 +350,19 @@ def htmlSemRepetidos(dic, semRepetidos):
         </div>""")
 
         htmlsemsepetidos.write(rf"""
-        <h1>Lista de elementos da categoria {elem}</h1>
+        <h1>Lista de elementos da categoria {categoria}</h1>
         <table>
             <tr>
                <th>Elementos</th>
                <th>Linha da ocorr&ecircncia</th>
             </tr>""")
 
-        for categoria in semRepetidos[elem]:
-            tam = len(semRepetidos[elem][categoria])+1
+        for elemento in semRepetidos[categoria]:
+            tam = len(semRepetidos[categoria][elemento])+1
             htmlsemsepetidos.write(rf"""
-            <td rowspan={tam}>{categoria}</td>""")
+            <td rowspan={tam}>{elemento}</td>""")
 
-            for ocorrencia in semRepetidos[elem][categoria]:
+            for ocorrencia in semRepetidos[categoria][elemento]:
                 htmlsemsepetidos.write(rf"""
             <tr>
                 <td>{ocorrencia}</td>

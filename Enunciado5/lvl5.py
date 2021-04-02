@@ -4,48 +4,36 @@ import html
 import os
 
 
-def organizer(lista):
-	fich = []
-	grupos = []
-	for elem in lista:
-		if elem:
-			grupos.append(elem)
-		else:
-			fich.append(grupos)
-			grupos = []
-	return fich
 
-
-def omega(file):
+def omega(lista):
 	keyB = re.compile(r'B-([^ ]+)\s(.+)')
 	keyI = re.compile(r'I-([^ ]+)\s(.+)')
 	
 	dic= {}
-	splits = organizer(file)
 	typo = []
-	for split in splits:
-		for elem in split:
-			
-			if res:= keyB.search(elem):
-				category = res.group(1)
-				catInfo = res.group(2)
-				if category in dic:
-					typo = dic[category]
-				typo.append(catInfo)
-				dic.update({category:typo})
-				typo = []
-			
-			elif res:=keyI.search(elem):
-				category = res.group(1)
-				catInfo = res.group(2)
+	for line in lista:
+		
+		if res:= keyB.search(line):
+			category = res.group(1)
+			catInfo = res.group(2)
+			if category in dic:
 				typo = dic[category]
-				aux = typo[-1] + " " + catInfo
-				del typo[-1]
-				typo.append(aux)
-				dic.update({category:typo})
-				typo = []
-			else:
-				pass
+			typo.append(catInfo)
+			dic.update({category:typo})
+			typo = []
+		
+		elif res:=keyI.search(line):
+			category = res.group(1)
+			catInfo = res.group(2)
+			typo = dic[category]
+			aux = typo[-1] + " " + catInfo
+			del typo[-1]
+			typo.append(aux)
+			dic.update({category:typo})
+			typo = []
+		else:
+			pass
+	
 	return dic
 
 
@@ -69,18 +57,18 @@ def alpha(lista):
 def beta (dic, info):
 	semRepetidos = {}
 	naoRepetidos = []
-	for elem in dic:
+	for categoria in dic:
 		elemDic = {}
-		for listado, nrs in zip(dic[elem], info[elem]):
-			if listado in elemDic:
-				elemDic[listado].append(nrs)
+		for elemento, ocorrencia in zip(dic[categoria], info[categoria]):
+			if elemento in elemDic:
+				elemDic[elemento].append(ocorrencia)
 			else:
-				elemDic.update({listado:[nrs]})
-		semRepetidos.update({elem:elemDic})
+				elemDic.update({elemento:[ocorrencia]})
+		semRepetidos.update({categoria:elemDic})
 
 	for elem in semRepetidos:
 		a=0
-		for category in semRepetidos[elem]:
+		for lista in semRepetidos[elem]:
 			a+=1
 		naoRepetidos.append(a)
 	return semRepetidos, naoRepetidos
@@ -95,7 +83,6 @@ def main():
 		print("Possui ficheiros (possivelmente) temporários em memória. Gostaria de os remover antes de prosseguir?(Y/N)")
 		n=input().upper()
 
-		
 		if n=='Y':
 			for f in os.listdir(directory):
 				os.remove(os.path.join(directory, f))
