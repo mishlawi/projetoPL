@@ -15,22 +15,7 @@ p, li {
     letter-spacing: 1px;
 }
 
-#t01 tr:nth-child(even) {
-    background-color: #75E6DA;
-}
-
-#t01 tr:nth-child(odd) {
-    background-color: #D4F1F4;
-}
-
-#t01 table, th, td{
-    border: 1px solid black;
-    border-collapse: collapse;
-    padding-top: 5px;
-    text-align: center;
-}
-
-#t02 table, th, td{
+table, th, td{
     border: 1px solid black;
     border-collapse: collapse;
     padding-top: 5px;
