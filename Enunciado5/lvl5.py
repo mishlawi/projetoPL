@@ -4,30 +4,11 @@ import html
 import os
 
 
-
-def alpha(lista): 
-	info = {}
-	typo = []
-	keyB = re.compile(r'^B-[A-Z]+')
-	n = 1
-	for lines in lista:
-		if keyB.search(lines):
-			category = lines.split('-')[1].split()[0]
-			if category in info:
-				typo = info[category]
-			typo.append(n)
-			info.update({category:typo})
-			typo = []
-		n+=1
-	return info
-
-
-#key -> categoria v: [nr da ocorrencia]
 def organizer(lista):
 	fich = []
 	grupos = []
 	for elem in lista:
-		if elem != '':
+		if elem:
 			grupos.append(elem)
 		else:
 			fich.append(grupos)
@@ -36,26 +17,27 @@ def organizer(lista):
 
 
 def omega(file):
-	dic= {} # key -> categoria v: ['brad pitt','john stalone']
-	keyB = re.compile(r'^B-[A-Z]+')
-	keyI = re.compile(r'^I-[A-Z]+')
+	keyB = re.compile(r'B-([^ ]+)\s(.+)')
+	keyI = re.compile(r'I-([^ ]+)\s(.+)')
+	
+	dic= {}
 	splits = organizer(file)
 	typo = []
 	for split in splits:
 		for elem in split:
 			
-			if keyB.search(elem):
-				category = elem.split('-')[1].split()[0]
-				catInfo = elem.split('-')[1].split()[1]
+			if res:= keyB.search(elem):
+				category = res.group(1)
+				catInfo = res.group(2)
 				if category in dic:
 					typo = dic[category]
 				typo.append(catInfo)
 				dic.update({category:typo})
 				typo = []
 			
-			elif keyI.search(elem):
-				category = elem.split('-')[1].split()[0]
-				catInfo = elem.split('-')[1].split()[1]
+			elif res:=keyI.search(elem):
+				category = res.group(1)
+				catInfo = res.group(2)
 				typo = dic[category]
 				aux = typo[-1] + " " + catInfo
 				del typo[-1]
@@ -66,6 +48,22 @@ def omega(file):
 				pass
 	return dic
 
+
+def alpha(lista): 
+	keyB = re.compile(r'B-([^ ]+)\s(.+)')
+	info = {}
+	typo = []
+	n = 1
+	for lines in lista:
+		if res:=keyB.search(lines):
+			category = res.group(1)
+			if category in info:
+				typo = info[category]
+			typo.append(n)
+			info.update({category:typo})
+			typo = []
+		n+=1
+	return info
 
 
 def beta (dic, info):
@@ -79,7 +77,7 @@ def beta (dic, info):
 			else:
 				elemDic.update({listado:[nrs]})
 		semRepetidos.update({elem:elemDic})
-	#aparte
+
 	for elem in semRepetidos:
 		a=0
 		for category in semRepetidos[elem]:
@@ -109,7 +107,7 @@ def main():
 	file = input()
 
 	if(os.path.isfile(file)):
-		lista = open(file).read().split("\n")
+		lista = re.split(r'\n',open(file).read())
 	else:
 		print("O ficheiro não existe")
 		return

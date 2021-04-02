@@ -8,8 +8,8 @@ O	what
 B-GENRE	short
 O	film
 O	starring
-B-DIRECTOR	marshall
-I-DIRECTOR	brickman
+B-ACTOR RICO	marshall
+I-ACTOR RICO brickman
 O	received
 O	an
 B-RATINGS_AVERAGE	average
