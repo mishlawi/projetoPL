@@ -4,7 +4,7 @@
 - Enunciado 1 - por terminar
 
 ## Trabalho prático 2:
-
+- Compilador para VM
 
 Ambos realizados com:
 - [Simão Santa-Cruz](https://github.com/simao133)
