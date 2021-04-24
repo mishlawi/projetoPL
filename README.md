@@ -1,7 +1,7 @@
 # Trabalhos Práticos de Processamento Linguagens 2020/2021
 ## Trabalho prático 1:
-Enunciado 5 - feito
-Enunciado 1 - por terminar
+- Enunciado 5 - feito
+- Enunciado 1 - por terminar
 
 ## Trabalho prático 2:
 
