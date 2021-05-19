@@ -1,0 +1,264 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    AND
+    Diff
+    Equal
+    GoE
+    Greater
+    LoE
+    Lower
+    OR
+
+Grammar
+
+Rule 0     S' -> Expression
+Rule 1     Expression -> Vals
+Rule 2     Expression -> Expression + Vals
+Rule 3     Expression -> Expression - Vals
+Rule 4     Vals -> Nature
+Rule 5     Vals -> Vals * Nature
+Rule 6     Vals -> Vals / Nature
+Rule 7     Nature -> Nint
+Rule 8     Nature -> ( Expression )
+
+Terminals, with rules where they appear
+
+(                    : 8
+)                    : 8
+*                    : 5
++                    : 2
+-                    : 3
+/                    : 6
+AND                  : 
+Diff                 : 
+Equal                : 
+GoE                  : 
+Greater              : 
+LoE                  : 
+Lower                : 
+Nint                 : 7
+OR                   : 
+error                : 
+
+Nonterminals, with rules where they appear
+
+Expression           : 2 3 8 0
+Nature               : 4 5 6
+Vals                 : 1 2 3 5 6
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . Expression
+    (1) Expression -> . Vals
+    (2) Expression -> . Expression + Vals
+    (3) Expression -> . Expression - Vals
+    (4) Vals -> . Nature
+    (5) Vals -> . Vals * Nature
+    (6) Vals -> . Vals / Nature
+    (7) Nature -> . Nint
+    (8) Nature -> . ( Expression )
+
+    Nint            shift and go to state 4
+    (               shift and go to state 5
+
+    Expression                     shift and go to state 1
+    Vals                           shift and go to state 2
+    Nature                         shift and go to state 3
+
+state 1
+
+    (0) S' -> Expression .
+    (2) Expression -> Expression . + Vals
+    (3) Expression -> Expression . - Vals
+
+    +               shift and go to state 6
+    -               shift and go to state 7
+
+
+state 2
+
+    (1) Expression -> Vals .
+    (5) Vals -> Vals . * Nature
+    (6) Vals -> Vals . / Nature
+
+    +               reduce using rule 1 (Expression -> Vals .)
+    -               reduce using rule 1 (Expression -> Vals .)
+    $end            reduce using rule 1 (Expression -> Vals .)
+    )               reduce using rule 1 (Expression -> Vals .)
+    *               shift and go to state 8
+    /               shift and go to state 9
+
+
+state 3
+
+    (4) Vals -> Nature .
+
+    *               reduce using rule 4 (Vals -> Nature .)
+    /               reduce using rule 4 (Vals -> Nature .)
+    +               reduce using rule 4 (Vals -> Nature .)
+    -               reduce using rule 4 (Vals -> Nature .)
+    $end            reduce using rule 4 (Vals -> Nature .)
+    )               reduce using rule 4 (Vals -> Nature .)
+
+
+state 4
+
+    (7) Nature -> Nint .
+
+    *               reduce using rule 7 (Nature -> Nint .)
+    /               reduce using rule 7 (Nature -> Nint .)
+    +               reduce using rule 7 (Nature -> Nint .)
+    -               reduce using rule 7 (Nature -> Nint .)
+    $end            reduce using rule 7 (Nature -> Nint .)
+    )               reduce using rule 7 (Nature -> Nint .)
+
+
+state 5
+
+    (8) Nature -> ( . Expression )
+    (1) Expression -> . Vals
+    (2) Expression -> . Expression + Vals
+    (3) Expression -> . Expression - Vals
+    (4) Vals -> . Nature
+    (5) Vals -> . Vals * Nature
+    (6) Vals -> . Vals / Nature
+    (7) Nature -> . Nint
+    (8) Nature -> . ( Expression )
+
+    Nint            shift and go to state 4
+    (               shift and go to state 5
+
+    Expression                     shift and go to state 10
+    Vals                           shift and go to state 2
+    Nature                         shift and go to state 3
+
+state 6
+
+    (2) Expression -> Expression + . Vals
+    (4) Vals -> . Nature
+    (5) Vals -> . Vals * Nature
+    (6) Vals -> . Vals / Nature
+    (7) Nature -> . Nint
+    (8) Nature -> . ( Expression )
+
+    Nint            shift and go to state 4
+    (               shift and go to state 5
+
+    Vals                           shift and go to state 11
+    Nature                         shift and go to state 3
+
+state 7
+
+    (3) Expression -> Expression - . Vals
+    (4) Vals -> . Nature
+    (5) Vals -> . Vals * Nature
+    (6) Vals -> . Vals / Nature
+    (7) Nature -> . Nint
+    (8) Nature -> . ( Expression )
+
+    Nint            shift and go to state 4
+    (               shift and go to state 5
+
+    Vals                           shift and go to state 12
+    Nature                         shift and go to state 3
+
+state 8
+
+    (5) Vals -> Vals * . Nature
+    (7) Nature -> . Nint
+    (8) Nature -> . ( Expression )
+
+    Nint            shift and go to state 4
+    (               shift and go to state 5
+
+    Nature                         shift and go to state 13
+
+state 9
+
+    (6) Vals -> Vals / . Nature
+    (7) Nature -> . Nint
+    (8) Nature -> . ( Expression )
+
+    Nint            shift and go to state 4
+    (               shift and go to state 5
+
+    Nature                         shift and go to state 14
+
+state 10
+
+    (8) Nature -> ( Expression . )
+    (2) Expression -> Expression . + Vals
+    (3) Expression -> Expression . - Vals
+
+    )               shift and go to state 15
+    +               shift and go to state 6
+    -               shift and go to state 7
+
+
+state 11
+
+    (2) Expression -> Expression + Vals .
+    (5) Vals -> Vals . * Nature
+    (6) Vals -> Vals . / Nature
+
+    +               reduce using rule 2 (Expression -> Expression + Vals .)
+    -               reduce using rule 2 (Expression -> Expression + Vals .)
+    $end            reduce using rule 2 (Expression -> Expression + Vals .)
+    )               reduce using rule 2 (Expression -> Expression + Vals .)
+    *               shift and go to state 8
+    /               shift and go to state 9
+
+
+state 12
+
+    (3) Expression -> Expression - Vals .
+    (5) Vals -> Vals . * Nature
+    (6) Vals -> Vals . / Nature
+
+    +               reduce using rule 3 (Expression -> Expression - Vals .)
+    -               reduce using rule 3 (Expression -> Expression - Vals .)
+    $end            reduce using rule 3 (Expression -> Expression - Vals .)
+    )               reduce using rule 3 (Expression -> Expression - Vals .)
+    *               shift and go to state 8
+    /               shift and go to state 9
+
+
+state 13
+
+    (5) Vals -> Vals * Nature .
+
+    *               reduce using rule 5 (Vals -> Vals * Nature .)
+    /               reduce using rule 5 (Vals -> Vals * Nature .)
+    +               reduce using rule 5 (Vals -> Vals * Nature .)
+    -               reduce using rule 5 (Vals -> Vals * Nature .)
+    $end            reduce using rule 5 (Vals -> Vals * Nature .)
+    )               reduce using rule 5 (Vals -> Vals * Nature .)
+
+
+state 14
+
+    (6) Vals -> Vals / Nature .
+
+    *               reduce using rule 6 (Vals -> Vals / Nature .)
+    /               reduce using rule 6 (Vals -> Vals / Nature .)
+    +               reduce using rule 6 (Vals -> Vals / Nature .)
+    -               reduce using rule 6 (Vals -> Vals / Nature .)
+    $end            reduce using rule 6 (Vals -> Vals / Nature .)
+    )               reduce using rule 6 (Vals -> Vals / Nature .)
+
+
+state 15
+
+    (8) Nature -> ( Expression ) .
+
+    *               reduce using rule 8 (Nature -> ( Expression ) .)
+    /               reduce using rule 8 (Nature -> ( Expression ) .)
+    +               reduce using rule 8 (Nature -> ( Expression ) .)
+    -               reduce using rule 8 (Nature -> ( Expression ) .)
+    $end            reduce using rule 8 (Nature -> ( Expression ) .)
+    )               reduce using rule 8 (Nature -> ( Expression ) .)
+

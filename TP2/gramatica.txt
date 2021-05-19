@@ -1,0 +1,53 @@
+Tue.17:50.05.2021
+mishlawi
+------------------------------------------------
+Description:
+Definir uma Linguagem de Programação Imperativa que permita declarar:
+* Variáveis dos tipos Inteiro
+* Fazer as Operações de Atribuição de Expressões a Variáveis
+declaradas
+* Leitura (de inteiros ou reais)
+* Escrita (de inteiros, Reais, Booleanos ou Strings)
+* Condições e Ciclos Repetir
+---------------------------------------------------------------
+
+
+
+Comands : Comand Comands
+        | Comand
+
+
+Conditional -> if '(' Conditions ')' '{' Comands '}' else '{'Comands '}'
+             | if '(' Conditions ')' '{' Comands '}'
+
+Conditions -> Neg '(' Condition ')' LogicSymb Conditions
+            | Neg '(' Condition ')'   # !(a>b)|| a
+
+Neg -> NOT          #  !
+     |  $ 
+
+LogicSymb -> OR     # ||
+           | AND    # &&
+
+Condition -> Expression LogicVar Expression
+		   | Expression
+
+LogicVar -> GoE     # >=
+		  | LoE     # <= 
+		  | Lower   # <
+		  | Greater # >
+		  | Equal   # ==
+		  | Diff    # != 
+
+
+Expression -> Vals
+            | Expression '+' Vals
+            | Expression '-' Vals
+
+Vals -> Nature
+      | Vals '*' Nature
+      | Vals '/' Nature
+
+
+Nature -> Nint
+        | '(' Expression')'
