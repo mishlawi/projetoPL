@@ -9,6 +9,20 @@ from compiler_lex import literals
 
 
 
+
+#Neg -> NOT          #  !
+#     |  $ 
+
+
+def p_negacaoLogica(p):
+	"Neg : NOT"
+
+
+def p_negacao_empty(p):
+	"Neg : "
+
+
+
 #LogicSymb -> OR     # ||
 #           | AND    # &&
 
@@ -18,7 +32,7 @@ def p_logicSymbol_OR(p):
 
 
 def p_logicSymbol_And(p):
-	"LogicSymb: AND"
+	"LogicSymb : AND"
 
 
 #Condition -> Expression OpRel Expression

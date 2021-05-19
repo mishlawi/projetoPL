@@ -6,9 +6,12 @@ import ply.lex as lex
 
 tokens = ['OR','AND',
 'GoE','LoE','Lower','Greater','Equal','Diff',
-'Nint']
+'Nint',
+'NOT']
 
 literals = ['{','}','(',')','*','/','+','-']
+
+t_NOT = r'\!'
 
 t_OR = r'\|\|'
 

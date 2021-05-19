@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = "AND Diff Equal GoE Greater LoE Lower Nint ORCondition : Expression OpRel ExpressionCondition : ExpressionOpRel : GoEOpRel : LoEOpRel : LowerOpRel : GreaterOpRel : EqualOpRel : DiffExpression : Vals Expression : Expression '+' Vals Expression : Expression '-' Vals Vals : NatureVals : Vals '*' NatureVals : Vals '/' NatureNature : NintNature : '(' Expression ')' "
+_lr_signature = "AND Diff Equal GoE Greater LoE Lower NOT Nint ORNeg : NOTNeg : LogicSymb : OR LogicSymb : ANDCondition : Expression OpRel ExpressionCondition : ExpressionOpRel : GoEOpRel : LoEOpRel : LowerOpRel : GreaterOpRel : EqualOpRel : DiffExpression : Vals Expression : Expression '+' Vals Expression : Expression '-' Vals Vals : NatureVals : Vals '*' NatureVals : Vals '/' NatureNature : NintNature : '(' Expression ')' "
     
-_lr_action_items = {'Nint':([0,6,7,8,9,10,11,12,13,14,15,16,17,],[5,5,5,5,5,-3,-4,-5,-6,-7,-8,5,5,]),'(':([0,6,7,8,9,10,11,12,13,14,15,16,17,],[6,6,6,6,6,-3,-4,-5,-6,-7,-8,6,6,]),'$end':([1,2,3,4,5,19,20,21,22,23,24,],[0,-2,-9,-12,-15,-1,-10,-11,-13,-14,-16,]),'+':([2,3,4,5,18,19,20,21,22,23,24,],[8,-9,-12,-15,8,8,-10,-11,-13,-14,-16,]),'-':([2,3,4,5,18,19,20,21,22,23,24,],[9,-9,-12,-15,9,9,-10,-11,-13,-14,-16,]),'GoE':([2,3,4,5,20,21,22,23,24,],[10,-9,-12,-15,-10,-11,-13,-14,-16,]),'LoE':([2,3,4,5,20,21,22,23,24,],[11,-9,-12,-15,-10,-11,-13,-14,-16,]),'Lower':([2,3,4,5,20,21,22,23,24,],[12,-9,-12,-15,-10,-11,-13,-14,-16,]),'Greater':([2,3,4,5,20,21,22,23,24,],[13,-9,-12,-15,-10,-11,-13,-14,-16,]),'Equal':([2,3,4,5,20,21,22,23,24,],[14,-9,-12,-15,-10,-11,-13,-14,-16,]),'Diff':([2,3,4,5,20,21,22,23,24,],[15,-9,-12,-15,-10,-11,-13,-14,-16,]),')':([3,4,5,18,20,21,22,23,24,],[-9,-12,-15,24,-10,-11,-13,-14,-16,]),'*':([3,4,5,20,21,22,23,24,],[16,-12,-15,16,16,-13,-14,-16,]),'/':([3,4,5,20,21,22,23,24,],[17,-12,-15,17,17,-13,-14,-16,]),}
+_lr_action_items = {'NOT':([0,],[2,]),'$end':([0,1,2,],[-2,0,-1,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'Condition':([0,],[1,]),'Expression':([0,6,7,],[2,18,19,]),'Vals':([0,6,7,8,9,],[3,3,3,20,21,]),'Nature':([0,6,7,8,9,16,17,],[4,4,4,4,4,22,23,]),'OpRel':([2,],[7,]),}
+_lr_goto_items = {'Neg':([0,],[1,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -26,21 +26,25 @@ for _k, _v in _lr_goto_items.items():
        _lr_goto[_x][_k] = _y
 del _lr_goto_items
 _lr_productions = [
-  ("S' -> Condition","S'",1,None,None,None),
-  ('Condition -> Expression OpRel Expression','Condition',3,'p_condition_complex','compiler_yacc.py',17),
-  ('Condition -> Expression','Condition',1,'p_condition_simple','compiler_yacc.py',20),
-  ('OpRel -> GoE','OpRel',1,'p_opRel_GoE','compiler_yacc.py',32),
-  ('OpRel -> LoE','OpRel',1,'p_opRel_LoE','compiler_yacc.py',35),
-  ('OpRel -> Lower','OpRel',1,'p_opRel_Lower','compiler_yacc.py',38),
-  ('OpRel -> Greater','OpRel',1,'p_opRel_Greater','compiler_yacc.py',41),
-  ('OpRel -> Equal','OpRel',1,'p_opRel_Equal','compiler_yacc.py',44),
-  ('OpRel -> Diff','OpRel',1,'p_opRel_Diff','compiler_yacc.py',47),
-  ('Expression -> Vals','Expression',1,'p_expression_simple','compiler_yacc.py',56),
-  ('Expression -> Expression + Vals','Expression',3,'p_expression_plus','compiler_yacc.py',59),
-  ('Expression -> Expression - Vals','Expression',3,'p_expression_less','compiler_yacc.py',63),
-  ('Vals -> Nature','Vals',1,'p_vals_simple','compiler_yacc.py',71),
-  ('Vals -> Vals * Nature','Vals',3,'p_vals_1','compiler_yacc.py',74),
-  ('Vals -> Vals / Nature','Vals',3,'p_vals_2','compiler_yacc.py',78),
-  ('Nature -> Nint','Nature',1,'p_nature_int','compiler_yacc.py',84),
-  ('Nature -> ( Expression )','Nature',3,'p_nature_complex','compiler_yacc.py',88),
+  ("S' -> Neg","S'",1,None,None,None),
+  ('Neg -> NOT','Neg',1,'p_negacaoLogica','compiler_yacc.py',18),
+  ('Neg -> <empty>','Neg',0,'p_negacao_empty','compiler_yacc.py',22),
+  ('LogicSymb -> OR','LogicSymb',1,'p_logicSymbol_OR','compiler_yacc.py',31),
+  ('LogicSymb -> AND','LogicSymb',1,'p_logicSymbol_And','compiler_yacc.py',35),
+  ('Condition -> Expression OpRel Expression','Condition',3,'p_condition_complex','compiler_yacc.py',43),
+  ('Condition -> Expression','Condition',1,'p_condition_simple','compiler_yacc.py',46),
+  ('OpRel -> GoE','OpRel',1,'p_opRel_GoE','compiler_yacc.py',58),
+  ('OpRel -> LoE','OpRel',1,'p_opRel_LoE','compiler_yacc.py',61),
+  ('OpRel -> Lower','OpRel',1,'p_opRel_Lower','compiler_yacc.py',64),
+  ('OpRel -> Greater','OpRel',1,'p_opRel_Greater','compiler_yacc.py',67),
+  ('OpRel -> Equal','OpRel',1,'p_opRel_Equal','compiler_yacc.py',70),
+  ('OpRel -> Diff','OpRel',1,'p_opRel_Diff','compiler_yacc.py',73),
+  ('Expression -> Vals','Expression',1,'p_expression_simple','compiler_yacc.py',82),
+  ('Expression -> Expression + Vals','Expression',3,'p_expression_plus','compiler_yacc.py',85),
+  ('Expression -> Expression - Vals','Expression',3,'p_expression_less','compiler_yacc.py',89),
+  ('Vals -> Nature','Vals',1,'p_vals_simple','compiler_yacc.py',97),
+  ('Vals -> Vals * Nature','Vals',3,'p_vals_1','compiler_yacc.py',100),
+  ('Vals -> Vals / Nature','Vals',3,'p_vals_2','compiler_yacc.py',104),
+  ('Nature -> Nint','Nature',1,'p_nature_int','compiler_yacc.py',110),
+  ('Nature -> ( Expression )','Nature',3,'p_nature_complex','compiler_yacc.py',114),
 ]
