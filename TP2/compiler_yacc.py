@@ -4,6 +4,34 @@ from compiler_lex import literals
 
 
 
+
+
+
+
+
+#LogicSymb -> OR     # ||
+#           | AND    # &&
+
+
+def p_logicSymbol_OR(p):
+	"LogicSymb : OR "
+
+
+def p_logicSymbol_And(p):
+	"LogicSymb: AND"
+
+
+#Condition -> Expression OpRel Expression
+#		    | Expression
+
+
+def p_condition_complex(p):
+	"Condition : Expression OpRel Expression"
+
+def p_condition_simple(p):
+	"Condition : Expression"
+
+
 #OpRel -> GoE        >=
 #	   | LoE         <= 
 #	   | Lower       <
@@ -11,7 +39,7 @@ from compiler_lex import literals
 #	   | Equal       ==
 #	   | Diff        != 
 
-"""
+
 def p_opRel_GoE(p):
 	"OpRel : GoE"
 
@@ -29,7 +57,7 @@ def p_opRel_Equal(p):
 
 def p_opRel_Diff(p):
 	"OpRel : Diff"
-"""
+
 
 
 #Expression -> Vals
@@ -41,9 +69,11 @@ def p_expression_simple(p):
 
 def p_expression_plus(p):
 	"Expression : Expression '+' Vals "
+	print("add")
 
 def p_expression_less(p):
 	"Expression : Expression '-' Vals "
+	print("sub")
 
 # Vals -> Nature
 #      | Vals '*' Nature
@@ -51,26 +81,24 @@ def p_expression_less(p):
 
 def p_vals_simple(p):
 	"Vals : Nature"
-	print("vals simple")
 
 def p_vals_1(p):
 	"Vals : Vals '*' Nature"
-	print("vals ***")
+	print("mul")
 
 def p_vals_2(p):
 	"Vals : Vals '/' Nature"
-	print("vals ///")
-
+	print("div")
 # Nature -> Nint
 #        | '(' Expression')'
 
 def p_nature_int(p):
 	"Nature : Nint"
-	print("numberrr")
+	print("pushi", p[1])
 
 def p_nature_complex(p):
 	"Nature : '(' Expression ')' "
-	print("expression")
+	print("entrou num parentisis")
 
 
 def p_error(p):

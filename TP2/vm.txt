@@ -1,0 +1,302 @@
+print 5
+
+start
+    pushi 5
+    writei
+stop
+___________________________________
+
+print 7-2*3+9
+
+start
+    pushi 7
+    pushi 2
+    pushi 3
+    mul
+    sub
+    pushi 9
+    add
+    writei
+stop
+___________________________________
+
+int conta
+int i = 2
+conta = 5 * i
+print conta
+
+        | Tabela de Identificadores |
+--------|Tipo |Offset|--------------|
+contador| int | 0    |
+i       | int | 1    |
+
+inst. p a vm:
+
+    pushi 0
+    pushi 2
+start
+    pushi 5
+    pushg 1  -> meter o i "pushglobal"
+    mul
+    storeg 0
+    pushg 0
+    writei
+stop
+___________________________________
+
+int dummy[3]
+int lista[10]
+lista[2] = 7
+print lista[2]
+print dummy[1]
+
+____________________________________
+|        Tabela de Identificadores  |
+|       |---Tipo---|Offset|--Size---|
+dummy   | arrayInt | 0    | 3       |
+lista   | arrayInt | 3    | 10      |
+add     | int      | 13   |         |
+____________________________________|
+
+    pushn 3
+    pshn 10
+    pushi 0
+start
+    pushgp
+    pushi 3
+    padd   -> soma valores com endereços
+    pushi 2
+    pushi 7
+    storen -> tira o 7, o 2 e o end de lista, vai ao end. 2 e mete lá o 7
+
+    /* print lista 2 */
+    pushgp
+    pushi 3
+    padd
+    pushi 2
+    loadn
+    writei
+
+    /* print dummy 1 */
+    pushgp
+    pushi 0
+    padd
+    pushi 1
+    loadn
+    writei
+stop
+___________________________________
+
+int i = 0
+int lista[10]
+repeat(10){
+    read(lista[i])
+    i = i + 1
+}
+printArray lista                        -> equivalente a ter while(i<10) {print lista[i]; i++}
+
+____________________________________
+|         Tabela de Identificadores  |
+|        |---Tipo---|Offset|--Size---|
+|i       | int      | 0    |         |
+|lista   | arrayInt | 1    | 10      |
+|r1 (pVM)| int      | 1    |         |  -> variável ghost necessária para a VM
+|____________________________________|
+
+    pushi 0
+    pushn 10
+    pushi 10
+start
+ciclo1: -> label para permitir o ciclo1
+    pushgp
+    pushi 1
+    padd
+    pushg 0
+    read
+    atoi 
+    storen
+    pushg 0 -> fazer o i = i+1 (até ao storeg)
+    pushi 1
+    add
+    storeg 0 -> armazeno no resultado 
+
+    pushg 11
+    pushi 1
+    sub
+    storeg 11
+
+    pushg 11
+    pushi 0
+    equal
+
+    jz ciclo1                                         -> até aqui para fazer o read
+
+    pushi 0
+    storeg 0
+ciclo2:
+    pushgp     -> print(lista[i])
+    pushi 1
+    padd
+    pushg 0
+    loadn
+    writei     -> termina aqui o print(lista[i])
+
+    pushg 0 -> fazer o i = i+1 (até ao storeg)
+    pushi 1
+    add
+    storeg 0  -> termina aqui o i = i+1
+
+    pushg 0       -> fazer o i<10 (até ao jump)
+    pushi 10
+    supeq      -> dá 0 se não for menor ou igual a 10
+    jz ciclo2      
+stop
+___________________________________
+
+int a,b
+read(a)
+read(b)
+if(a>b)
+    print add
+else 
+    print b
+
+    pushi 0
+    pushi 0
+start
+    read
+    atoi
+    storeg 0
+    storeg 1                 -> leitura feita
+
+    pushg 0
+    pushg 1
+    sup                       -> 0 se for maior, 1 se não foi maior
+    jz else_1
+    /* no if then else, vai haver duas labels e vão ser 1 no else a outra no fim */
+
+        //Se Verdade
+    pushg 0
+    writei
+    jump fim_if_1
+       //Se Falso
+else_1: 
+    pushg 1
+    writei
+fim_if_1:
+    stop
+___________________________________
+
+Ler numeros até ser introduzido 0, escrever a sua soma
+
+int soma = 0
+int n
+repeat{
+    read(n)
+    soma = soma + n
+} 
+until(n==0)             -> fazer ate a condição se verificar
+print soma
+____________________________________
+|         Tabela de Identificadores  |
+|        |---Tipo---|Offset|--Size---|
+|soma    | int      | 0    |         |
+|n       | int      | 1    |         |
+|____________________________________|
+
+    pushi 0
+    pushi 0
+start
+ciclo1:
+    read
+    atoi
+    storeg 1
+
+    pushg 1
+    pushg 0
+    add
+    storeg 0 
+
+    pushg 1
+    pushi 0
+    equal
+    jz ciclo1
+
+    pushg 0
+    writei
+stop
+
+___________________________________
+
+Ler n, somar de 1 .. n, escrever o resultado
+
+int n,i, soma = 0
+read(n)
+for(i = 1; i <= n; i++)
+    soma = soma + i
+print soma
+
+____________________________________
+|         Tabela de Identificadores  |
+|        |---Tipo---|Offset|--Size---|
+|soma    | int      | 0    |         |
+|n       | int      | 1    |         |
+|i       | int      | 2    |         |
+|____________________________________|
+
+    pushi 0
+    pushi 0
+    pushi 0
+start  
+    read
+    atoi
+    storeg 1
+    pushi 1
+    storeg 2
+for_1:
+    pushg 2
+    pushg 1
+    infeq                                ->  se >= é V, executa para baixo
+    jz fim_for_1
+
+    pushg 2
+    pushg 0
+    add
+    storeg 0   -> soma = soma + if
+
+    pushg 2
+    pushi 1
+    add
+    storeg
+    
+    jump for_1
+fim_for_1:    
+    pushg 0
+    writei
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
