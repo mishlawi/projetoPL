@@ -2,80 +2,1173 @@ Created by PLY version 3.11 (http://www.dabeaz.com/ply)
 
 Grammar
 
-Rule 0     S' -> Neg
-Rule 1     Neg -> NOT
-Rule 2     Neg -> <empty>
-Rule 3     LogicSymb -> OR
-Rule 4     LogicSymb -> AND
-Rule 5     Condition -> Expression OpRel Expression
-Rule 6     Condition -> Expression
-Rule 7     OpRel -> GoE
-Rule 8     OpRel -> LoE
-Rule 9     OpRel -> Lower
-Rule 10    OpRel -> Greater
-Rule 11    OpRel -> Equal
-Rule 12    OpRel -> Diff
-Rule 13    Expression -> Vals
-Rule 14    Expression -> Expression + Vals
-Rule 15    Expression -> Expression - Vals
-Rule 16    Vals -> Nature
-Rule 17    Vals -> Vals * Nature
-Rule 18    Vals -> Vals / Nature
-Rule 19    Nature -> Nint
-Rule 20    Nature -> ( Expression )
+Rule 0     S' -> Comands
+Rule 1     Comands -> Comand Comands
+Rule 2     Comands -> Comand
+Rule 3     Comand -> Atribuition
+Rule 4     Comand -> Conditional
+Rule 5     Comand -> Expression
+Rule 6     Comand -> Cycle
+Rule 7     Conditional -> IF ( Conditions ) AC Comands FC ELSE AC Comands FC
+Rule 8     Conditional -> IF ( Conditions ) AC Comands FC
+Rule 9     Conditions -> Neg Condition LogicSymb Conditions
+Rule 10    Conditions -> Neg Condition
+Rule 11    Condition -> Expression OpRel Expression
+Rule 12    Condition -> Expression
+Rule 13    Neg -> NOT
+Rule 14    Neg -> <empty>
+Rule 15    LogicSymb -> OR
+Rule 16    LogicSymb -> AND
+Rule 17    OpRel -> GoE
+Rule 18    OpRel -> LoE
+Rule 19    OpRel -> Lower
+Rule 20    OpRel -> Greater
+Rule 21    OpRel -> Equal
+Rule 22    OpRel -> Diff
+Rule 23    Cycle -> WHILE ( Conditions ) AC Comands FC
+Rule 24    Atribuition -> INT VAR IGUAL Expression
+Rule 25    Atribuition -> VAR IGUAL Expression
+Rule 26    Expression -> Vals
+Rule 27    Expression -> Expression + Vals
+Rule 28    Expression -> Expression - Vals
+Rule 29    Vals -> Nature
+Rule 30    Vals -> Vals * Nature
+Rule 31    Vals -> Vals / Nature
+Rule 32    Nature -> Nint
+Rule 33    Nature -> VAR
+Rule 34    Nature -> ( Expression )
+Rule 35    TIPO -> INT
 
 Terminals, with rules where they appear
 
-(                    : 20
-)                    : 20
-*                    : 17
-+                    : 14
--                    : 15
-/                    : 18
-AND                  : 4
-Diff                 : 12
-Equal                : 11
-GoE                  : 7
-Greater              : 10
-LoE                  : 8
-Lower                : 9
-NOT                  : 1
-Nint                 : 19
-OR                   : 3
+(                    : 7 8 23 34
+)                    : 7 8 23 34
+*                    : 30
++                    : 27
+-                    : 28
+/                    : 31
+AC                   : 7 7 8 23
+AND                  : 16
+Diff                 : 22
+ELSE                 : 7
+Equal                : 21
+FC                   : 7 7 8 23
+GoE                  : 17
+Greater              : 20
+IF                   : 7 8
+IGUAL                : 24 25
+INT                  : 24 35
+LoE                  : 18
+Lower                : 19
+NOT                  : 13
+Nint                 : 32
+OR                   : 15
+VAR                  : 24 25 33
+WHILE                : 23
 error                : 
 
 Nonterminals, with rules where they appear
 
-Condition            : 
-Expression           : 5 5 6 14 15 20
-LogicSymb            : 
-Nature               : 16 17 18
-Neg                  : 0
-OpRel                : 5
-Vals                 : 13 14 15 17 18
+Atribuition          : 3
+Comand               : 1 2
+Comands              : 1 7 7 8 23 0
+Condition            : 9 10
+Conditional          : 4
+Conditions           : 7 8 9 23
+Cycle                : 6
+Expression           : 5 11 11 12 24 25 27 28 34
+LogicSymb            : 9
+Nature               : 29 30 31
+Neg                  : 9 10
+OpRel                : 11
+TIPO                 : 
+Vals                 : 26 27 28 30 31
 
 Parsing method: LALR
 
 state 0
 
-    (0) S' -> . Neg
-    (1) Neg -> . NOT
-    (2) Neg -> .
+    (0) S' -> . Comands
+    (1) Comands -> . Comand Comands
+    (2) Comands -> . Comand
+    (3) Comand -> . Atribuition
+    (4) Comand -> . Conditional
+    (5) Comand -> . Expression
+    (6) Comand -> . Cycle
+    (24) Atribuition -> . INT VAR IGUAL Expression
+    (25) Atribuition -> . VAR IGUAL Expression
+    (7) Conditional -> . IF ( Conditions ) AC Comands FC ELSE AC Comands FC
+    (8) Conditional -> . IF ( Conditions ) AC Comands FC
+    (26) Expression -> . Vals
+    (27) Expression -> . Expression + Vals
+    (28) Expression -> . Expression - Vals
+    (23) Cycle -> . WHILE ( Conditions ) AC Comands FC
+    (29) Vals -> . Nature
+    (30) Vals -> . Vals * Nature
+    (31) Vals -> . Vals / Nature
+    (32) Nature -> . Nint
+    (33) Nature -> . VAR
+    (34) Nature -> . ( Expression )
 
-    NOT             shift and go to state 2
-    $end            reduce using rule 2 (Neg -> .)
+    INT             shift and go to state 7
+    VAR             shift and go to state 8
+    IF              shift and go to state 9
+    WHILE           shift and go to state 12
+    Nint            shift and go to state 14
+    (               shift and go to state 10
 
-    Neg                            shift and go to state 1
+    Comands                        shift and go to state 1
+    Comand                         shift and go to state 2
+    Atribuition                    shift and go to state 3
+    Conditional                    shift and go to state 4
+    Expression                     shift and go to state 5
+    Cycle                          shift and go to state 6
+    Vals                           shift and go to state 11
+    Nature                         shift and go to state 13
 
 state 1
 
-    (0) S' -> Neg .
+    (0) S' -> Comands .
 
 
 
 state 2
 
-    (1) Neg -> NOT .
+    (1) Comands -> Comand . Comands
+    (2) Comands -> Comand .
+    (1) Comands -> . Comand Comands
+    (2) Comands -> . Comand
+    (3) Comand -> . Atribuition
+    (4) Comand -> . Conditional
+    (5) Comand -> . Expression
+    (6) Comand -> . Cycle
+    (24) Atribuition -> . INT VAR IGUAL Expression
+    (25) Atribuition -> . VAR IGUAL Expression
+    (7) Conditional -> . IF ( Conditions ) AC Comands FC ELSE AC Comands FC
+    (8) Conditional -> . IF ( Conditions ) AC Comands FC
+    (26) Expression -> . Vals
+    (27) Expression -> . Expression + Vals
+    (28) Expression -> . Expression - Vals
+    (23) Cycle -> . WHILE ( Conditions ) AC Comands FC
+    (29) Vals -> . Nature
+    (30) Vals -> . Vals * Nature
+    (31) Vals -> . Vals / Nature
+    (32) Nature -> . Nint
+    (33) Nature -> . VAR
+    (34) Nature -> . ( Expression )
 
-    $end            reduce using rule 1 (Neg -> NOT .)
+    $end            reduce using rule 2 (Comands -> Comand .)
+    FC              reduce using rule 2 (Comands -> Comand .)
+    INT             shift and go to state 7
+    VAR             shift and go to state 8
+    IF              shift and go to state 9
+    WHILE           shift and go to state 12
+    Nint            shift and go to state 14
+    (               shift and go to state 10
+
+    Comand                         shift and go to state 2
+    Comands                        shift and go to state 15
+    Atribuition                    shift and go to state 3
+    Conditional                    shift and go to state 4
+    Expression                     shift and go to state 5
+    Cycle                          shift and go to state 6
+    Vals                           shift and go to state 11
+    Nature                         shift and go to state 13
+
+state 3
+
+    (3) Comand -> Atribuition .
+
+    INT             reduce using rule 3 (Comand -> Atribuition .)
+    VAR             reduce using rule 3 (Comand -> Atribuition .)
+    IF              reduce using rule 3 (Comand -> Atribuition .)
+    WHILE           reduce using rule 3 (Comand -> Atribuition .)
+    Nint            reduce using rule 3 (Comand -> Atribuition .)
+    (               reduce using rule 3 (Comand -> Atribuition .)
+    $end            reduce using rule 3 (Comand -> Atribuition .)
+    FC              reduce using rule 3 (Comand -> Atribuition .)
+
+
+state 4
+
+    (4) Comand -> Conditional .
+
+    INT             reduce using rule 4 (Comand -> Conditional .)
+    VAR             reduce using rule 4 (Comand -> Conditional .)
+    IF              reduce using rule 4 (Comand -> Conditional .)
+    WHILE           reduce using rule 4 (Comand -> Conditional .)
+    Nint            reduce using rule 4 (Comand -> Conditional .)
+    (               reduce using rule 4 (Comand -> Conditional .)
+    $end            reduce using rule 4 (Comand -> Conditional .)
+    FC              reduce using rule 4 (Comand -> Conditional .)
+
+
+state 5
+
+    (5) Comand -> Expression .
+    (27) Expression -> Expression . + Vals
+    (28) Expression -> Expression . - Vals
+
+    INT             reduce using rule 5 (Comand -> Expression .)
+    VAR             reduce using rule 5 (Comand -> Expression .)
+    IF              reduce using rule 5 (Comand -> Expression .)
+    WHILE           reduce using rule 5 (Comand -> Expression .)
+    Nint            reduce using rule 5 (Comand -> Expression .)
+    (               reduce using rule 5 (Comand -> Expression .)
+    $end            reduce using rule 5 (Comand -> Expression .)
+    FC              reduce using rule 5 (Comand -> Expression .)
+    +               shift and go to state 16
+    -               shift and go to state 17
+
+
+state 6
+
+    (6) Comand -> Cycle .
+
+    INT             reduce using rule 6 (Comand -> Cycle .)
+    VAR             reduce using rule 6 (Comand -> Cycle .)
+    IF              reduce using rule 6 (Comand -> Cycle .)
+    WHILE           reduce using rule 6 (Comand -> Cycle .)
+    Nint            reduce using rule 6 (Comand -> Cycle .)
+    (               reduce using rule 6 (Comand -> Cycle .)
+    $end            reduce using rule 6 (Comand -> Cycle .)
+    FC              reduce using rule 6 (Comand -> Cycle .)
+
+
+state 7
+
+    (24) Atribuition -> INT . VAR IGUAL Expression
+
+    VAR             shift and go to state 18
+
+
+state 8
+
+    (25) Atribuition -> VAR . IGUAL Expression
+    (33) Nature -> VAR .
+
+    IGUAL           shift and go to state 19
+    *               reduce using rule 33 (Nature -> VAR .)
+    /               reduce using rule 33 (Nature -> VAR .)
+    +               reduce using rule 33 (Nature -> VAR .)
+    -               reduce using rule 33 (Nature -> VAR .)
+    INT             reduce using rule 33 (Nature -> VAR .)
+    VAR             reduce using rule 33 (Nature -> VAR .)
+    IF              reduce using rule 33 (Nature -> VAR .)
+    WHILE           reduce using rule 33 (Nature -> VAR .)
+    Nint            reduce using rule 33 (Nature -> VAR .)
+    (               reduce using rule 33 (Nature -> VAR .)
+    $end            reduce using rule 33 (Nature -> VAR .)
+    FC              reduce using rule 33 (Nature -> VAR .)
+
+
+state 9
+
+    (7) Conditional -> IF . ( Conditions ) AC Comands FC ELSE AC Comands FC
+    (8) Conditional -> IF . ( Conditions ) AC Comands FC
+
+    (               shift and go to state 20
+
+
+state 10
+
+    (34) Nature -> ( . Expression )
+    (26) Expression -> . Vals
+    (27) Expression -> . Expression + Vals
+    (28) Expression -> . Expression - Vals
+    (29) Vals -> . Nature
+    (30) Vals -> . Vals * Nature
+    (31) Vals -> . Vals / Nature
+    (32) Nature -> . Nint
+    (33) Nature -> . VAR
+    (34) Nature -> . ( Expression )
+
+    Nint            shift and go to state 14
+    VAR             shift and go to state 22
+    (               shift and go to state 10
+
+    Expression                     shift and go to state 21
+    Vals                           shift and go to state 11
+    Nature                         shift and go to state 13
+
+state 11
+
+    (26) Expression -> Vals .
+    (30) Vals -> Vals . * Nature
+    (31) Vals -> Vals . / Nature
+
+    +               reduce using rule 26 (Expression -> Vals .)
+    -               reduce using rule 26 (Expression -> Vals .)
+    INT             reduce using rule 26 (Expression -> Vals .)
+    VAR             reduce using rule 26 (Expression -> Vals .)
+    IF              reduce using rule 26 (Expression -> Vals .)
+    WHILE           reduce using rule 26 (Expression -> Vals .)
+    Nint            reduce using rule 26 (Expression -> Vals .)
+    (               reduce using rule 26 (Expression -> Vals .)
+    $end            reduce using rule 26 (Expression -> Vals .)
+    FC              reduce using rule 26 (Expression -> Vals .)
+    )               reduce using rule 26 (Expression -> Vals .)
+    GoE             reduce using rule 26 (Expression -> Vals .)
+    LoE             reduce using rule 26 (Expression -> Vals .)
+    Lower           reduce using rule 26 (Expression -> Vals .)
+    Greater         reduce using rule 26 (Expression -> Vals .)
+    Equal           reduce using rule 26 (Expression -> Vals .)
+    Diff            reduce using rule 26 (Expression -> Vals .)
+    OR              reduce using rule 26 (Expression -> Vals .)
+    AND             reduce using rule 26 (Expression -> Vals .)
+    *               shift and go to state 23
+    /               shift and go to state 24
+
+
+state 12
+
+    (23) Cycle -> WHILE . ( Conditions ) AC Comands FC
+
+    (               shift and go to state 25
+
+
+state 13
+
+    (29) Vals -> Nature .
+
+    *               reduce using rule 29 (Vals -> Nature .)
+    /               reduce using rule 29 (Vals -> Nature .)
+    +               reduce using rule 29 (Vals -> Nature .)
+    -               reduce using rule 29 (Vals -> Nature .)
+    INT             reduce using rule 29 (Vals -> Nature .)
+    VAR             reduce using rule 29 (Vals -> Nature .)
+    IF              reduce using rule 29 (Vals -> Nature .)
+    WHILE           reduce using rule 29 (Vals -> Nature .)
+    Nint            reduce using rule 29 (Vals -> Nature .)
+    (               reduce using rule 29 (Vals -> Nature .)
+    $end            reduce using rule 29 (Vals -> Nature .)
+    FC              reduce using rule 29 (Vals -> Nature .)
+    )               reduce using rule 29 (Vals -> Nature .)
+    GoE             reduce using rule 29 (Vals -> Nature .)
+    LoE             reduce using rule 29 (Vals -> Nature .)
+    Lower           reduce using rule 29 (Vals -> Nature .)
+    Greater         reduce using rule 29 (Vals -> Nature .)
+    Equal           reduce using rule 29 (Vals -> Nature .)
+    Diff            reduce using rule 29 (Vals -> Nature .)
+    OR              reduce using rule 29 (Vals -> Nature .)
+    AND             reduce using rule 29 (Vals -> Nature .)
+
+
+state 14
+
+    (32) Nature -> Nint .
+
+    *               reduce using rule 32 (Nature -> Nint .)
+    /               reduce using rule 32 (Nature -> Nint .)
+    +               reduce using rule 32 (Nature -> Nint .)
+    -               reduce using rule 32 (Nature -> Nint .)
+    INT             reduce using rule 32 (Nature -> Nint .)
+    VAR             reduce using rule 32 (Nature -> Nint .)
+    IF              reduce using rule 32 (Nature -> Nint .)
+    WHILE           reduce using rule 32 (Nature -> Nint .)
+    Nint            reduce using rule 32 (Nature -> Nint .)
+    (               reduce using rule 32 (Nature -> Nint .)
+    $end            reduce using rule 32 (Nature -> Nint .)
+    FC              reduce using rule 32 (Nature -> Nint .)
+    )               reduce using rule 32 (Nature -> Nint .)
+    GoE             reduce using rule 32 (Nature -> Nint .)
+    LoE             reduce using rule 32 (Nature -> Nint .)
+    Lower           reduce using rule 32 (Nature -> Nint .)
+    Greater         reduce using rule 32 (Nature -> Nint .)
+    Equal           reduce using rule 32 (Nature -> Nint .)
+    Diff            reduce using rule 32 (Nature -> Nint .)
+    OR              reduce using rule 32 (Nature -> Nint .)
+    AND             reduce using rule 32 (Nature -> Nint .)
+
+
+state 15
+
+    (1) Comands -> Comand Comands .
+
+    $end            reduce using rule 1 (Comands -> Comand Comands .)
+    FC              reduce using rule 1 (Comands -> Comand Comands .)
+
+
+state 16
+
+    (27) Expression -> Expression + . Vals
+    (29) Vals -> . Nature
+    (30) Vals -> . Vals * Nature
+    (31) Vals -> . Vals / Nature
+    (32) Nature -> . Nint
+    (33) Nature -> . VAR
+    (34) Nature -> . ( Expression )
+
+    Nint            shift and go to state 14
+    VAR             shift and go to state 22
+    (               shift and go to state 10
+
+    Vals                           shift and go to state 26
+    Nature                         shift and go to state 13
+
+state 17
+
+    (28) Expression -> Expression - . Vals
+    (29) Vals -> . Nature
+    (30) Vals -> . Vals * Nature
+    (31) Vals -> . Vals / Nature
+    (32) Nature -> . Nint
+    (33) Nature -> . VAR
+    (34) Nature -> . ( Expression )
+
+    Nint            shift and go to state 14
+    VAR             shift and go to state 22
+    (               shift and go to state 10
+
+    Vals                           shift and go to state 27
+    Nature                         shift and go to state 13
+
+state 18
+
+    (24) Atribuition -> INT VAR . IGUAL Expression
+
+    IGUAL           shift and go to state 28
+
+
+state 19
+
+    (25) Atribuition -> VAR IGUAL . Expression
+    (26) Expression -> . Vals
+    (27) Expression -> . Expression + Vals
+    (28) Expression -> . Expression - Vals
+    (29) Vals -> . Nature
+    (30) Vals -> . Vals * Nature
+    (31) Vals -> . Vals / Nature
+    (32) Nature -> . Nint
+    (33) Nature -> . VAR
+    (34) Nature -> . ( Expression )
+
+    Nint            shift and go to state 14
+    VAR             shift and go to state 22
+    (               shift and go to state 10
+
+    Expression                     shift and go to state 29
+    Vals                           shift and go to state 11
+    Nature                         shift and go to state 13
+
+state 20
+
+    (7) Conditional -> IF ( . Conditions ) AC Comands FC ELSE AC Comands FC
+    (8) Conditional -> IF ( . Conditions ) AC Comands FC
+    (9) Conditions -> . Neg Condition LogicSymb Conditions
+    (10) Conditions -> . Neg Condition
+    (13) Neg -> . NOT
+    (14) Neg -> .
+
+    NOT             shift and go to state 32
+    Nint            reduce using rule 14 (Neg -> .)
+    VAR             reduce using rule 14 (Neg -> .)
+    (               reduce using rule 14 (Neg -> .)
+
+    Conditions                     shift and go to state 30
+    Neg                            shift and go to state 31
+
+state 21
+
+    (34) Nature -> ( Expression . )
+    (27) Expression -> Expression . + Vals
+    (28) Expression -> Expression . - Vals
+
+    )               shift and go to state 33
+    +               shift and go to state 16
+    -               shift and go to state 17
+
+
+state 22
+
+    (33) Nature -> VAR .
+
+    *               reduce using rule 33 (Nature -> VAR .)
+    /               reduce using rule 33 (Nature -> VAR .)
+    )               reduce using rule 33 (Nature -> VAR .)
+    +               reduce using rule 33 (Nature -> VAR .)
+    -               reduce using rule 33 (Nature -> VAR .)
+    INT             reduce using rule 33 (Nature -> VAR .)
+    VAR             reduce using rule 33 (Nature -> VAR .)
+    IF              reduce using rule 33 (Nature -> VAR .)
+    WHILE           reduce using rule 33 (Nature -> VAR .)
+    Nint            reduce using rule 33 (Nature -> VAR .)
+    (               reduce using rule 33 (Nature -> VAR .)
+    $end            reduce using rule 33 (Nature -> VAR .)
+    FC              reduce using rule 33 (Nature -> VAR .)
+    GoE             reduce using rule 33 (Nature -> VAR .)
+    LoE             reduce using rule 33 (Nature -> VAR .)
+    Lower           reduce using rule 33 (Nature -> VAR .)
+    Greater         reduce using rule 33 (Nature -> VAR .)
+    Equal           reduce using rule 33 (Nature -> VAR .)
+    Diff            reduce using rule 33 (Nature -> VAR .)
+    OR              reduce using rule 33 (Nature -> VAR .)
+    AND             reduce using rule 33 (Nature -> VAR .)
+
+
+state 23
+
+    (30) Vals -> Vals * . Nature
+    (32) Nature -> . Nint
+    (33) Nature -> . VAR
+    (34) Nature -> . ( Expression )
+
+    Nint            shift and go to state 14
+    VAR             shift and go to state 22
+    (               shift and go to state 10
+
+    Nature                         shift and go to state 34
+
+state 24
+
+    (31) Vals -> Vals / . Nature
+    (32) Nature -> . Nint
+    (33) Nature -> . VAR
+    (34) Nature -> . ( Expression )
+
+    Nint            shift and go to state 14
+    VAR             shift and go to state 22
+    (               shift and go to state 10
+
+    Nature                         shift and go to state 35
+
+state 25
+
+    (23) Cycle -> WHILE ( . Conditions ) AC Comands FC
+    (9) Conditions -> . Neg Condition LogicSymb Conditions
+    (10) Conditions -> . Neg Condition
+    (13) Neg -> . NOT
+    (14) Neg -> .
+
+    NOT             shift and go to state 32
+    Nint            reduce using rule 14 (Neg -> .)
+    VAR             reduce using rule 14 (Neg -> .)
+    (               reduce using rule 14 (Neg -> .)
+
+    Conditions                     shift and go to state 36
+    Neg                            shift and go to state 31
+
+state 26
+
+    (27) Expression -> Expression + Vals .
+    (30) Vals -> Vals . * Nature
+    (31) Vals -> Vals . / Nature
+
+    +               reduce using rule 27 (Expression -> Expression + Vals .)
+    -               reduce using rule 27 (Expression -> Expression + Vals .)
+    INT             reduce using rule 27 (Expression -> Expression + Vals .)
+    VAR             reduce using rule 27 (Expression -> Expression + Vals .)
+    IF              reduce using rule 27 (Expression -> Expression + Vals .)
+    WHILE           reduce using rule 27 (Expression -> Expression + Vals .)
+    Nint            reduce using rule 27 (Expression -> Expression + Vals .)
+    (               reduce using rule 27 (Expression -> Expression + Vals .)
+    $end            reduce using rule 27 (Expression -> Expression + Vals .)
+    FC              reduce using rule 27 (Expression -> Expression + Vals .)
+    )               reduce using rule 27 (Expression -> Expression + Vals .)
+    GoE             reduce using rule 27 (Expression -> Expression + Vals .)
+    LoE             reduce using rule 27 (Expression -> Expression + Vals .)
+    Lower           reduce using rule 27 (Expression -> Expression + Vals .)
+    Greater         reduce using rule 27 (Expression -> Expression + Vals .)
+    Equal           reduce using rule 27 (Expression -> Expression + Vals .)
+    Diff            reduce using rule 27 (Expression -> Expression + Vals .)
+    OR              reduce using rule 27 (Expression -> Expression + Vals .)
+    AND             reduce using rule 27 (Expression -> Expression + Vals .)
+    *               shift and go to state 23
+    /               shift and go to state 24
+
+
+state 27
+
+    (28) Expression -> Expression - Vals .
+    (30) Vals -> Vals . * Nature
+    (31) Vals -> Vals . / Nature
+
+    +               reduce using rule 28 (Expression -> Expression - Vals .)
+    -               reduce using rule 28 (Expression -> Expression - Vals .)
+    INT             reduce using rule 28 (Expression -> Expression - Vals .)
+    VAR             reduce using rule 28 (Expression -> Expression - Vals .)
+    IF              reduce using rule 28 (Expression -> Expression - Vals .)
+    WHILE           reduce using rule 28 (Expression -> Expression - Vals .)
+    Nint            reduce using rule 28 (Expression -> Expression - Vals .)
+    (               reduce using rule 28 (Expression -> Expression - Vals .)
+    $end            reduce using rule 28 (Expression -> Expression - Vals .)
+    FC              reduce using rule 28 (Expression -> Expression - Vals .)
+    )               reduce using rule 28 (Expression -> Expression - Vals .)
+    GoE             reduce using rule 28 (Expression -> Expression - Vals .)
+    LoE             reduce using rule 28 (Expression -> Expression - Vals .)
+    Lower           reduce using rule 28 (Expression -> Expression - Vals .)
+    Greater         reduce using rule 28 (Expression -> Expression - Vals .)
+    Equal           reduce using rule 28 (Expression -> Expression - Vals .)
+    Diff            reduce using rule 28 (Expression -> Expression - Vals .)
+    OR              reduce using rule 28 (Expression -> Expression - Vals .)
+    AND             reduce using rule 28 (Expression -> Expression - Vals .)
+    *               shift and go to state 23
+    /               shift and go to state 24
+
+
+state 28
+
+    (24) Atribuition -> INT VAR IGUAL . Expression
+    (26) Expression -> . Vals
+    (27) Expression -> . Expression + Vals
+    (28) Expression -> . Expression - Vals
+    (29) Vals -> . Nature
+    (30) Vals -> . Vals * Nature
+    (31) Vals -> . Vals / Nature
+    (32) Nature -> . Nint
+    (33) Nature -> . VAR
+    (34) Nature -> . ( Expression )
+
+    Nint            shift and go to state 14
+    VAR             shift and go to state 22
+    (               shift and go to state 10
+
+    Expression                     shift and go to state 37
+    Vals                           shift and go to state 11
+    Nature                         shift and go to state 13
+
+state 29
+
+    (25) Atribuition -> VAR IGUAL Expression .
+    (27) Expression -> Expression . + Vals
+    (28) Expression -> Expression . - Vals
+
+    INT             reduce using rule 25 (Atribuition -> VAR IGUAL Expression .)
+    VAR             reduce using rule 25 (Atribuition -> VAR IGUAL Expression .)
+    IF              reduce using rule 25 (Atribuition -> VAR IGUAL Expression .)
+    WHILE           reduce using rule 25 (Atribuition -> VAR IGUAL Expression .)
+    Nint            reduce using rule 25 (Atribuition -> VAR IGUAL Expression .)
+    (               reduce using rule 25 (Atribuition -> VAR IGUAL Expression .)
+    $end            reduce using rule 25 (Atribuition -> VAR IGUAL Expression .)
+    FC              reduce using rule 25 (Atribuition -> VAR IGUAL Expression .)
+    +               shift and go to state 16
+    -               shift and go to state 17
+
+
+state 30
+
+    (7) Conditional -> IF ( Conditions . ) AC Comands FC ELSE AC Comands FC
+    (8) Conditional -> IF ( Conditions . ) AC Comands FC
+
+    )               shift and go to state 38
+
+
+state 31
+
+    (9) Conditions -> Neg . Condition LogicSymb Conditions
+    (10) Conditions -> Neg . Condition
+    (11) Condition -> . Expression OpRel Expression
+    (12) Condition -> . Expression
+    (26) Expression -> . Vals
+    (27) Expression -> . Expression + Vals
+    (28) Expression -> . Expression - Vals
+    (29) Vals -> . Nature
+    (30) Vals -> . Vals * Nature
+    (31) Vals -> . Vals / Nature
+    (32) Nature -> . Nint
+    (33) Nature -> . VAR
+    (34) Nature -> . ( Expression )
+
+    Nint            shift and go to state 14
+    VAR             shift and go to state 22
+    (               shift and go to state 10
+
+    Condition                      shift and go to state 39
+    Expression                     shift and go to state 40
+    Vals                           shift and go to state 11
+    Nature                         shift and go to state 13
+
+state 32
+
+    (13) Neg -> NOT .
+
+    Nint            reduce using rule 13 (Neg -> NOT .)
+    VAR             reduce using rule 13 (Neg -> NOT .)
+    (               reduce using rule 13 (Neg -> NOT .)
+
+
+state 33
+
+    (34) Nature -> ( Expression ) .
+
+    *               reduce using rule 34 (Nature -> ( Expression ) .)
+    /               reduce using rule 34 (Nature -> ( Expression ) .)
+    +               reduce using rule 34 (Nature -> ( Expression ) .)
+    -               reduce using rule 34 (Nature -> ( Expression ) .)
+    INT             reduce using rule 34 (Nature -> ( Expression ) .)
+    VAR             reduce using rule 34 (Nature -> ( Expression ) .)
+    IF              reduce using rule 34 (Nature -> ( Expression ) .)
+    WHILE           reduce using rule 34 (Nature -> ( Expression ) .)
+    Nint            reduce using rule 34 (Nature -> ( Expression ) .)
+    (               reduce using rule 34 (Nature -> ( Expression ) .)
+    $end            reduce using rule 34 (Nature -> ( Expression ) .)
+    FC              reduce using rule 34 (Nature -> ( Expression ) .)
+    )               reduce using rule 34 (Nature -> ( Expression ) .)
+    GoE             reduce using rule 34 (Nature -> ( Expression ) .)
+    LoE             reduce using rule 34 (Nature -> ( Expression ) .)
+    Lower           reduce using rule 34 (Nature -> ( Expression ) .)
+    Greater         reduce using rule 34 (Nature -> ( Expression ) .)
+    Equal           reduce using rule 34 (Nature -> ( Expression ) .)
+    Diff            reduce using rule 34 (Nature -> ( Expression ) .)
+    OR              reduce using rule 34 (Nature -> ( Expression ) .)
+    AND             reduce using rule 34 (Nature -> ( Expression ) .)
+
+
+state 34
+
+    (30) Vals -> Vals * Nature .
+
+    *               reduce using rule 30 (Vals -> Vals * Nature .)
+    /               reduce using rule 30 (Vals -> Vals * Nature .)
+    +               reduce using rule 30 (Vals -> Vals * Nature .)
+    -               reduce using rule 30 (Vals -> Vals * Nature .)
+    INT             reduce using rule 30 (Vals -> Vals * Nature .)
+    VAR             reduce using rule 30 (Vals -> Vals * Nature .)
+    IF              reduce using rule 30 (Vals -> Vals * Nature .)
+    WHILE           reduce using rule 30 (Vals -> Vals * Nature .)
+    Nint            reduce using rule 30 (Vals -> Vals * Nature .)
+    (               reduce using rule 30 (Vals -> Vals * Nature .)
+    $end            reduce using rule 30 (Vals -> Vals * Nature .)
+    FC              reduce using rule 30 (Vals -> Vals * Nature .)
+    )               reduce using rule 30 (Vals -> Vals * Nature .)
+    GoE             reduce using rule 30 (Vals -> Vals * Nature .)
+    LoE             reduce using rule 30 (Vals -> Vals * Nature .)
+    Lower           reduce using rule 30 (Vals -> Vals * Nature .)
+    Greater         reduce using rule 30 (Vals -> Vals * Nature .)
+    Equal           reduce using rule 30 (Vals -> Vals * Nature .)
+    Diff            reduce using rule 30 (Vals -> Vals * Nature .)
+    OR              reduce using rule 30 (Vals -> Vals * Nature .)
+    AND             reduce using rule 30 (Vals -> Vals * Nature .)
+
+
+state 35
+
+    (31) Vals -> Vals / Nature .
+
+    *               reduce using rule 31 (Vals -> Vals / Nature .)
+    /               reduce using rule 31 (Vals -> Vals / Nature .)
+    +               reduce using rule 31 (Vals -> Vals / Nature .)
+    -               reduce using rule 31 (Vals -> Vals / Nature .)
+    INT             reduce using rule 31 (Vals -> Vals / Nature .)
+    VAR             reduce using rule 31 (Vals -> Vals / Nature .)
+    IF              reduce using rule 31 (Vals -> Vals / Nature .)
+    WHILE           reduce using rule 31 (Vals -> Vals / Nature .)
+    Nint            reduce using rule 31 (Vals -> Vals / Nature .)
+    (               reduce using rule 31 (Vals -> Vals / Nature .)
+    $end            reduce using rule 31 (Vals -> Vals / Nature .)
+    FC              reduce using rule 31 (Vals -> Vals / Nature .)
+    )               reduce using rule 31 (Vals -> Vals / Nature .)
+    GoE             reduce using rule 31 (Vals -> Vals / Nature .)
+    LoE             reduce using rule 31 (Vals -> Vals / Nature .)
+    Lower           reduce using rule 31 (Vals -> Vals / Nature .)
+    Greater         reduce using rule 31 (Vals -> Vals / Nature .)
+    Equal           reduce using rule 31 (Vals -> Vals / Nature .)
+    Diff            reduce using rule 31 (Vals -> Vals / Nature .)
+    OR              reduce using rule 31 (Vals -> Vals / Nature .)
+    AND             reduce using rule 31 (Vals -> Vals / Nature .)
+
+
+state 36
+
+    (23) Cycle -> WHILE ( Conditions . ) AC Comands FC
+
+    )               shift and go to state 41
+
+
+state 37
+
+    (24) Atribuition -> INT VAR IGUAL Expression .
+    (27) Expression -> Expression . + Vals
+    (28) Expression -> Expression . - Vals
+
+    INT             reduce using rule 24 (Atribuition -> INT VAR IGUAL Expression .)
+    VAR             reduce using rule 24 (Atribuition -> INT VAR IGUAL Expression .)
+    IF              reduce using rule 24 (Atribuition -> INT VAR IGUAL Expression .)
+    WHILE           reduce using rule 24 (Atribuition -> INT VAR IGUAL Expression .)
+    Nint            reduce using rule 24 (Atribuition -> INT VAR IGUAL Expression .)
+    (               reduce using rule 24 (Atribuition -> INT VAR IGUAL Expression .)
+    $end            reduce using rule 24 (Atribuition -> INT VAR IGUAL Expression .)
+    FC              reduce using rule 24 (Atribuition -> INT VAR IGUAL Expression .)
+    +               shift and go to state 16
+    -               shift and go to state 17
+
+
+state 38
+
+    (7) Conditional -> IF ( Conditions ) . AC Comands FC ELSE AC Comands FC
+    (8) Conditional -> IF ( Conditions ) . AC Comands FC
+
+    AC              shift and go to state 42
+
+
+state 39
+
+    (9) Conditions -> Neg Condition . LogicSymb Conditions
+    (10) Conditions -> Neg Condition .
+    (15) LogicSymb -> . OR
+    (16) LogicSymb -> . AND
+
+    )               reduce using rule 10 (Conditions -> Neg Condition .)
+    OR              shift and go to state 44
+    AND             shift and go to state 45
+
+    LogicSymb                      shift and go to state 43
+
+state 40
+
+    (11) Condition -> Expression . OpRel Expression
+    (12) Condition -> Expression .
+    (27) Expression -> Expression . + Vals
+    (28) Expression -> Expression . - Vals
+    (17) OpRel -> . GoE
+    (18) OpRel -> . LoE
+    (19) OpRel -> . Lower
+    (20) OpRel -> . Greater
+    (21) OpRel -> . Equal
+    (22) OpRel -> . Diff
+
+    OR              reduce using rule 12 (Condition -> Expression .)
+    AND             reduce using rule 12 (Condition -> Expression .)
+    )               reduce using rule 12 (Condition -> Expression .)
+    +               shift and go to state 16
+    -               shift and go to state 17
+    GoE             shift and go to state 47
+    LoE             shift and go to state 48
+    Lower           shift and go to state 49
+    Greater         shift and go to state 50
+    Equal           shift and go to state 51
+    Diff            shift and go to state 52
+
+    OpRel                          shift and go to state 46
+
+state 41
+
+    (23) Cycle -> WHILE ( Conditions ) . AC Comands FC
+
+    AC              shift and go to state 53
+
+
+state 42
+
+    (7) Conditional -> IF ( Conditions ) AC . Comands FC ELSE AC Comands FC
+    (8) Conditional -> IF ( Conditions ) AC . Comands FC
+    (1) Comands -> . Comand Comands
+    (2) Comands -> . Comand
+    (3) Comand -> . Atribuition
+    (4) Comand -> . Conditional
+    (5) Comand -> . Expression
+    (6) Comand -> . Cycle
+    (24) Atribuition -> . INT VAR IGUAL Expression
+    (25) Atribuition -> . VAR IGUAL Expression
+    (7) Conditional -> . IF ( Conditions ) AC Comands FC ELSE AC Comands FC
+    (8) Conditional -> . IF ( Conditions ) AC Comands FC
+    (26) Expression -> . Vals
+    (27) Expression -> . Expression + Vals
+    (28) Expression -> . Expression - Vals
+    (23) Cycle -> . WHILE ( Conditions ) AC Comands FC
+    (29) Vals -> . Nature
+    (30) Vals -> . Vals * Nature
+    (31) Vals -> . Vals / Nature
+    (32) Nature -> . Nint
+    (33) Nature -> . VAR
+    (34) Nature -> . ( Expression )
+
+    INT             shift and go to state 7
+    VAR             shift and go to state 8
+    IF              shift and go to state 9
+    WHILE           shift and go to state 12
+    Nint            shift and go to state 14
+    (               shift and go to state 10
+
+    Comands                        shift and go to state 54
+    Comand                         shift and go to state 2
+    Atribuition                    shift and go to state 3
+    Conditional                    shift and go to state 4
+    Expression                     shift and go to state 5
+    Cycle                          shift and go to state 6
+    Vals                           shift and go to state 11
+    Nature                         shift and go to state 13
+
+state 43
+
+    (9) Conditions -> Neg Condition LogicSymb . Conditions
+    (9) Conditions -> . Neg Condition LogicSymb Conditions
+    (10) Conditions -> . Neg Condition
+    (13) Neg -> . NOT
+    (14) Neg -> .
+
+    NOT             shift and go to state 32
+    Nint            reduce using rule 14 (Neg -> .)
+    VAR             reduce using rule 14 (Neg -> .)
+    (               reduce using rule 14 (Neg -> .)
+
+    Neg                            shift and go to state 31
+    Conditions                     shift and go to state 55
+
+state 44
+
+    (15) LogicSymb -> OR .
+
+    NOT             reduce using rule 15 (LogicSymb -> OR .)
+    Nint            reduce using rule 15 (LogicSymb -> OR .)
+    VAR             reduce using rule 15 (LogicSymb -> OR .)
+    (               reduce using rule 15 (LogicSymb -> OR .)
+
+
+state 45
+
+    (16) LogicSymb -> AND .
+
+    NOT             reduce using rule 16 (LogicSymb -> AND .)
+    Nint            reduce using rule 16 (LogicSymb -> AND .)
+    VAR             reduce using rule 16 (LogicSymb -> AND .)
+    (               reduce using rule 16 (LogicSymb -> AND .)
+
+
+state 46
+
+    (11) Condition -> Expression OpRel . Expression
+    (26) Expression -> . Vals
+    (27) Expression -> . Expression + Vals
+    (28) Expression -> . Expression - Vals
+    (29) Vals -> . Nature
+    (30) Vals -> . Vals * Nature
+    (31) Vals -> . Vals / Nature
+    (32) Nature -> . Nint
+    (33) Nature -> . VAR
+    (34) Nature -> . ( Expression )
+
+    Nint            shift and go to state 14
+    VAR             shift and go to state 22
+    (               shift and go to state 10
+
+    Expression                     shift and go to state 56
+    Vals                           shift and go to state 11
+    Nature                         shift and go to state 13
+
+state 47
+
+    (17) OpRel -> GoE .
+
+    Nint            reduce using rule 17 (OpRel -> GoE .)
+    VAR             reduce using rule 17 (OpRel -> GoE .)
+    (               reduce using rule 17 (OpRel -> GoE .)
+
+
+state 48
+
+    (18) OpRel -> LoE .
+
+    Nint            reduce using rule 18 (OpRel -> LoE .)
+    VAR             reduce using rule 18 (OpRel -> LoE .)
+    (               reduce using rule 18 (OpRel -> LoE .)
+
+
+state 49
+
+    (19) OpRel -> Lower .
+
+    Nint            reduce using rule 19 (OpRel -> Lower .)
+    VAR             reduce using rule 19 (OpRel -> Lower .)
+    (               reduce using rule 19 (OpRel -> Lower .)
+
+
+state 50
+
+    (20) OpRel -> Greater .
+
+    Nint            reduce using rule 20 (OpRel -> Greater .)
+    VAR             reduce using rule 20 (OpRel -> Greater .)
+    (               reduce using rule 20 (OpRel -> Greater .)
+
+
+state 51
+
+    (21) OpRel -> Equal .
+
+    Nint            reduce using rule 21 (OpRel -> Equal .)
+    VAR             reduce using rule 21 (OpRel -> Equal .)
+    (               reduce using rule 21 (OpRel -> Equal .)
+
+
+state 52
+
+    (22) OpRel -> Diff .
+
+    Nint            reduce using rule 22 (OpRel -> Diff .)
+    VAR             reduce using rule 22 (OpRel -> Diff .)
+    (               reduce using rule 22 (OpRel -> Diff .)
+
+
+state 53
+
+    (23) Cycle -> WHILE ( Conditions ) AC . Comands FC
+    (1) Comands -> . Comand Comands
+    (2) Comands -> . Comand
+    (3) Comand -> . Atribuition
+    (4) Comand -> . Conditional
+    (5) Comand -> . Expression
+    (6) Comand -> . Cycle
+    (24) Atribuition -> . INT VAR IGUAL Expression
+    (25) Atribuition -> . VAR IGUAL Expression
+    (7) Conditional -> . IF ( Conditions ) AC Comands FC ELSE AC Comands FC
+    (8) Conditional -> . IF ( Conditions ) AC Comands FC
+    (26) Expression -> . Vals
+    (27) Expression -> . Expression + Vals
+    (28) Expression -> . Expression - Vals
+    (23) Cycle -> . WHILE ( Conditions ) AC Comands FC
+    (29) Vals -> . Nature
+    (30) Vals -> . Vals * Nature
+    (31) Vals -> . Vals / Nature
+    (32) Nature -> . Nint
+    (33) Nature -> . VAR
+    (34) Nature -> . ( Expression )
+
+    INT             shift and go to state 7
+    VAR             shift and go to state 8
+    IF              shift and go to state 9
+    WHILE           shift and go to state 12
+    Nint            shift and go to state 14
+    (               shift and go to state 10
+
+    Comands                        shift and go to state 57
+    Comand                         shift and go to state 2
+    Atribuition                    shift and go to state 3
+    Conditional                    shift and go to state 4
+    Expression                     shift and go to state 5
+    Cycle                          shift and go to state 6
+    Vals                           shift and go to state 11
+    Nature                         shift and go to state 13
+
+state 54
+
+    (7) Conditional -> IF ( Conditions ) AC Comands . FC ELSE AC Comands FC
+    (8) Conditional -> IF ( Conditions ) AC Comands . FC
+
+    FC              shift and go to state 58
+
+
+state 55
+
+    (9) Conditions -> Neg Condition LogicSymb Conditions .
+
+    )               reduce using rule 9 (Conditions -> Neg Condition LogicSymb Conditions .)
+
+
+state 56
+
+    (11) Condition -> Expression OpRel Expression .
+    (27) Expression -> Expression . + Vals
+    (28) Expression -> Expression . - Vals
+
+    OR              reduce using rule 11 (Condition -> Expression OpRel Expression .)
+    AND             reduce using rule 11 (Condition -> Expression OpRel Expression .)
+    )               reduce using rule 11 (Condition -> Expression OpRel Expression .)
+    +               shift and go to state 16
+    -               shift and go to state 17
+
+
+state 57
+
+    (23) Cycle -> WHILE ( Conditions ) AC Comands . FC
+
+    FC              shift and go to state 59
+
+
+state 58
+
+    (7) Conditional -> IF ( Conditions ) AC Comands FC . ELSE AC Comands FC
+    (8) Conditional -> IF ( Conditions ) AC Comands FC .
+
+    ELSE            shift and go to state 60
+    INT             reduce using rule 8 (Conditional -> IF ( Conditions ) AC Comands FC .)
+    VAR             reduce using rule 8 (Conditional -> IF ( Conditions ) AC Comands FC .)
+    IF              reduce using rule 8 (Conditional -> IF ( Conditions ) AC Comands FC .)
+    WHILE           reduce using rule 8 (Conditional -> IF ( Conditions ) AC Comands FC .)
+    Nint            reduce using rule 8 (Conditional -> IF ( Conditions ) AC Comands FC .)
+    (               reduce using rule 8 (Conditional -> IF ( Conditions ) AC Comands FC .)
+    $end            reduce using rule 8 (Conditional -> IF ( Conditions ) AC Comands FC .)
+    FC              reduce using rule 8 (Conditional -> IF ( Conditions ) AC Comands FC .)
+
+
+state 59
+
+    (23) Cycle -> WHILE ( Conditions ) AC Comands FC .
+
+    INT             reduce using rule 23 (Cycle -> WHILE ( Conditions ) AC Comands FC .)
+    VAR             reduce using rule 23 (Cycle -> WHILE ( Conditions ) AC Comands FC .)
+    IF              reduce using rule 23 (Cycle -> WHILE ( Conditions ) AC Comands FC .)
+    WHILE           reduce using rule 23 (Cycle -> WHILE ( Conditions ) AC Comands FC .)
+    Nint            reduce using rule 23 (Cycle -> WHILE ( Conditions ) AC Comands FC .)
+    (               reduce using rule 23 (Cycle -> WHILE ( Conditions ) AC Comands FC .)
+    $end            reduce using rule 23 (Cycle -> WHILE ( Conditions ) AC Comands FC .)
+    FC              reduce using rule 23 (Cycle -> WHILE ( Conditions ) AC Comands FC .)
+
+
+state 60
+
+    (7) Conditional -> IF ( Conditions ) AC Comands FC ELSE . AC Comands FC
+
+    AC              shift and go to state 61
+
+
+state 61
+
+    (7) Conditional -> IF ( Conditions ) AC Comands FC ELSE AC . Comands FC
+    (1) Comands -> . Comand Comands
+    (2) Comands -> . Comand
+    (3) Comand -> . Atribuition
+    (4) Comand -> . Conditional
+    (5) Comand -> . Expression
+    (6) Comand -> . Cycle
+    (24) Atribuition -> . INT VAR IGUAL Expression
+    (25) Atribuition -> . VAR IGUAL Expression
+    (7) Conditional -> . IF ( Conditions ) AC Comands FC ELSE AC Comands FC
+    (8) Conditional -> . IF ( Conditions ) AC Comands FC
+    (26) Expression -> . Vals
+    (27) Expression -> . Expression + Vals
+    (28) Expression -> . Expression - Vals
+    (23) Cycle -> . WHILE ( Conditions ) AC Comands FC
+    (29) Vals -> . Nature
+    (30) Vals -> . Vals * Nature
+    (31) Vals -> . Vals / Nature
+    (32) Nature -> . Nint
+    (33) Nature -> . VAR
+    (34) Nature -> . ( Expression )
+
+    INT             shift and go to state 7
+    VAR             shift and go to state 8
+    IF              shift and go to state 9
+    WHILE           shift and go to state 12
+    Nint            shift and go to state 14
+    (               shift and go to state 10
+
+    Comands                        shift and go to state 62
+    Comand                         shift and go to state 2
+    Atribuition                    shift and go to state 3
+    Conditional                    shift and go to state 4
+    Expression                     shift and go to state 5
+    Cycle                          shift and go to state 6
+    Vals                           shift and go to state 11
+    Nature                         shift and go to state 13
+
+state 62
+
+    (7) Conditional -> IF ( Conditions ) AC Comands FC ELSE AC Comands . FC
+
+    FC              shift and go to state 63
+
+
+state 63
+
+    (7) Conditional -> IF ( Conditions ) AC Comands FC ELSE AC Comands FC .
+
+    INT             reduce using rule 7 (Conditional -> IF ( Conditions ) AC Comands FC ELSE AC Comands FC .)
+    VAR             reduce using rule 7 (Conditional -> IF ( Conditions ) AC Comands FC ELSE AC Comands FC .)
+    IF              reduce using rule 7 (Conditional -> IF ( Conditions ) AC Comands FC ELSE AC Comands FC .)
+    WHILE           reduce using rule 7 (Conditional -> IF ( Conditions ) AC Comands FC ELSE AC Comands FC .)
+    Nint            reduce using rule 7 (Conditional -> IF ( Conditions ) AC Comands FC ELSE AC Comands FC .)
+    (               reduce using rule 7 (Conditional -> IF ( Conditions ) AC Comands FC ELSE AC Comands FC .)
+    $end            reduce using rule 7 (Conditional -> IF ( Conditions ) AC Comands FC ELSE AC Comands FC .)
+    FC              reduce using rule 7 (Conditional -> IF ( Conditions ) AC Comands FC ELSE AC Comands FC .)
 

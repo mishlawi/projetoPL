@@ -1,48 +1,78 @@
 Tue.17:50.05.2021
 mishlawi
+
+
+ficheiros .y e .l
+
+
 ------------------------------------------------
 Description:
 Definir uma Linguagem de Programação Imperativa que permita declarar:
-* Variáveis dos tipos Inteiro
+* Variáveis dos tipos Inteiro (c/ aritmetica relacional e logica)
 * Fazer as Operações de Atribuição de Expressões a Variáveis
 declaradas
-* Leitura (de inteiros ou reais)
-* Escrita (de inteiros, Reais, Booleanos ou Strings)
+* Leitura stdin (de inteiros)
+* Escrita stdout
 * Condições e Ciclos Repetir
 ---------------------------------------------------------------
 
+Programa -> Function
+          | Expression
+
+Function -> Header Instrucoes
 
 
-Comands : Comand Comands
+Header -> TIPO NAME '(' Argumento ')'
+          | TIPO NAME '(' ')'
+
+
+Argumento -> TIPO ARG ',' Argumento
+		   | TIPO ARG
+
+Instrucoes -> '{' Comands '}' 
+		
+
+Comands -> Comand Comands
         | Comand
 
+Comand -> Atribution
+       | Conditional
+       | Cycle
 
 Conditional -> if '(' Conditions ')' '{' Comands '}' else '{'Comands '}'
              | if '(' Conditions ')' '{' Comands '}'
 
+##if ((b>c) && (d<g) || h>i)
+
+
 Conditions -> Neg '(' Condition ')' LogicSymb Conditions
             | Neg '(' Condition ')'   # !(a>b)|| a
+
 
 Neg -> NOT          #  !
      |  $ 
 
+
 LogicSymb -> OR     # ||
            | AND    # &&
 
-Condition -> Expression LogicVar Expression
+
+Condition -> Expression OpRel Expression
 		   | Expression
 
-LogicVar -> GoE     # >=
-		  | LoE     # <= 
-		  | Lower   # <
-		  | Greater # >
-		  | Equal   # ==
-		  | Diff    # != 
+
+OpRel -> GoE     # >=
+	   | LoE     # <= 
+	   | Lower   # <
+	   | Greater # >
+	   | Equal   # ==
+	   | Diff    # != 
 
 
 Expression -> Vals
             | Expression '+' Vals
             | Expression '-' Vals
+
 
 Vals -> Nature
       | Vals '*' Nature
@@ -51,3 +81,6 @@ Vals -> Nature
 
 Nature -> Nint
         | '(' Expression')'
+
+
+TIpo -> INT
