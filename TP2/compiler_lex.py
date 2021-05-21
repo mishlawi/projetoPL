@@ -6,16 +6,29 @@ import ply.lex as lex
 
 reserved = {'if': 'IF', 'else':'ELSE','int':'INT','==':'Equal','!=':'Diff', 'while':'WHILE'}
 
-tokens = ['AC','FC','OR','AND',
+tokens = ['AP','FP','AC','FC',
+'ADD','MUL', 'DIV', 'SUB', 'MOD',
+'OR','AND',
 'GoE','LoE','Lower','Greater',
 'NOT','IGUAL','Nint','VAR'] + list(reserved.values())
 
-literals = ['{','}','(',')','*','/','+','-']
+t_AP = r'\('
 
+t_FP = r'\)'
 
 t_AC = r'\{'
 
 t_FC = r'\}'
+
+t_ADD = r'\+'
+
+t_MUL = r'\*'
+
+t_DIV = r'\/'
+
+t_SUB = r'\-'
+
+t_MOD = r'\%'
 
 t_OR = r'\|\|'
 
@@ -39,8 +52,6 @@ def t_Nint(t):
 	t.value = int(t.value)
 	return t
 
-
-
 def t_VAR(t):
 	r'[a-zA-Z]+'
 	#t.type = reserved.get(t.value,'VAR')
@@ -61,5 +72,10 @@ def t_error(t):
 	return t
 
 
-
 lexer = lex.lex()
+
+#import sys
+#for linha in sys.stdin:
+#    lexer.input(linha)
+#    for tok in lexer:
+#        print(tok) 

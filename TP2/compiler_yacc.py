@@ -1,22 +1,27 @@
 import ply.yacc as yacc
 import sys
 from compiler_lex import tokens
-from compiler_lex import literals
 
 
 
-
+#int gp 
 ##########################################################COMANDOS
-
+"""
 #Comands -> Comand Comands
 #        | Comand
+def p_program(p):
+	"Program : Comands"
+	p[0] = p[1]
+
 
 def p_comands(p):
 	"Comands : Comand Comands"
+	p[0] = p[1] + p[2]
 	print("2+ comandos")
 
 def p_comands_simple(p):
 	"Comands : Comand"
+	p[0] = p[1]
 	print("1 comando")
 
 #Comand -> Atribution
@@ -25,19 +30,24 @@ def p_comands_simple(p):
 
 def p_comand_atb (p):
 	"Comand : Atribuition"
-	print(f"found att")
+	p[0] = p[1]
+	#print("found att")
 
 def p_comand_cond (p):
 	"Comand : Conditional"
-	print("found Conditional")
+	p[0] = p[1]
+	#print("found Conditional")
 
 def p_comand_Exp (p):
 	"Comand : Expression"
-	print("found expression")
+	p[0] = p[1]
+	print("found")
+	#print("found expression")
 
 def p_comand_cycle (p):
     "Comand : Cycle"
-    print("cycle found")
+    p[0] = p[1]
+    #print("cycle found")
 
 ############################################################CONDICIONAL
 
@@ -139,63 +149,98 @@ def p_atribuition(p):
 	print("atribuicao check")
 
 ############################################################EXPRESSAO
-#Expression -> Vals
-#            | Expression '+' Vals
-#            | Expression '-' Vals
+
+
+
+#Expression -> Values
+#            | Expression '+' Values
+#            | Expression '-' Values
+"""
+
+
 
 def p_expression_simple(p):
-	"Expression : Vals "
-
+	"Expression : Values "
+	p[0] = p[1]
+	
 def p_expression_plus(p):
-	"Expression : Expression '+' Vals "
-	print("add")
+	"Expression : Expression ADD Values "
+	p[0]= p[1] + p[3] + 'ADD\n'
+	print("P[0] DO ADD")
+	print(p[0])	
+	
 
 def p_expression_less(p):
-	"Expression : Expression '-' Vals "
-	print("sub")
+	"Expression : Expression SUB Values"
+	
+	p[0]= p[1]  + p[3]  + 'SUB\n'
 
-# Vals -> Nature
-#      | Vals '*' Nature
-#      | Vals '/' Nature
 
-def p_vals_simple(p):
-	"Vals : Nature"
+# Values -> Value
+#      | Values '*' Value
+#      | Values '/' Value
+#      | Values % Value
 
-def p_vals_1(p):
-	"Vals : Vals '*' Nature"
-	print("mul")
 
-def p_vals_2(p):
-	"Vals : Vals '/' Nature"
-	print("div")
+def p_Values_simple(p):
+	"Values : Value"
+	p[0] = p[1]
 
-# Nature -> Nint
+
+def p_Values_1(p):
+	"Values : Values MUL Value"
+	p[0] = p[1] + p[3] + 'MUL' + '\n'
+
+def p_Values_2(p):
+	"Values : Values DIV Value"
+	p[0] = p[1] + p[3]  + 'DIV' + '\n'
+
+def p_Values_3(p):
+	"Values : Values MOD Value"
+	p[0] = p[1]  + p[3] + 'MOD' + '\n'
+
+
+# Value -> Nint
 # 		 | VAR
 #        | '(' Expression')'
 
-def p_nature_int(p):
-	"Nature : Nint"
-	print("pushi", p[1])
-
-def p_nature_var(p):
-	"Nature : VAR"
-	print("pushi", p[1])
-
-def p_nature_complex(p):
-	"Nature : '(' Expression ')' "
-	print("entrou num parentisis")
+def p_Value_int(p):
+	"Value : Nint"
+	p[0] = "pushi " + str(p[1]) + '\n'
 
 
-def p_tipo(p):
-	"TIPO : INT"
+def p_Value_var(p):
+	"Value : VAR"
+	p[0] = "pushg "
+
+def p_Value_complex(p):
+	"Value : AP Expression FP "
+	p[0] = p[2]
+
+
+#def p_tipo(p):
+#	"TIPO : INT"
 
 
 def p_error(p):
     print("erro")
     print(p.type)
 
+
+
+
 parser = yacc.yacc() 
 fo = open("teste.txt").read()
 
 
 parser.parse(fo)
+
+file = open('kanye.txt',"w") 
+
+for linha in fo:
+    
+    result = parser.parse(linha)
+    
+    file.write(str(result) + '\n')
+   # print(result)
+    file.flush() 
