@@ -2,8 +2,6 @@
 import ply.lex as lex
 
 
-
-
 reserved = {'if': 'IF', 'else':'ELSE','int':'INT','==':'Equal','!=':'Diff', 'while':'WHILE'}
 
 tokens = ['AP','FP','AC','FC',
@@ -46,11 +44,7 @@ t_NOT = r'\!'
 
 t_IGUAL =r'\='
 
-
-def t_Nint(t):
-	r'\d+'
-	t.value = int(t.value)
-	return t
+t_Nint = r'\d+'
 
 def t_VAR(t):
 	r'[a-zA-Z]+'
@@ -64,7 +58,7 @@ def t_VAR(t):
 
 	return t
 
-t_ignore=' \t\n'
+t_ignore=' \t\n\r'
 
 
 def t_error(t):

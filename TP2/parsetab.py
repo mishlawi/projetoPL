@@ -6,7 +6,7 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'AC ADD AND AP DIV Diff ELSE Equal FC FP GoE Greater IF IGUAL INT LoE Lower MOD MUL NOT Nint OR SUB VAR WHILEExpression : Values Expression : Expression ADD Values Expression : Expression SUB ValuesValues : ValueValues : Values MUL ValueValues : Values DIV ValueValues : Values MOD ValueValue : NintValue : VARValue : AP Expression FP '
+_lr_signature = 'AC ADD AND AP DIV Diff ELSE Equal FC FP GoE Greater IF IGUAL INT LoE Lower MOD MUL NOT Nint OR SUB VAR WHILEExpression : Values Expression : Expression ADD ValuesExpression : Expression SUB ValuesValues : ValueValues : Values MUL ValueValues : Values DIV ValueValues : Values MOD ValueValue : NintValue : VARValue : AP Expression FP'
     
 _lr_action_items = {'Nint':([0,6,7,8,9,10,11,],[4,4,4,4,4,4,4,]),'VAR':([0,6,7,8,9,10,11,],[5,5,5,5,5,5,5,]),'AP':([0,6,7,8,9,10,11,],[6,6,6,6,6,6,6,]),'$end':([1,2,3,4,5,13,14,15,16,17,18,],[0,-1,-4,-8,-9,-2,-3,-5,-6,-7,-10,]),'ADD':([1,2,3,4,5,12,13,14,15,16,17,18,],[7,-1,-4,-8,-9,7,-2,-3,-5,-6,-7,-10,]),'SUB':([1,2,3,4,5,12,13,14,15,16,17,18,],[8,-1,-4,-8,-9,8,-2,-3,-5,-6,-7,-10,]),'FP':([2,3,4,5,12,13,14,15,16,17,18,],[-1,-4,-8,-9,18,-2,-3,-5,-6,-7,-10,]),'MUL':([2,3,4,5,13,14,15,16,17,18,],[9,-4,-8,-9,9,9,-5,-6,-7,-10,]),'DIV':([2,3,4,5,13,14,15,16,17,18,],[10,-4,-8,-9,10,10,-5,-6,-7,-10,]),'MOD':([2,3,4,5,13,14,15,16,17,18,],[11,-4,-8,-9,11,11,-5,-6,-7,-10,]),}
 
@@ -30,11 +30,11 @@ _lr_productions = [
   ('Expression -> Values','Expression',1,'p_expression_simple','compiler_yacc.py',163),
   ('Expression -> Expression ADD Values','Expression',3,'p_expression_plus','compiler_yacc.py',167),
   ('Expression -> Expression SUB Values','Expression',3,'p_expression_less','compiler_yacc.py',174),
-  ('Values -> Value','Values',1,'p_Values_simple','compiler_yacc.py',186),
-  ('Values -> Values MUL Value','Values',3,'p_Values_1','compiler_yacc.py',191),
-  ('Values -> Values DIV Value','Values',3,'p_Values_2','compiler_yacc.py',195),
-  ('Values -> Values MOD Value','Values',3,'p_Values_3','compiler_yacc.py',199),
-  ('Value -> Nint','Value',1,'p_Value_int','compiler_yacc.py',208),
-  ('Value -> VAR','Value',1,'p_Value_var','compiler_yacc.py',213),
-  ('Value -> AP Expression FP','Value',3,'p_Value_complex','compiler_yacc.py',217),
+  ('Values -> Value','Values',1,'p_Values_simple','compiler_yacc.py',185),
+  ('Values -> Values MUL Value','Values',3,'p_Values_1','compiler_yacc.py',190),
+  ('Values -> Values DIV Value','Values',3,'p_Values_2','compiler_yacc.py',194),
+  ('Values -> Values MOD Value','Values',3,'p_Values_3','compiler_yacc.py',198),
+  ('Value -> Nint','Value',1,'p_Value_int','compiler_yacc.py',207),
+  ('Value -> VAR','Value',1,'p_Value_var','compiler_yacc.py',212),
+  ('Value -> AP Expression FP','Value',3,'p_Value_complex','compiler_yacc.py',216),
 ]

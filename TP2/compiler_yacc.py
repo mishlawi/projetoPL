@@ -162,18 +162,18 @@ def p_atribuition(p):
 def p_expression_simple(p):
 	"Expression : Values "
 	p[0] = p[1]
-	
+
+
 def p_expression_plus(p):
-	"Expression : Expression ADD Values "
-	p[0]= p[1] + p[3] + 'ADD\n'
-	print("P[0] DO ADD")
-	print(p[0])	
+	"Expression : Expression ADD Values"
+	p[0] = p[1] + p[3] + 'ADD\n'
+#	print("P[0] DO ADD")
+	print(p[0])
 	
 
 def p_expression_less(p):
 	"Expression : Expression SUB Values"
-	
-	p[0]= p[1]  + p[3]  + 'SUB\n'
+	p[0] = p[1] + p[3] + 'SUB\n'
 
 
 # Values -> Value
@@ -193,11 +193,11 @@ def p_Values_1(p):
 
 def p_Values_2(p):
 	"Values : Values DIV Value"
-	p[0] = p[1] + p[3]  + 'DIV' + '\n'
+	p[0] = p[1] + p[3] + 'DIV' + '\n'
 
 def p_Values_3(p):
 	"Values : Values MOD Value"
-	p[0] = p[1]  + p[3] + 'MOD' + '\n'
+	p[0] = p[1] + p[3] + 'MOD' + '\n'
 
 
 # Value -> Nint
@@ -206,16 +206,17 @@ def p_Values_3(p):
 
 def p_Value_int(p):
 	"Value : Nint"
-	p[0] = "pushi " + str(p[1]) + '\n'
+	p[0] = "PUSHI " + p[1] + '\n'
 
 
 def p_Value_var(p):
 	"Value : VAR"
-	p[0] = "pushg "
+	p[0] = "PUSHG "
 
 def p_Value_complex(p):
-	"Value : AP Expression FP "
+	"Value : AP Expression FP"
 	p[0] = p[2]
+
 
 
 #def p_tipo(p):
@@ -224,7 +225,7 @@ def p_Value_complex(p):
 
 def p_error(p):
     print("erro")
-    print(p.type)
+    print(p)
 
 
 
@@ -233,14 +234,18 @@ parser = yacc.yacc()
 fo = open("teste.txt").read()
 
 
-parser.parse(fo)
+result = parser.parse(fo)
 
-file = open('kanye.txt',"w") 
+file = open('kanye.txt',"w")
 
-for linha in fo:
-    
-    result = parser.parse(linha)
-    
-    file.write(str(result) + '\n')
-   # print(result)
-    file.flush() 
+file.write(result)
+file.flush()
+
+# ESTE CICLO ESTAVA A ITERAR CARATER A CARATER DA STRING
+# O QUE ACONTECIA ERA QUE CHEGAVA AOS SINAIS E A GRAMÁTICA NÃO RECONHECE O SINAL POR SI SÓ
+# ASSIM DISPARAVA O ERRO E ACABAVA POR NÃO ESCREVER
+
+#for linha in fo:
+#	print(linha)
+#   result = parser.parse(linha)
+#	print(result)

@@ -1,11 +1,11 @@
-pushi 7
-
-None
-pushi 2
-
-None
-pushi 3
-
-None
-pushi 9
-
+PUSHI 7
+PUSHI 2
+PUSHI 3
+MUL
+SUB
+PUSHI 9
+PUSHI 1
+PUSHI 2
+ADD
+DIV
+ADD
