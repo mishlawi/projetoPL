@@ -14,7 +14,9 @@ declaradas
 * Leitura stdin (de inteiros)
 * Escrita stdout
 * Condições e Ciclos Repetir
+
 ---------------------------------------------------------------
+TOP-GENERIC
 
 Programa -> Function
           | Expression
@@ -39,6 +41,12 @@ Comand -> Atribution
        | Conditional
        | Cycle
 
+********************************************************************
+
+TIPO DE EXECUCOES
+
+
+++CONDICIONAIS
 Conditional -> if '(' Conditions ')' '{' Comands '}' else '{'Comands '}'
              | if '(' Conditions ')' '{' Comands '}'
 
@@ -51,7 +59,6 @@ Conditions -> Neg '(' Condition ')' LogicSymb Conditions
 
 Neg -> NOT          #  !
      |  $ 
-
 
 LogicSymb -> OR     # ||
            | AND    # &&
@@ -68,6 +75,15 @@ OpRel -> GoE     # >=
 	   | Equal   # ==
 	   | Diff    # != 
 
+++ATRIBUICOES
+
+Atribuicao -> TIPO Var '=' Exp
+
+++CICLO
+CYCLE : WHILE '(' Conditions ')' '{' Comands '}'
+
+**************************************************************************
+TRIVIALIDADE
 
 Expression -> Vals
             | Expression '+' Vals
@@ -79,8 +95,21 @@ Vals -> Nature
       | Vals '/' Nature
 
 
-Nature -> Nint
+****************************************************************************
+DEFINICOES ELEMENTARES
+
+
+Fator -> Nint
+		| VAR
         | '(' Expression')'
 
 
-TIpo -> INT
+Tipo -> INT
+
+IO -> INPUT
+   | OUTPUT
+
+
+OUTPUT -> PRINT Exp
+
+INPUT -> SCAN VAR

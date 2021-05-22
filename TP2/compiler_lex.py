@@ -2,13 +2,15 @@
 import ply.lex as lex
 
 
-reserved = {'if': 'IF', 'else':'ELSE','int':'INT','==':'Equal','!=':'Diff', 'while':'WHILE'}
+reserved = {'if': 'IF', 'else':'ELSE','int':'INT', 'while':'WHILE', 'print':'PRINT','scan':'SCAN'}
 
 tokens = ['AP','FP','AC','FC',
 'ADD','MUL', 'DIV', 'SUB', 'MOD',
 'OR','AND',
 'GoE','LoE','Lower','Greater',
-'NOT','IGUAL','Nint','VAR'] + list(reserved.values())
+'EQUAL','DIFF','NOT','IGUAL',
+'Nint','VAR',
+] + list(reserved.values())
 
 t_AP = r'\('
 
@@ -40,21 +42,20 @@ t_Lower = r'\<'
 
 t_Greater = r'\>'
 
+t_DIFF = r'\!\='
+
 t_NOT = r'\!'
 
-t_IGUAL =r'\='
+t_IGUAL = r'\=\='
+
+t_EQUAL = r'\='
 
 t_Nint = r'\d+'
 
+
 def t_VAR(t):
 	r'[a-zA-Z]+'
-	#t.type = reserved.get(t.value,'VAR')
-	if t.value == 'if':
-		t.type = 'IF'
-	elif t.value == 'else':
-		t.type = 'ELSE'
-	elif t.value == 'while':
-		t.type = 'WHILE'
+	t.type = reserved.get(t.value,'VAR')
 
 	return t
 
