@@ -1,3 +1,1 @@
-int conta
-int i = 2
-conta = 5 * i
+print 2-3*3+5

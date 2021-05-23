@@ -17,6 +17,8 @@ def p_program(p):
 
 def p_comands(p):
 	"Comands : Comand Comands"
+	print(p[1])
+	print(p[2])
 	p[0] = p[1] + p[2]
 
 def p_comands_simple(p):
@@ -35,18 +37,21 @@ def p_comand_atb (p):
 def p_comand_cond (p):
 	"Comand : Conditional"
 	p[0] = p[1]
-	#print("found Conditional")
+	
 
 def p_comand_Exp (p):
 	"Comand : Expression"
 	p[0] = p[1]
-	#print("found expression")
+	
 
 def p_comand_cycle (p):
     "Comand : Cycle"
     p[0] = p[1]
-    #print("cycle found")
 
+def p_comand_IO(p):
+	"Comand : IO"
+	p[0] = p[1]
+    
 ############################################################CONDICIONAL
 
 
@@ -54,8 +59,11 @@ def p_comand_cycle (p):
 #             | if '(' Conditions ')' '{' Comands '}'
 
 def p_conditional (p):
+	global sp
+	global stack
+
 	"Conditional : IF AP Conditions FP AC Comands FC ELSE AC Comands FC "
-	print("condicional completo")
+	#p[0] = p[3] + '\n' 
 
 
 def p_conditional_simple(p):
@@ -143,7 +151,8 @@ def p_cycle(p):
 
 
 stack = {}
-sp = 0
+sp = -1
+i = 0
 
 
 
@@ -152,15 +161,16 @@ def p_atribuition_first(p):
 	"Atribuition : INT VAR EQUAL Expression"
 	global stack
 	global sp
+	sp+=1
 	stack[p[2]] = (sp,p[1])
 	print(stack)
-	sp+=1
+	
 	p[0] =  p[4] +'\n'
 
 def p_atribuition_second(p):
 	"Atribuition :  VAR EQUAL Expression "
 	
-	p[0] = p[3] + '\n' + 'storeg ' + str(stack[p[1]][0])
+	p[0] = p[3] + '\n' + 'storeg ' + str(stack[p[1]][0]) +'\n'
 
 
 
@@ -168,9 +178,10 @@ def p_atribuition_simple(p):
 	"Atribuition : INT VAR"
 	global stack
 	global sp
+	sp+=1
 	stack[p[2]] = (sp,p[1])
 	print(stack)
-	sp+=1
+	
 	p[0] = 'PUSHI 0\n'
 
 ############################################################EXPRESSAO
@@ -235,10 +246,8 @@ def p_Value_int(p):
 
 
 
-def p_Value_var(p):
-	
+def p_Value_var(p):	
 	"Value : VAR"
-	print(p[1])
 	p[0] = "PUSHG " + str(stack[p[1]][0]) +'\n'
 
 def p_Value_complex(p):
@@ -246,20 +255,30 @@ def p_Value_complex(p):
 	p[0] = p[2]
 
 
-def p_IO(p):
-	'''
-	IO : INPUT
-	   | OUTPUT
-	'''
+def p_IO_INPUT(p):
+	"IO : INPUT"
+	p[0] = p[1]
+
+def p_IO_OUTPUT(p):
+	"IO : OUTPUT"
+	p[0] = p[1]
 
 def p_INPUT(p):
 	"INPUT : SCAN VAR"
 
-def p_OUTPUT(p):
-	"OUTPUT : PRINT Expression"
 
-def p_OUTPUT_Var(p):
+def p_OUTPUT_var(p):
 	"OUTPUT : PRINT VAR"
+	if (sp)==stack[p[2]][0]:
+		p[0] = "WRITEI \n"
+	else:
+		p[0] = "PUSHG " + str(stack[p[2]][0]) + '\n' + "WRITEI \n"
+
+def p_OUTPUT_Exp(p):
+	"OUTPUT : PRINT Expression"
+	p[0] = p[2] + "WRITEI \n"
+
+
 
 
 def p_tipo(p):
