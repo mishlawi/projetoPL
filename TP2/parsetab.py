@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'AC ADD AND AP DIFF DIV ELSE EQUAL FC FP GoE Greater IF IGUAL INT LoE Lower MOD MUL NOT Nint OR PRINT SCAN SUB VAR WHILEProgram : ComandsComands : Comand ComandsComands : ComandComand : AtribuitionComand : ConditionalComand : ExpressionComand : CycleComand : IOConditional : IF AP Condition FP AC Comands FC ELSE AC Comands FCConditional : IF AP Condition FP AC Comands FCCondition : Condition OR Condition2Condition : Condition2Condition2 : Condition2 AND Condition3Condition2 : Condition3Condition3 : Neg ConditionCondition3 : RelExpressionCondition3 : AP Condition FPRelExpression : Expression OpRel ExpressionRelExpression : ExpressionNeg : NOTNeg : OpRel : GoEOpRel : LoEOpRel : LowerOpRel : GreaterOpRel : IGUALOpRel : DIFF\nCycle : WHILE AP Condition FP AC Comands FCAtribuition : INT VAR EQUAL ExpressionAtribuition :  VAR EQUAL Expression Atribuition : INT VARExpression : Values Expression : Expression ADD ValuesExpression : Expression SUB ValuesValues : ValueValues : Values MUL ValueValues : Values DIV ValueValues : Values MOD ValueValue : NintValue : VARValue : AP Expression FPIO : INPUTIO : OUTPUTINPUT : SCAN ExpressionOUTPUT : PRINT VAR'
+_lr_signature = 'AC ADD AND AP DIFF DIV ELSE EQUAL FC FP GoE Greater IF IGUAL INT LoE Lower MOD MUL NOT Nint OR PRINT SCAN SUB VAR WHILEProgram : ComandsComands : Comand ComandsComands : ComandComand : AtribuitionComand : ConditionalComand : IOConditional : IF AP Condition FP AC Comands FC ELSE AC Comands FCConditional : IF AP Condition FP AC Comands FCCondition : Condition OR Condition2Condition : Condition2Condition2 : Condition2 AND Condition3Condition2 : Condition3Condition3 : NOT ConditionCondition3 : RelExpressionCondition3 : AP Condition FPRelExpression : Expression OpRel ExpressionRelExpression : ExpressionOpRel : GoEOpRel : LoEOpRel : LowerOpRel : GreaterOpRel : IGUALOpRel : DIFFAtribuition : INT VAR EQUAL ExpressionAtribuition :  VAR EQUAL Expression Atribuition : INT VARExpression : Expression ADD ValuesExpression : Expression SUB ValuesExpression : Values Values : ValueValues : Values MUL ValueValues : Values DIV ValueValues : Values MOD ValueValue : NintValue : VARValue : AP Expression FPIO : INPUTIO : OUTPUTINPUT : SCAN ExpressionOUTPUT : PRINT VAR'
     
-_lr_action_items = {'INT':([0,3,4,5,6,7,8,10,13,15,16,17,20,24,28,33,34,35,36,38,47,48,49,50,52,68,72,75,76,78,80,],[9,9,-4,-5,-6,-7,-8,-40,-32,-42,-43,-35,-39,-31,-40,-44,-45,-33,-34,-30,-41,-36,-37,-38,-29,9,9,-10,-28,9,-9,]),'VAR':([0,3,4,5,6,7,8,9,10,12,13,15,16,17,18,19,20,22,23,24,25,26,28,29,30,31,32,33,34,35,36,37,38,39,43,45,47,48,49,50,52,56,57,59,60,61,62,63,64,65,68,72,75,76,78,80,],[10,10,-4,-5,-6,-7,-8,24,-40,28,-32,-42,-43,-35,28,34,-39,28,28,-31,28,28,-40,28,28,28,28,-44,-45,-33,-34,28,-30,28,28,-20,-41,-36,-37,-38,-29,28,28,28,-22,-23,-24,-25,-26,-27,10,10,-10,-28,10,-9,]),'IF':([0,3,4,5,6,7,8,10,13,15,16,17,20,24,28,33,34,35,36,38,47,48,49,50,52,68,72,75,76,78,80,],[11,11,-4,-5,-6,-7,-8,-40,-32,-42,-43,-35,-39,-31,-40,-44,-45,-33,-34,-30,-41,-36,-37,-38,-29,11,11,-10,-28,11,-9,]),'WHILE':([0,3,4,5,6,7,8,10,13,15,16,17,20,24,28,33,34,35,36,38,47,48,49,50,52,68,72,75,76,78,80,],[14,14,-4,-5,-6,-7,-8,-40,-32,-42,-43,-35,-39,-31,-40,-44,-45,-33,-34,-30,-41,-36,-37,-38,-29,14,14,-10,-28,14,-9,]),'SCAN':([0,3,4,5,6,7,8,10,13,15,16,17,20,24,28,33,34,35,36,38,47,48,49,50,52,68,72,75,76,78,80,],[18,18,-4,-5,-6,-7,-8,-40,-32,-42,-43,-35,-39,-31,-40,-44,-45,-33,-34,-30,-41,-36,-37,-38,-29,18,18,-10,-28,18,-9,]),'PRINT':([0,3,4,5,6,7,8,10,13,15,16,17,20,24,28,33,34,35,36,38,47,48,49,50,52,68,72,75,76,78,80,],[19,19,-4,-5,-6,-7,-8,-40,-32,-42,-43,-35,-39,-31,-40,-44,-45,-33,-34,-30,-41,-36,-37,-38,-29,19,19,-10,-28,19,-9,]),'Nint':([0,3,4,5,6,7,8,10,12,13,15,16,17,18,20,22,23,24,25,26,28,29,30,31,32,33,34,35,36,37,38,39,43,45,47,48,49,50,52,56,57,59,60,61,62,63,64,65,68,72,75,76,78,80,],[20,20,-4,-5,-6,-7,-8,-40,20,-32,-42,-43,-35,20,-39,20,20,-31,20,20,-40,20,20,20,20,-44,-45,-33,-34,20,-30,20,20,-20,-41,-36,-37,-38,-29,20,20,20,-22,-23,-24,-25,-26,-27,20,20,-10,-28,20,-9,]),'AP':([0,3,4,5,6,7,8,10,11,12,13,14,15,16,17,18,20,22,23,24,25,26,28,29,30,31,32,33,34,35,36,37,38,39,43,45,47,48,49,50,52,56,57,59,60,61,62,63,64,65,68,72,75,76,78,80,],[12,12,-4,-5,-6,-7,-8,-40,26,12,-32,32,-42,-43,-35,12,-39,12,12,-31,12,39,-40,12,12,12,39,-44,-45,-33,-34,12,-30,39,39,-20,-41,-36,-37,-38,-29,39,39,12,-22,-23,-24,-25,-26,-27,12,12,-10,-28,12,-9,]),'$end':([1,2,3,4,5,6,7,8,10,13,15,16,17,20,21,24,28,33,34,35,36,38,47,48,49,50,52,75,76,80,],[0,-1,-3,-4,-5,-6,-7,-8,-40,-32,-42,-43,-35,-39,-2,-31,-40,-44,-45,-33,-34,-30,-41,-36,-37,-38,-29,-10,-28,-9,]),'FC':([3,4,5,6,7,8,10,13,15,16,17,20,21,24,28,33,34,35,36,38,47,48,49,50,52,73,74,75,76,79,80,],[-3,-4,-5,-6,-7,-8,-40,-32,-42,-43,-35,-39,-2,-31,-40,-44,-45,-33,-34,-30,-41,-36,-37,-38,-29,75,76,-10,-28,80,-9,]),'ADD':([6,10,13,17,20,27,28,33,35,36,38,46,47,48,49,50,52,54,71,],[22,-40,-32,-35,-39,22,-40,22,-33,-34,22,22,-41,-36,-37,-38,22,22,22,]),'SUB':([6,10,13,17,20,27,28,33,35,36,38,46,47,48,49,50,52,54,71,],[23,-40,-32,-35,-39,23,-40,23,-33,-34,23,23,-41,-36,-37,-38,23,23,23,]),'EQUAL':([10,24,],[25,37,]),'MUL':([10,13,17,20,28,35,36,47,48,49,50,],[-40,29,-35,-39,-40,29,29,-41,-36,-37,-38,]),'DIV':([10,13,17,20,28,35,36,47,48,49,50,],[-40,30,-35,-39,-40,30,30,-41,-36,-37,-38,]),'MOD':([10,13,17,20,28,35,36,47,48,49,50,],[-40,31,-35,-39,-40,31,31,-41,-36,-37,-38,]),'FP':([13,17,20,27,28,35,36,40,41,42,44,46,47,48,49,50,51,53,54,58,67,69,70,71,],[-32,-35,-39,47,-40,-33,-34,55,-12,-14,-16,-19,-41,-36,-37,-38,66,67,47,-15,-17,-11,-13,-18,]),'GoE':([13,17,20,28,35,36,46,47,48,49,50,54,],[-32,-35,-39,-40,-33,-34,60,-41,-36,-37,-38,60,]),'LoE':([13,17,20,28,35,36,46,47,48,49,50,54,],[-32,-35,-39,-40,-33,-34,61,-41,-36,-37,-38,61,]),'Lower':([13,17,20,28,35,36,46,47,48,49,50,54,],[-32,-35,-39,-40,-33,-34,62,-41,-36,-37,-38,62,]),'Greater':([13,17,20,28,35,36,46,47,48,49,50,54,],[-32,-35,-39,-40,-33,-34,63,-41,-36,-37,-38,63,]),'IGUAL':([13,17,20,28,35,36,46,47,48,49,50,54,],[-32,-35,-39,-40,-33,-34,64,-41,-36,-37,-38,64,]),'DIFF':([13,17,20,28,35,36,46,47,48,49,50,54,],[-32,-35,-39,-40,-33,-34,65,-41,-36,-37,-38,65,]),'AND':([13,17,20,28,35,36,41,42,44,46,47,48,49,50,54,58,67,69,70,71,],[-32,-35,-39,-40,-33,-34,57,-14,-16,-19,-41,-36,-37,-38,-19,-15,-17,57,-13,-18,]),'OR':([13,17,20,28,35,36,40,41,42,44,46,47,48,49,50,51,53,54,58,67,69,70,71,],[-32,-35,-39,-40,-33,-34,56,-12,-14,-16,-19,-41,-36,-37,-38,56,56,-19,56,-17,-11,-13,-18,]),'NOT':([26,32,39,43,45,56,57,],[45,45,45,45,-20,45,45,]),'AC':([55,66,77,],[68,72,78,]),'ELSE':([75,],[77,]),}
+_lr_action_items = {'INT':([0,3,4,5,6,10,11,15,18,19,20,21,22,24,26,40,54,55,56,57,58,59,61,66,68,70,],[7,7,-4,-5,-6,-37,-38,-26,-39,-29,-30,-34,-35,-40,-25,-24,-27,-28,-31,-32,-33,-36,7,-8,7,-7,]),'VAR':([0,3,4,5,6,7,10,11,12,13,15,16,17,18,19,20,21,22,23,24,25,26,27,31,34,35,36,37,38,40,44,45,47,48,49,50,51,52,53,54,55,56,57,58,59,61,66,68,70,],[8,8,-4,-5,-6,15,-37,-38,22,24,-26,22,22,-39,-29,-30,-34,-35,22,-40,22,-25,22,22,22,22,22,22,22,-24,22,22,22,-18,-19,-20,-21,-22,-23,-27,-28,-31,-32,-33,-36,8,-8,8,-7,]),'IF':([0,3,4,5,6,10,11,15,18,19,20,21,22,24,26,40,54,55,56,57,58,59,61,66,68,70,],[9,9,-4,-5,-6,-37,-38,-26,-39,-29,-30,-34,-35,-40,-25,-24,-27,-28,-31,-32,-33,-36,9,-8,9,-7,]),'SCAN':([0,3,4,5,6,10,11,15,18,19,20,21,22,24,26,40,54,55,56,57,58,59,61,66,68,70,],[12,12,-4,-5,-6,-37,-38,-26,-39,-29,-30,-34,-35,-40,-25,-24,-27,-28,-31,-32,-33,-36,12,-8,12,-7,]),'PRINT':([0,3,4,5,6,10,11,15,18,19,20,21,22,24,26,40,54,55,56,57,58,59,61,66,68,70,],[13,13,-4,-5,-6,-37,-38,-26,-39,-29,-30,-34,-35,-40,-25,-24,-27,-28,-31,-32,-33,-36,13,-8,13,-7,]),'$end':([1,2,3,4,5,6,10,11,14,15,18,19,20,21,22,24,26,40,54,55,56,57,58,59,66,70,],[0,-1,-3,-4,-5,-6,-37,-38,-2,-26,-39,-29,-30,-34,-35,-40,-25,-24,-27,-28,-31,-32,-33,-36,-8,-7,]),'FC':([3,4,5,6,10,11,14,15,18,19,20,21,22,24,26,40,54,55,56,57,58,59,65,66,69,70,],[-3,-4,-5,-6,-37,-38,-2,-26,-39,-29,-30,-34,-35,-40,-25,-24,-27,-28,-31,-32,-33,-36,66,-8,70,-7,]),'EQUAL':([8,15,],[16,25,]),'AP':([9,12,16,17,23,25,27,31,34,35,36,37,38,44,45,47,48,49,50,51,52,53,],[17,23,23,27,23,23,27,27,23,23,23,23,23,27,27,23,-18,-19,-20,-21,-22,-23,]),'Nint':([12,16,17,23,25,27,31,34,35,36,37,38,44,45,47,48,49,50,51,52,53,],[21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,-18,-19,-20,-21,-22,-23,]),'NOT':([17,27,31,44,45,],[31,31,31,31,31,]),'ADD':([18,19,20,21,22,26,33,39,40,42,54,55,56,57,58,59,64,],[34,-29,-30,-34,-35,34,34,34,34,34,-27,-28,-31,-32,-33,-36,34,]),'SUB':([18,19,20,21,22,26,33,39,40,42,54,55,56,57,58,59,64,],[35,-29,-30,-34,-35,35,35,35,35,35,-27,-28,-31,-32,-33,-36,35,]),'GoE':([19,20,21,22,33,42,54,55,56,57,58,59,],[-29,-30,-34,-35,48,48,-27,-28,-31,-32,-33,-36,]),'LoE':([19,20,21,22,33,42,54,55,56,57,58,59,],[-29,-30,-34,-35,49,49,-27,-28,-31,-32,-33,-36,]),'Lower':([19,20,21,22,33,42,54,55,56,57,58,59,],[-29,-30,-34,-35,50,50,-27,-28,-31,-32,-33,-36,]),'Greater':([19,20,21,22,33,42,54,55,56,57,58,59,],[-29,-30,-34,-35,51,51,-27,-28,-31,-32,-33,-36,]),'IGUAL':([19,20,21,22,33,42,54,55,56,57,58,59,],[-29,-30,-34,-35,52,52,-27,-28,-31,-32,-33,-36,]),'DIFF':([19,20,21,22,33,42,54,55,56,57,58,59,],[-29,-30,-34,-35,53,53,-27,-28,-31,-32,-33,-36,]),'AND':([19,20,21,22,29,30,32,33,42,46,54,55,56,57,58,59,60,62,63,64,],[-29,-30,-34,-35,45,-12,-14,-17,-17,-13,-27,-28,-31,-32,-33,-36,-15,45,-11,-16,]),'FP':([19,20,21,22,28,29,30,32,33,39,41,42,46,54,55,56,57,58,59,60,62,63,64,],[-29,-30,-34,-35,43,-10,-12,-14,-17,59,60,59,-13,-27,-28,-31,-32,-33,-36,-15,-9,-11,-16,]),'OR':([19,20,21,22,28,29,30,32,33,41,42,46,54,55,56,57,58,59,60,62,63,64,],[-29,-30,-34,-35,44,-10,-12,-14,-17,44,-17,44,-27,-28,-31,-32,-33,-36,-15,-9,-11,-16,]),'MUL':([19,20,21,22,54,55,56,57,58,59,],[36,-30,-34,-35,36,36,-31,-32,-33,-36,]),'DIV':([19,20,21,22,54,55,56,57,58,59,],[37,-30,-34,-35,37,37,-31,-32,-33,-36,]),'MOD':([19,20,21,22,54,55,56,57,58,59,],[38,-30,-34,-35,38,38,-31,-32,-33,-36,]),'AC':([43,67,],[61,68,]),'ELSE':([66,],[67,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'Program':([0,],[1,]),'Comands':([0,3,68,72,78,],[2,21,73,74,79,]),'Comand':([0,3,68,72,78,],[3,3,3,3,3,]),'Atribuition':([0,3,68,72,78,],[4,4,4,4,4,]),'Conditional':([0,3,68,72,78,],[5,5,5,5,5,]),'Expression':([0,3,12,18,25,26,32,37,39,43,56,57,59,68,72,78,],[6,6,27,33,38,46,46,52,54,46,46,46,71,6,6,6,]),'Cycle':([0,3,68,72,78,],[7,7,7,7,7,]),'IO':([0,3,68,72,78,],[8,8,8,8,8,]),'Values':([0,3,12,18,22,23,25,26,32,37,39,43,56,57,59,68,72,78,],[13,13,13,13,35,36,13,13,13,13,13,13,13,13,13,13,13,13,]),'INPUT':([0,3,68,72,78,],[15,15,15,15,15,]),'OUTPUT':([0,3,68,72,78,],[16,16,16,16,16,]),'Value':([0,3,12,18,22,23,25,26,29,30,31,32,37,39,43,56,57,59,68,72,78,],[17,17,17,17,17,17,17,17,48,49,50,17,17,17,17,17,17,17,17,17,17,]),'Condition':([26,32,39,43,],[40,51,53,58,]),'Condition2':([26,32,39,43,56,],[41,41,41,41,69,]),'Condition3':([26,32,39,43,56,57,],[42,42,42,42,42,70,]),'Neg':([26,32,39,43,56,57,],[43,43,43,43,43,43,]),'RelExpression':([26,32,39,43,56,57,],[44,44,44,44,44,44,]),'OpRel':([46,54,],[59,59,]),}
+_lr_goto_items = {'Program':([0,],[1,]),'Comands':([0,3,61,68,],[2,14,65,69,]),'Comand':([0,3,61,68,],[3,3,3,3,]),'Atribuition':([0,3,61,68,],[4,4,4,4,]),'Conditional':([0,3,61,68,],[5,5,5,5,]),'IO':([0,3,61,68,],[6,6,6,6,]),'INPUT':([0,3,61,68,],[10,10,10,10,]),'OUTPUT':([0,3,61,68,],[11,11,11,11,]),'Expression':([12,16,17,23,25,27,31,44,45,47,],[18,26,33,39,40,42,33,33,33,64,]),'Values':([12,16,17,23,25,27,31,34,35,44,45,47,],[19,19,19,19,19,19,19,54,55,19,19,19,]),'Value':([12,16,17,23,25,27,31,34,35,36,37,38,44,45,47,],[20,20,20,20,20,20,20,20,20,56,57,58,20,20,20,]),'Condition':([17,27,31,],[28,41,46,]),'Condition2':([17,27,31,44,],[29,29,29,62,]),'Condition3':([17,27,31,44,45,],[30,30,30,30,63,]),'RelExpression':([17,27,31,44,45,],[32,32,32,32,32,]),'OpRel':([33,42,],[47,47,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -31,45 +31,40 @@ _lr_productions = [
   ('Comands -> Comand Comands','Comands',2,'p_comands','compiler_yacc.py',23),
   ('Comands -> Comand','Comands',1,'p_comands_simple','compiler_yacc.py',27),
   ('Comand -> Atribuition','Comand',1,'p_comand_atb','compiler_yacc.py',35),
-  ('Comand -> Conditional','Comand',1,'p_comand_cond','compiler_yacc.py',39),
-  ('Comand -> Expression','Comand',1,'p_comand_Exp','compiler_yacc.py',44),
-  ('Comand -> Cycle','Comand',1,'p_comand_cycle','compiler_yacc.py',49),
-  ('Comand -> IO','Comand',1,'p_comand_IO','compiler_yacc.py',53),
-  ('Conditional -> IF AP Condition FP AC Comands FC ELSE AC Comands FC','Conditional',11,'p_conditional','compiler_yacc.py',63),
-  ('Conditional -> IF AP Condition FP AC Comands FC','Conditional',7,'p_conditional_simple','compiler_yacc.py',71),
-  ('Condition -> Condition OR Condition2','Condition',3,'p_condition_or','compiler_yacc.py',99),
-  ('Condition -> Condition2','Condition',1,'p_condition_simple','compiler_yacc.py',103),
-  ('Condition2 -> Condition2 AND Condition3','Condition2',3,'p_condition2_and','compiler_yacc.py',110),
-  ('Condition2 -> Condition3','Condition2',1,'p_condition2_simple','compiler_yacc.py',114),
-  ('Condition3 -> Neg Condition','Condition3',2,'p_condition3','compiler_yacc.py',122),
-  ('Condition3 -> RelExpression','Condition3',1,'p_condition3_exp','compiler_yacc.py',127),
-  ('Condition3 -> AP Condition FP','Condition3',3,'p_condition3_priority','compiler_yacc.py',131),
-  ('RelExpression -> Expression OpRel Expression','RelExpression',3,'p_RelExpression_complex','compiler_yacc.py',138),
-  ('RelExpression -> Expression','RelExpression',1,'p_RelExpression_simple','compiler_yacc.py',143),
-  ('Neg -> NOT','Neg',1,'p_negacaoLogica','compiler_yacc.py',153),
-  ('Neg -> <empty>','Neg',0,'p_negacao_empty','compiler_yacc.py',157),
-  ('OpRel -> GoE','OpRel',1,'p_opRel_GoE','compiler_yacc.py',179),
-  ('OpRel -> LoE','OpRel',1,'p_opRel_LoE','compiler_yacc.py',183),
-  ('OpRel -> Lower','OpRel',1,'p_opRel_Lower','compiler_yacc.py',187),
-  ('OpRel -> Greater','OpRel',1,'p_opRel_Greater','compiler_yacc.py',190),
-  ('OpRel -> IGUAL','OpRel',1,'p_opRel_Equal','compiler_yacc.py',194),
-  ('OpRel -> DIFF','OpRel',1,'p_opRel_Diff','compiler_yacc.py',198),
-  ('Cycle -> WHILE AP Condition FP AC Comands FC','Cycle',7,'p_cycle','compiler_yacc.py',205),
-  ('Atribuition -> INT VAR EQUAL Expression','Atribuition',4,'p_atribuition_first','compiler_yacc.py',218),
-  ('Atribuition -> VAR EQUAL Expression','Atribuition',3,'p_atribuition_second','compiler_yacc.py',229),
-  ('Atribuition -> INT VAR','Atribuition',2,'p_atribuition_simple','compiler_yacc.py',236),
-  ('Expression -> Values','Expression',1,'p_expression_simple','compiler_yacc.py',254),
-  ('Expression -> Expression ADD Values','Expression',3,'p_expression_plus','compiler_yacc.py',259),
-  ('Expression -> Expression SUB Values','Expression',3,'p_expression_less','compiler_yacc.py',264),
-  ('Values -> Value','Values',1,'p_Values_simple','compiler_yacc.py',275),
-  ('Values -> Values MUL Value','Values',3,'p_Values_1','compiler_yacc.py',280),
-  ('Values -> Values DIV Value','Values',3,'p_Values_2','compiler_yacc.py',284),
-  ('Values -> Values MOD Value','Values',3,'p_Values_3','compiler_yacc.py',288),
-  ('Value -> Nint','Value',1,'p_Value_int','compiler_yacc.py',297),
-  ('Value -> VAR','Value',1,'p_Value_var','compiler_yacc.py',302),
-  ('Value -> AP Expression FP','Value',3,'p_Value_complex','compiler_yacc.py',306),
-  ('IO -> INPUT','IO',1,'p_IO_INPUT','compiler_yacc.py',316),
-  ('IO -> OUTPUT','IO',1,'p_IO_OUTPUT','compiler_yacc.py',320),
-  ('INPUT -> SCAN Expression','INPUT',2,'p_INPUT','compiler_yacc.py',327),
-  ('OUTPUT -> PRINT VAR','OUTPUT',2,'p_OUTPUT_var','compiler_yacc.py',337),
+  ('Comand -> Conditional','Comand',1,'p_comand_cond','compiler_yacc.py',40),
+  ('Comand -> IO','Comand',1,'p_comand_IO','compiler_yacc.py',54),
+  ('Conditional -> IF AP Condition FP AC Comands FC ELSE AC Comands FC','Conditional',11,'p_conditional','compiler_yacc.py',64),
+  ('Conditional -> IF AP Condition FP AC Comands FC','Conditional',7,'p_conditional_simple','compiler_yacc.py',72),
+  ('Condition -> Condition OR Condition2','Condition',3,'p_condition_or','compiler_yacc.py',101),
+  ('Condition -> Condition2','Condition',1,'p_condition_simple','compiler_yacc.py',106),
+  ('Condition2 -> Condition2 AND Condition3','Condition2',3,'p_condition2_and','compiler_yacc.py',113),
+  ('Condition2 -> Condition3','Condition2',1,'p_condition2_simple','compiler_yacc.py',119),
+  ('Condition3 -> NOT Condition','Condition3',2,'p_condition3','compiler_yacc.py',127),
+  ('Condition3 -> RelExpression','Condition3',1,'p_condition3_exp','compiler_yacc.py',132),
+  ('Condition3 -> AP Condition FP','Condition3',3,'p_condition3_priority','compiler_yacc.py',136),
+  ('RelExpression -> Expression OpRel Expression','RelExpression',3,'p_RelExpression_complex','compiler_yacc.py',144),
+  ('RelExpression -> Expression','RelExpression',1,'p_RelExpression_simple','compiler_yacc.py',149),
+  ('OpRel -> GoE','OpRel',1,'p_opRel_GoE','compiler_yacc.py',167),
+  ('OpRel -> LoE','OpRel',1,'p_opRel_LoE','compiler_yacc.py',171),
+  ('OpRel -> Lower','OpRel',1,'p_opRel_Lower','compiler_yacc.py',175),
+  ('OpRel -> Greater','OpRel',1,'p_opRel_Greater','compiler_yacc.py',179),
+  ('OpRel -> IGUAL','OpRel',1,'p_opRel_Equal','compiler_yacc.py',183),
+  ('OpRel -> DIFF','OpRel',1,'p_opRel_Diff','compiler_yacc.py',187),
+  ('Atribuition -> INT VAR EQUAL Expression','Atribuition',4,'p_atribuition_first','compiler_yacc.py',207),
+  ('Atribuition -> VAR EQUAL Expression','Atribuition',3,'p_atribuition_second','compiler_yacc.py',218),
+  ('Atribuition -> INT VAR','Atribuition',2,'p_atribuition_simple','compiler_yacc.py',225),
+  ('Expression -> Expression ADD Values','Expression',3,'p_expression_plus','compiler_yacc.py',244),
+  ('Expression -> Expression SUB Values','Expression',3,'p_expression_minus','compiler_yacc.py',249),
+  ('Expression -> Values','Expression',1,'p_expression_simple','compiler_yacc.py',253),
+  ('Values -> Value','Values',1,'p_Values_simple','compiler_yacc.py',263),
+  ('Values -> Values MUL Value','Values',3,'p_Values_1','compiler_yacc.py',268),
+  ('Values -> Values DIV Value','Values',3,'p_Values_2','compiler_yacc.py',272),
+  ('Values -> Values MOD Value','Values',3,'p_Values_3','compiler_yacc.py',276),
+  ('Value -> Nint','Value',1,'p_Value_int','compiler_yacc.py',285),
+  ('Value -> VAR','Value',1,'p_Value_var','compiler_yacc.py',290),
+  ('Value -> AP Expression FP','Value',3,'p_Value_complex','compiler_yacc.py',295),
+  ('IO -> INPUT','IO',1,'p_IO_INPUT','compiler_yacc.py',305),
+  ('IO -> OUTPUT','IO',1,'p_IO_OUTPUT','compiler_yacc.py',309),
+  ('INPUT -> SCAN Expression','INPUT',2,'p_INPUT','compiler_yacc.py',316),
+  ('OUTPUT -> PRINT VAR','OUTPUT',2,'p_OUTPUT_var','compiler_yacc.py',326),
 ]
