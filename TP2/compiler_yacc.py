@@ -4,6 +4,10 @@ from compiler_lex import tokens
 
 
 
+stack = {}
+sp = -1
+pointer = 0
+
 
 
 ##########################################################COMANDOS
@@ -17,8 +21,6 @@ def p_program(p):
 
 def p_comands(p):
 	"Comands : Comand Comands"
-	print(p[1])
-	print(p[2])
 	p[0] = p[1] + p[2]
 
 def p_comands_simple(p):
@@ -32,7 +34,6 @@ def p_comands_simple(p):
 def p_comand_atb (p):
 	"Comand : Atribuition"
 	p[0] = p[1]
-	print("found att")
 
 def p_comand_cond (p):
 	"Comand : Conditional"
@@ -59,39 +60,88 @@ def p_comand_IO(p):
 #             | if '(' Conditions ')' '{' Comands '}'
 
 def p_conditional (p):
+	"Conditional : IF AP Condition FP AC Comands FC ELSE AC Comands FC"
 	global sp
 	global stack
-
-	"Conditional : IF AP Conditions FP AC Comands FC ELSE AC Comands FC "
-	#p[0] = p[3] + '\n' 
-
+	global pointer
+	p[0] = p[3] + '\n' + f"JZ ELSE_{pointer}" + p[6] + f'JUMP ENDIF_{pointer}\n' + f'ELSE_{pointer}\n' + p[10] + f'ENDIF_{pointer}\n' + 'STOP\n'
+	pointer += 1
 
 def p_conditional_simple(p):
-	"Conditional : IF AP Conditions FP AC Comands FC"
-	print("condicional so")
+	"Conditional : IF AP Condition FP AC Comands FC"
+	global sp
+	global stack
+	global pointer
+	p[0] = p[3] + '\n' + f"JZ ELSE_{pointer}" + p[6] + f'JUMP ENDIF_{pointer}\n'  + 'STOP\n'
+	pointer += 1
+
 	
 
 
-#Conditions -> Neg AP Condition FP LogicSymb Conditions
-#            | Neg AP Condition FP   # !(a>b)|| a
+#Conditions ->  Condition Conditions
+#            |  Condition  # !(a>b)|| a
 
-def p_conditions(p):
-	"Conditions : Neg Condition LogicSymb Conditions"
-	print("condicao")
+#def p_conditions(p):
+#	"Conditions :  Condition Conditions"
+#	print("condicao")
+#	p[0] =  p[1] + p[2]
 
-def p_conditions_simple(p):
-	"Conditions : Neg Condition"
+#def p_conditions_simple(p):
+#	"Conditions :  Condition"
+#	p[0] = p[1]
 
 
-#Condition -> Expression OpRel Expression
-#		    | Expression
 
-def p_condition_complex(p):
-	"Condition : Expression OpRel Expression"
-	print("ihhh")
+# Condition -> Condition OR Condition2
+#            | Condition2
+
+def p_condition_or(p):
+	"Condition : Condition OR Condition2"
+	p[0] = p[1] +'ADD\n' + p[3] 
 
 def p_condition_simple(p):
-	"Condition : Expression"
+	"Condition : Condition2"
+	p[0] = p[1]
+
+# Condition2 -> Condition2 AND Condition3
+# 		      | Condition3
+
+def p_condition2_and (p):
+	"Condition2 : Condition2 AND Condition3"
+	p[0] = p[1] + p[3] + 'MUL\n'
+
+def p_condition2_simple(p):
+	"Condition2 : Condition3"
+	p[0] = p[1]
+
+#cond3 -> NOT CONDITION 
+#       | RelExpression
+#       | '(' Condition ')'
+
+def p_condition3 (p):
+	"Condition3 : Neg Condition"
+	p[0] = p[2]
+	##checkkk!!!
+
+def p_condition3_exp(p):
+	"Condition3 : RelExpression"
+	p[0] = p[1]
+
+def p_condition3_priority(p):
+	"Condition3 : AP Condition FP"
+	p[0] = p[2]
+
+#ExpRelacional -> Expression OpRel Expression
+#		        | Expression
+
+def p_RelExpression_complex(p):
+	"RelExpression : Expression OpRel Expression"
+	p[0] = p[1] + '\n' + p[3] + '\n' + p[2] + '\n'
+	
+
+def p_RelExpression_simple(p):
+	"RelExpression : Expression"
+	p[0] = p[1]
 
 
 ###################################################SIMBOLOS CONDICIONAIS
@@ -101,22 +151,20 @@ def p_condition_simple(p):
 
 def p_negacaoLogica(p):
 	"Neg : NOT"
-
+	p[0] = 'NOT'
 
 def p_negacao_empty(p):
 	"Neg : "
+	p[0] = ''
+
+#def p_logicSymbol_OR(p):
+#	"LogicSymb : OR"
+#
 
 
-#LogicSymb -> OR     # ||
-#           | AND    # &&
-
-def p_logicSymbol_OR(p):
-	"LogicSymb : OR"
-
-
-def p_logicSymbol_And(p):
-	"LogicSymb : AND"
-
+#def p_logicSymbol_And(p):
+#	"LogicSymb : AND"
+#
 
 
 #OpRel -> GoE        >=
@@ -128,32 +176,42 @@ def p_logicSymbol_And(p):
 
 
 def p_opRel_GoE(p):
-	'''
-	OpRel : GoE
-          | LoE
-		  | Lower
-          | Greater
-	      | IGUAL
-          | DIFF
-    '''
+	"OpRel : GoE"	
+	p[0] = 'SUPEQ\n' 
+
+def p_opRel_LoE(p):
+	"OpRel : LoE"
+	p[0] = 'INFEQ\n'
+
+def p_opRel_Lower(p):
+	"OpRel : Lower"
+	p[0] = 'INF\n'
+def p_opRel_Greater(p):
+	"OpRel : Greater"
+	p[0] = 'SUP\n'
+
+def p_opRel_Equal(p):
+	"OpRel : IGUAL"
+	p[0] = 'EQUAL\n'
+
+def p_opRel_Diff(p):
+	"OpRel : DIFF\n"	
+	p[0] = 'DIFF NOT'
+         
 
 ############################################################CICLOS
 
 def p_cycle(p):
 	
-	"Cycle : WHILE AP Conditions FP AC Comands FC"
+	"Cycle : WHILE AP Condition FP AC Comands FC"
 	
 
 ############################################################ATRIBUICAO
+
+
 #ATT -> INT VAR '=' EXP
 #     | VAR '='' EXP
 #     | INT VAR
-
-
-stack = {}
-sp = -1
-i = 0
-
 
 
 def p_atribuition_first(p):
@@ -192,9 +250,6 @@ def p_atribuition_simple(p):
 #            | Expression '+' Values
 #            | Expression '-' Values
 
-
-
-
 def p_expression_simple(p):
 	"Expression : Values "
 	p[0] = p[1]
@@ -205,7 +260,6 @@ def p_expression_plus(p):
 	p[0] = p[1] + p[3] + 'ADD\n'
 
 	
-
 def p_expression_less(p):
 	"Expression : Expression SUB Values"
 	p[0] = p[1] + p[3] + 'SUB\n'
@@ -244,8 +298,6 @@ def p_Value_int(p):
 	p[0] = "PUSHI " + p[1] + '\n'
 
 
-
-
 def p_Value_var(p):	
 	"Value : VAR"
 	p[0] = "PUSHG " + str(stack[p[1]][0]) +'\n'
@@ -254,6 +306,11 @@ def p_Value_complex(p):
 	"Value : AP Expression FP"
 	p[0] = p[2]
 
+############################################INPUT OUTPUT
+
+
+#IO -> INPUT
+#   | OUTPUT
 
 def p_IO_INPUT(p):
 	"IO : INPUT"
@@ -263,9 +320,18 @@ def p_IO_OUTPUT(p):
 	"IO : OUTPUT"
 	p[0] = p[1]
 
-def p_INPUT(p):
-	"INPUT : SCAN VAR"
+##################################################INPUT
+# INPUT -> SCAN Exp
 
+def p_INPUT(p):
+	"INPUT : SCAN Expression"
+	p[0] = p[2]
+
+# OUTPUT  -> PRINT VAR
+#          | PRINT Exp
+
+
+##################################################OUTPUT
 
 def p_OUTPUT_var(p):
 	"OUTPUT : PRINT VAR"
@@ -274,15 +340,9 @@ def p_OUTPUT_var(p):
 	else:
 		p[0] = "PUSHG " + str(stack[p[2]][0]) + '\n' + "WRITEI \n"
 
-def p_OUTPUT_Exp(p):
-	"OUTPUT : PRINT Expression"
-	p[0] = p[2] + "WRITEI \n"
-
-
-
-
-def p_tipo(p):
-	"TIPO : INT"
+#def p_OUTPUT_Exp(p):
+#	"OUTPUT : PRINT Expression"
+#	p[0] = p[2] + "WRITEI \n"
 
 
 def p_error(p):

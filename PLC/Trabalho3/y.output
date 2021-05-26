@@ -1,0 +1,1299 @@
+Rules never reduced
+
+   24 @4: /* empty */
+
+
+State 16 conflicts: 1 reduce/reduce
+
+
+Grammar
+
+    0 $accept: Programa $end
+
+    1 Programa: Topo Corpo
+
+    2 Topo: Declaracao
+    3     | Topo Declaracao
+
+    4 Declaracao: Tipo Variaveis ';'
+
+    5 Tipo: INTEIRO
+    6     | REAL
+    7     | BOOL
+    8     | STR
+
+    9 Variaveis: Variaveis ',' Variavel
+   10          | Variavel
+
+   11 Variavel: ID
+
+   12 Corpo: INICIO Instrucoes FIM
+
+   13 Instrucoes: Instrucoes Instrucao
+   14           | Instrucao
+
+   15 Instrucao: Condicao
+   16          | Ciclo
+   17          | IO ';'
+   18          | Atribuicao ';'
+
+   19 Atribuicao: Variavel '=' Operacao
+
+   20 @1: /* empty */
+
+   21 @2: /* empty */
+
+   22 @3: /* empty */
+
+   23 Condicao: SE @1 '(' Operacao ')' ':' @2 '{' Instrucoes '}' SENAO @3 '{' Instrucoes '}'
+
+   24 @4: /* empty */
+
+   25 Condicao: SE @4 '(' Operacao ')' ':' '{' Instrucoes '}'
+
+   26 @5: /* empty */
+
+   27 @6: /* empty */
+
+   28 Ciclo: ENQUANTO @5 '(' Operacao ')' ':' @6 '{' Instrucoes '}'
+
+   29 Operacao: Exp '!' '=' Exp
+   30         | Exp '=' '=' Exp
+   31         | Exp '<' '=' Exp
+   32         | Exp '>' '=' Exp
+   33         | Exp '<' Exp
+   34         | Exp '>' Exp
+   35         | Exp
+
+   36 Exp: Termo
+   37    | Exp '+' Termo
+   38    | Exp '-' Termo
+
+   39 Termo: Fator
+   40      | Termo '*' Fator
+   41      | Termo '/' Fator
+
+   42 Fator: NUMI
+   43      | NUMF
+   44      | ID
+   45      | NBOOL
+   46      | '(' Exp ')'
+
+   47 IO: Output
+   48   | Input
+
+   49 Output: ENVIA NUMI
+   50       | ENVIA NUMF
+   51       | ENVIA ID
+   52       | ENVIA STR
+
+   53 Input: RECEBE ID
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+'!' (33) 29
+'(' (40) 23 25 28 46
+')' (41) 23 25 28 46
+'*' (42) 40
+'+' (43) 37
+',' (44) 9
+'-' (45) 38
+'/' (47) 41
+':' (58) 23 25 28
+';' (59) 4 17 18
+'<' (60) 31 33
+'=' (61) 19 29 30 31 32
+'>' (62) 32 34
+'{' (123) 23 25 28
+'}' (125) 23 25 28
+error (256)
+ID (258) 11 44 51 53
+NUMI (259) 42 49
+NUMF (260) 43 50
+NBOOL (261) 45
+STR (262) 8 52
+SE (263) 23 25
+SENAO (264) 23
+ENQUANTO (265) 28
+INICIO (266) 12
+FIM (267) 12
+ENVIA (268) 49 50 51 52
+RECEBE (269) 53
+INTEIRO (270) 5
+REAL (271) 6
+BOOL (272) 7
+
+
+Nonterminals, with rules where they appear
+
+$accept (33)
+    on left: 0
+Programa (34)
+    on left: 1, on right: 0
+Topo (35)
+    on left: 2 3, on right: 1 3
+Declaracao (36)
+    on left: 4, on right: 2 3
+Tipo (37)
+    on left: 5 6 7 8, on right: 4
+Variaveis (38)
+    on left: 9 10, on right: 4 9
+Variavel (39)
+    on left: 11, on right: 9 10 19
+Corpo (40)
+    on left: 12, on right: 1
+Instrucoes (41)
+    on left: 13 14, on right: 12 13 23 25 28
+Instrucao (42)
+    on left: 15 16 17 18, on right: 13 14
+Atribuicao (43)
+    on left: 19, on right: 18
+Condicao (44)
+    on left: 23 25, on right: 15
+@1 (45)
+    on left: 20, on right: 23
+@2 (46)
+    on left: 21, on right: 23
+@3 (47)
+    on left: 22, on right: 23
+@4 (48)
+    on left: 24, on right: 25
+Ciclo (49)
+    on left: 28, on right: 16
+@5 (50)
+    on left: 26, on right: 28
+@6 (51)
+    on left: 27, on right: 28
+Operacao (52)
+    on left: 29 30 31 32 33 34 35, on right: 19 23 25 28
+Exp (53)
+    on left: 36 37 38, on right: 29 30 31 32 33 34 35 37 38 46
+Termo (54)
+    on left: 39 40 41, on right: 36 37 38 40 41
+Fator (55)
+    on left: 42 43 44 45 46, on right: 39 40 41
+IO (56)
+    on left: 47 48, on right: 17
+Output (57)
+    on left: 49 50 51 52, on right: 47
+Input (58)
+    on left: 53, on right: 48
+
+
+state 0
+
+    0 $accept: . Programa $end
+
+    STR      shift, and go to state 1
+    INTEIRO  shift, and go to state 2
+    REAL     shift, and go to state 3
+    BOOL     shift, and go to state 4
+
+    Programa    go to state 5
+    Topo        go to state 6
+    Declaracao  go to state 7
+    Tipo        go to state 8
+
+
+state 1
+
+    8 Tipo: STR .
+
+    $default  reduce using rule 8 (Tipo)
+
+
+state 2
+
+    5 Tipo: INTEIRO .
+
+    $default  reduce using rule 5 (Tipo)
+
+
+state 3
+
+    6 Tipo: REAL .
+
+    $default  reduce using rule 6 (Tipo)
+
+
+state 4
+
+    7 Tipo: BOOL .
+
+    $default  reduce using rule 7 (Tipo)
+
+
+state 5
+
+    0 $accept: Programa . $end
+
+    $end  shift, and go to state 9
+
+
+state 6
+
+    1 Programa: Topo . Corpo
+    3 Topo: Topo . Declaracao
+
+    STR      shift, and go to state 1
+    INICIO   shift, and go to state 10
+    INTEIRO  shift, and go to state 2
+    REAL     shift, and go to state 3
+    BOOL     shift, and go to state 4
+
+    Declaracao  go to state 11
+    Tipo        go to state 8
+    Corpo       go to state 12
+
+
+state 7
+
+    2 Topo: Declaracao .
+
+    $default  reduce using rule 2 (Topo)
+
+
+state 8
+
+    4 Declaracao: Tipo . Variaveis ';'
+
+    ID  shift, and go to state 13
+
+    Variaveis  go to state 14
+    Variavel   go to state 15
+
+
+state 9
+
+    0 $accept: Programa $end .
+
+    $default  accept
+
+
+state 10
+
+   12 Corpo: INICIO . Instrucoes FIM
+
+    ID        shift, and go to state 13
+    SE        shift, and go to state 16
+    ENQUANTO  shift, and go to state 17
+    ENVIA     shift, and go to state 18
+    RECEBE    shift, and go to state 19
+
+    Variavel    go to state 20
+    Instrucoes  go to state 21
+    Instrucao   go to state 22
+    Atribuicao  go to state 23
+    Condicao    go to state 24
+    Ciclo       go to state 25
+    IO          go to state 26
+    Output      go to state 27
+    Input       go to state 28
+
+
+state 11
+
+    3 Topo: Topo Declaracao .
+
+    $default  reduce using rule 3 (Topo)
+
+
+state 12
+
+    1 Programa: Topo Corpo .
+
+    $default  reduce using rule 1 (Programa)
+
+
+state 13
+
+   11 Variavel: ID .
+
+    $default  reduce using rule 11 (Variavel)
+
+
+state 14
+
+    4 Declaracao: Tipo Variaveis . ';'
+    9 Variaveis: Variaveis . ',' Variavel
+
+    ';'  shift, and go to state 29
+    ','  shift, and go to state 30
+
+
+state 15
+
+   10 Variaveis: Variavel .
+
+    $default  reduce using rule 10 (Variaveis)
+
+
+state 16
+
+   23 Condicao: SE . @1 '(' Operacao ')' ':' @2 '{' Instrucoes '}' SENAO @3 '{' Instrucoes '}'
+   25         | SE . @4 '(' Operacao ')' ':' '{' Instrucoes '}'
+
+    '('       reduce using rule 20 (@1)
+    '('       [reduce using rule 24 (@4)]
+    $default  reduce using rule 20 (@1)
+
+    @1  go to state 31
+    @4  go to state 32
+
+
+state 17
+
+   28 Ciclo: ENQUANTO . @5 '(' Operacao ')' ':' @6 '{' Instrucoes '}'
+
+    $default  reduce using rule 26 (@5)
+
+    @5  go to state 33
+
+
+state 18
+
+   49 Output: ENVIA . NUMI
+   50       | ENVIA . NUMF
+   51       | ENVIA . ID
+   52       | ENVIA . STR
+
+    ID    shift, and go to state 34
+    NUMI  shift, and go to state 35
+    NUMF  shift, and go to state 36
+    STR   shift, and go to state 37
+
+
+state 19
+
+   53 Input: RECEBE . ID
+
+    ID  shift, and go to state 38
+
+
+state 20
+
+   19 Atribuicao: Variavel . '=' Operacao
+
+    '='  shift, and go to state 39
+
+
+state 21
+
+   12 Corpo: INICIO Instrucoes . FIM
+   13 Instrucoes: Instrucoes . Instrucao
+
+    ID        shift, and go to state 13
+    SE        shift, and go to state 16
+    ENQUANTO  shift, and go to state 17
+    FIM       shift, and go to state 40
+    ENVIA     shift, and go to state 18
+    RECEBE    shift, and go to state 19
+
+    Variavel    go to state 20
+    Instrucao   go to state 41
+    Atribuicao  go to state 23
+    Condicao    go to state 24
+    Ciclo       go to state 25
+    IO          go to state 26
+    Output      go to state 27
+    Input       go to state 28
+
+
+state 22
+
+   14 Instrucoes: Instrucao .
+
+    $default  reduce using rule 14 (Instrucoes)
+
+
+state 23
+
+   18 Instrucao: Atribuicao . ';'
+
+    ';'  shift, and go to state 42
+
+
+state 24
+
+   15 Instrucao: Condicao .
+
+    $default  reduce using rule 15 (Instrucao)
+
+
+state 25
+
+   16 Instrucao: Ciclo .
+
+    $default  reduce using rule 16 (Instrucao)
+
+
+state 26
+
+   17 Instrucao: IO . ';'
+
+    ';'  shift, and go to state 43
+
+
+state 27
+
+   47 IO: Output .
+
+    $default  reduce using rule 47 (IO)
+
+
+state 28
+
+   48 IO: Input .
+
+    $default  reduce using rule 48 (IO)
+
+
+state 29
+
+    4 Declaracao: Tipo Variaveis ';' .
+
+    $default  reduce using rule 4 (Declaracao)
+
+
+state 30
+
+    9 Variaveis: Variaveis ',' . Variavel
+
+    ID  shift, and go to state 13
+
+    Variavel  go to state 44
+
+
+state 31
+
+   23 Condicao: SE @1 . '(' Operacao ')' ':' @2 '{' Instrucoes '}' SENAO @3 '{' Instrucoes '}'
+
+    '('  shift, and go to state 45
+
+
+state 32
+
+   25 Condicao: SE @4 . '(' Operacao ')' ':' '{' Instrucoes '}'
+
+    '('  shift, and go to state 46
+
+
+state 33
+
+   28 Ciclo: ENQUANTO @5 . '(' Operacao ')' ':' @6 '{' Instrucoes '}'
+
+    '('  shift, and go to state 47
+
+
+state 34
+
+   51 Output: ENVIA ID .
+
+    $default  reduce using rule 51 (Output)
+
+
+state 35
+
+   49 Output: ENVIA NUMI .
+
+    $default  reduce using rule 49 (Output)
+
+
+state 36
+
+   50 Output: ENVIA NUMF .
+
+    $default  reduce using rule 50 (Output)
+
+
+state 37
+
+   52 Output: ENVIA STR .
+
+    $default  reduce using rule 52 (Output)
+
+
+state 38
+
+   53 Input: RECEBE ID .
+
+    $default  reduce using rule 53 (Input)
+
+
+state 39
+
+   19 Atribuicao: Variavel '=' . Operacao
+
+    ID     shift, and go to state 48
+    NUMI   shift, and go to state 49
+    NUMF   shift, and go to state 50
+    NBOOL  shift, and go to state 51
+    '('    shift, and go to state 52
+
+    Operacao  go to state 53
+    Exp       go to state 54
+    Termo     go to state 55
+    Fator     go to state 56
+
+
+state 40
+
+   12 Corpo: INICIO Instrucoes FIM .
+
+    $default  reduce using rule 12 (Corpo)
+
+
+state 41
+
+   13 Instrucoes: Instrucoes Instrucao .
+
+    $default  reduce using rule 13 (Instrucoes)
+
+
+state 42
+
+   18 Instrucao: Atribuicao ';' .
+
+    $default  reduce using rule 18 (Instrucao)
+
+
+state 43
+
+   17 Instrucao: IO ';' .
+
+    $default  reduce using rule 17 (Instrucao)
+
+
+state 44
+
+    9 Variaveis: Variaveis ',' Variavel .
+
+    $default  reduce using rule 9 (Variaveis)
+
+
+state 45
+
+   23 Condicao: SE @1 '(' . Operacao ')' ':' @2 '{' Instrucoes '}' SENAO @3 '{' Instrucoes '}'
+
+    ID     shift, and go to state 48
+    NUMI   shift, and go to state 49
+    NUMF   shift, and go to state 50
+    NBOOL  shift, and go to state 51
+    '('    shift, and go to state 52
+
+    Operacao  go to state 57
+    Exp       go to state 54
+    Termo     go to state 55
+    Fator     go to state 56
+
+
+state 46
+
+   25 Condicao: SE @4 '(' . Operacao ')' ':' '{' Instrucoes '}'
+
+    ID     shift, and go to state 48
+    NUMI   shift, and go to state 49
+    NUMF   shift, and go to state 50
+    NBOOL  shift, and go to state 51
+    '('    shift, and go to state 52
+
+    Operacao  go to state 58
+    Exp       go to state 54
+    Termo     go to state 55
+    Fator     go to state 56
+
+
+state 47
+
+   28 Ciclo: ENQUANTO @5 '(' . Operacao ')' ':' @6 '{' Instrucoes '}'
+
+    ID     shift, and go to state 48
+    NUMI   shift, and go to state 49
+    NUMF   shift, and go to state 50
+    NBOOL  shift, and go to state 51
+    '('    shift, and go to state 52
+
+    Operacao  go to state 59
+    Exp       go to state 54
+    Termo     go to state 55
+    Fator     go to state 56
+
+
+state 48
+
+   44 Fator: ID .
+
+    $default  reduce using rule 44 (Fator)
+
+
+state 49
+
+   42 Fator: NUMI .
+
+    $default  reduce using rule 42 (Fator)
+
+
+state 50
+
+   43 Fator: NUMF .
+
+    $default  reduce using rule 43 (Fator)
+
+
+state 51
+
+   45 Fator: NBOOL .
+
+    $default  reduce using rule 45 (Fator)
+
+
+state 52
+
+   46 Fator: '(' . Exp ')'
+
+    ID     shift, and go to state 48
+    NUMI   shift, and go to state 49
+    NUMF   shift, and go to state 50
+    NBOOL  shift, and go to state 51
+    '('    shift, and go to state 52
+
+    Exp    go to state 60
+    Termo  go to state 55
+    Fator  go to state 56
+
+
+state 53
+
+   19 Atribuicao: Variavel '=' Operacao .
+
+    $default  reduce using rule 19 (Atribuicao)
+
+
+state 54
+
+   29 Operacao: Exp . '!' '=' Exp
+   30         | Exp . '=' '=' Exp
+   31         | Exp . '<' '=' Exp
+   32         | Exp . '>' '=' Exp
+   33         | Exp . '<' Exp
+   34         | Exp . '>' Exp
+   35         | Exp .
+   37 Exp: Exp . '+' Termo
+   38    | Exp . '-' Termo
+
+    '='  shift, and go to state 61
+    '!'  shift, and go to state 62
+    '<'  shift, and go to state 63
+    '>'  shift, and go to state 64
+    '+'  shift, and go to state 65
+    '-'  shift, and go to state 66
+
+    $default  reduce using rule 35 (Operacao)
+
+
+state 55
+
+   36 Exp: Termo .
+   40 Termo: Termo . '*' Fator
+   41      | Termo . '/' Fator
+
+    '*'  shift, and go to state 67
+    '/'  shift, and go to state 68
+
+    $default  reduce using rule 36 (Exp)
+
+
+state 56
+
+   39 Termo: Fator .
+
+    $default  reduce using rule 39 (Termo)
+
+
+state 57
+
+   23 Condicao: SE @1 '(' Operacao . ')' ':' @2 '{' Instrucoes '}' SENAO @3 '{' Instrucoes '}'
+
+    ')'  shift, and go to state 69
+
+
+state 58
+
+   25 Condicao: SE @4 '(' Operacao . ')' ':' '{' Instrucoes '}'
+
+    ')'  shift, and go to state 70
+
+
+state 59
+
+   28 Ciclo: ENQUANTO @5 '(' Operacao . ')' ':' @6 '{' Instrucoes '}'
+
+    ')'  shift, and go to state 71
+
+
+state 60
+
+   37 Exp: Exp . '+' Termo
+   38    | Exp . '-' Termo
+   46 Fator: '(' Exp . ')'
+
+    ')'  shift, and go to state 72
+    '+'  shift, and go to state 65
+    '-'  shift, and go to state 66
+
+
+state 61
+
+   30 Operacao: Exp '=' . '=' Exp
+
+    '='  shift, and go to state 73
+
+
+state 62
+
+   29 Operacao: Exp '!' . '=' Exp
+
+    '='  shift, and go to state 74
+
+
+state 63
+
+   31 Operacao: Exp '<' . '=' Exp
+   33         | Exp '<' . Exp
+
+    ID     shift, and go to state 48
+    NUMI   shift, and go to state 49
+    NUMF   shift, and go to state 50
+    NBOOL  shift, and go to state 51
+    '='    shift, and go to state 75
+    '('    shift, and go to state 52
+
+    Exp    go to state 76
+    Termo  go to state 55
+    Fator  go to state 56
+
+
+state 64
+
+   32 Operacao: Exp '>' . '=' Exp
+   34         | Exp '>' . Exp
+
+    ID     shift, and go to state 48
+    NUMI   shift, and go to state 49
+    NUMF   shift, and go to state 50
+    NBOOL  shift, and go to state 51
+    '='    shift, and go to state 77
+    '('    shift, and go to state 52
+
+    Exp    go to state 78
+    Termo  go to state 55
+    Fator  go to state 56
+
+
+state 65
+
+   37 Exp: Exp '+' . Termo
+
+    ID     shift, and go to state 48
+    NUMI   shift, and go to state 49
+    NUMF   shift, and go to state 50
+    NBOOL  shift, and go to state 51
+    '('    shift, and go to state 52
+
+    Termo  go to state 79
+    Fator  go to state 56
+
+
+state 66
+
+   38 Exp: Exp '-' . Termo
+
+    ID     shift, and go to state 48
+    NUMI   shift, and go to state 49
+    NUMF   shift, and go to state 50
+    NBOOL  shift, and go to state 51
+    '('    shift, and go to state 52
+
+    Termo  go to state 80
+    Fator  go to state 56
+
+
+state 67
+
+   40 Termo: Termo '*' . Fator
+
+    ID     shift, and go to state 48
+    NUMI   shift, and go to state 49
+    NUMF   shift, and go to state 50
+    NBOOL  shift, and go to state 51
+    '('    shift, and go to state 52
+
+    Fator  go to state 81
+
+
+state 68
+
+   41 Termo: Termo '/' . Fator
+
+    ID     shift, and go to state 48
+    NUMI   shift, and go to state 49
+    NUMF   shift, and go to state 50
+    NBOOL  shift, and go to state 51
+    '('    shift, and go to state 52
+
+    Fator  go to state 82
+
+
+state 69
+
+   23 Condicao: SE @1 '(' Operacao ')' . ':' @2 '{' Instrucoes '}' SENAO @3 '{' Instrucoes '}'
+
+    ':'  shift, and go to state 83
+
+
+state 70
+
+   25 Condicao: SE @4 '(' Operacao ')' . ':' '{' Instrucoes '}'
+
+    ':'  shift, and go to state 84
+
+
+state 71
+
+   28 Ciclo: ENQUANTO @5 '(' Operacao ')' . ':' @6 '{' Instrucoes '}'
+
+    ':'  shift, and go to state 85
+
+
+state 72
+
+   46 Fator: '(' Exp ')' .
+
+    $default  reduce using rule 46 (Fator)
+
+
+state 73
+
+   30 Operacao: Exp '=' '=' . Exp
+
+    ID     shift, and go to state 48
+    NUMI   shift, and go to state 49
+    NUMF   shift, and go to state 50
+    NBOOL  shift, and go to state 51
+    '('    shift, and go to state 52
+
+    Exp    go to state 86
+    Termo  go to state 55
+    Fator  go to state 56
+
+
+state 74
+
+   29 Operacao: Exp '!' '=' . Exp
+
+    ID     shift, and go to state 48
+    NUMI   shift, and go to state 49
+    NUMF   shift, and go to state 50
+    NBOOL  shift, and go to state 51
+    '('    shift, and go to state 52
+
+    Exp    go to state 87
+    Termo  go to state 55
+    Fator  go to state 56
+
+
+state 75
+
+   31 Operacao: Exp '<' '=' . Exp
+
+    ID     shift, and go to state 48
+    NUMI   shift, and go to state 49
+    NUMF   shift, and go to state 50
+    NBOOL  shift, and go to state 51
+    '('    shift, and go to state 52
+
+    Exp    go to state 88
+    Termo  go to state 55
+    Fator  go to state 56
+
+
+state 76
+
+   33 Operacao: Exp '<' Exp .
+   37 Exp: Exp . '+' Termo
+   38    | Exp . '-' Termo
+
+    '+'  shift, and go to state 65
+    '-'  shift, and go to state 66
+
+    $default  reduce using rule 33 (Operacao)
+
+
+state 77
+
+   32 Operacao: Exp '>' '=' . Exp
+
+    ID     shift, and go to state 48
+    NUMI   shift, and go to state 49
+    NUMF   shift, and go to state 50
+    NBOOL  shift, and go to state 51
+    '('    shift, and go to state 52
+
+    Exp    go to state 89
+    Termo  go to state 55
+    Fator  go to state 56
+
+
+state 78
+
+   34 Operacao: Exp '>' Exp .
+   37 Exp: Exp . '+' Termo
+   38    | Exp . '-' Termo
+
+    '+'  shift, and go to state 65
+    '-'  shift, and go to state 66
+
+    $default  reduce using rule 34 (Operacao)
+
+
+state 79
+
+   37 Exp: Exp '+' Termo .
+   40 Termo: Termo . '*' Fator
+   41      | Termo . '/' Fator
+
+    '*'  shift, and go to state 67
+    '/'  shift, and go to state 68
+
+    $default  reduce using rule 37 (Exp)
+
+
+state 80
+
+   38 Exp: Exp '-' Termo .
+   40 Termo: Termo . '*' Fator
+   41      | Termo . '/' Fator
+
+    '*'  shift, and go to state 67
+    '/'  shift, and go to state 68
+
+    $default  reduce using rule 38 (Exp)
+
+
+state 81
+
+   40 Termo: Termo '*' Fator .
+
+    $default  reduce using rule 40 (Termo)
+
+
+state 82
+
+   41 Termo: Termo '/' Fator .
+
+    $default  reduce using rule 41 (Termo)
+
+
+state 83
+
+   23 Condicao: SE @1 '(' Operacao ')' ':' . @2 '{' Instrucoes '}' SENAO @3 '{' Instrucoes '}'
+
+    $default  reduce using rule 21 (@2)
+
+    @2  go to state 90
+
+
+state 84
+
+   25 Condicao: SE @4 '(' Operacao ')' ':' . '{' Instrucoes '}'
+
+    '{'  shift, and go to state 91
+
+
+state 85
+
+   28 Ciclo: ENQUANTO @5 '(' Operacao ')' ':' . @6 '{' Instrucoes '}'
+
+    $default  reduce using rule 27 (@6)
+
+    @6  go to state 92
+
+
+state 86
+
+   30 Operacao: Exp '=' '=' Exp .
+   37 Exp: Exp . '+' Termo
+   38    | Exp . '-' Termo
+
+    '+'  shift, and go to state 65
+    '-'  shift, and go to state 66
+
+    $default  reduce using rule 30 (Operacao)
+
+
+state 87
+
+   29 Operacao: Exp '!' '=' Exp .
+   37 Exp: Exp . '+' Termo
+   38    | Exp . '-' Termo
+
+    '+'  shift, and go to state 65
+    '-'  shift, and go to state 66
+
+    $default  reduce using rule 29 (Operacao)
+
+
+state 88
+
+   31 Operacao: Exp '<' '=' Exp .
+   37 Exp: Exp . '+' Termo
+   38    | Exp . '-' Termo
+
+    '+'  shift, and go to state 65
+    '-'  shift, and go to state 66
+
+    $default  reduce using rule 31 (Operacao)
+
+
+state 89
+
+   32 Operacao: Exp '>' '=' Exp .
+   37 Exp: Exp . '+' Termo
+   38    | Exp . '-' Termo
+
+    '+'  shift, and go to state 65
+    '-'  shift, and go to state 66
+
+    $default  reduce using rule 32 (Operacao)
+
+
+state 90
+
+   23 Condicao: SE @1 '(' Operacao ')' ':' @2 . '{' Instrucoes '}' SENAO @3 '{' Instrucoes '}'
+
+    '{'  shift, and go to state 93
+
+
+state 91
+
+   25 Condicao: SE @4 '(' Operacao ')' ':' '{' . Instrucoes '}'
+
+    ID        shift, and go to state 13
+    SE        shift, and go to state 16
+    ENQUANTO  shift, and go to state 17
+    ENVIA     shift, and go to state 18
+    RECEBE    shift, and go to state 19
+
+    Variavel    go to state 20
+    Instrucoes  go to state 94
+    Instrucao   go to state 22
+    Atribuicao  go to state 23
+    Condicao    go to state 24
+    Ciclo       go to state 25
+    IO          go to state 26
+    Output      go to state 27
+    Input       go to state 28
+
+
+state 92
+
+   28 Ciclo: ENQUANTO @5 '(' Operacao ')' ':' @6 . '{' Instrucoes '}'
+
+    '{'  shift, and go to state 95
+
+
+state 93
+
+   23 Condicao: SE @1 '(' Operacao ')' ':' @2 '{' . Instrucoes '}' SENAO @3 '{' Instrucoes '}'
+
+    ID        shift, and go to state 13
+    SE        shift, and go to state 16
+    ENQUANTO  shift, and go to state 17
+    ENVIA     shift, and go to state 18
+    RECEBE    shift, and go to state 19
+
+    Variavel    go to state 20
+    Instrucoes  go to state 96
+    Instrucao   go to state 22
+    Atribuicao  go to state 23
+    Condicao    go to state 24
+    Ciclo       go to state 25
+    IO          go to state 26
+    Output      go to state 27
+    Input       go to state 28
+
+
+state 94
+
+   13 Instrucoes: Instrucoes . Instrucao
+   25 Condicao: SE @4 '(' Operacao ')' ':' '{' Instrucoes . '}'
+
+    ID        shift, and go to state 13
+    SE        shift, and go to state 16
+    ENQUANTO  shift, and go to state 17
+    ENVIA     shift, and go to state 18
+    RECEBE    shift, and go to state 19
+    '}'       shift, and go to state 97
+
+    Variavel    go to state 20
+    Instrucao   go to state 41
+    Atribuicao  go to state 23
+    Condicao    go to state 24
+    Ciclo       go to state 25
+    IO          go to state 26
+    Output      go to state 27
+    Input       go to state 28
+
+
+state 95
+
+   28 Ciclo: ENQUANTO @5 '(' Operacao ')' ':' @6 '{' . Instrucoes '}'
+
+    ID        shift, and go to state 13
+    SE        shift, and go to state 16
+    ENQUANTO  shift, and go to state 17
+    ENVIA     shift, and go to state 18
+    RECEBE    shift, and go to state 19
+
+    Variavel    go to state 20
+    Instrucoes  go to state 98
+    Instrucao   go to state 22
+    Atribuicao  go to state 23
+    Condicao    go to state 24
+    Ciclo       go to state 25
+    IO          go to state 26
+    Output      go to state 27
+    Input       go to state 28
+
+
+state 96
+
+   13 Instrucoes: Instrucoes . Instrucao
+   23 Condicao: SE @1 '(' Operacao ')' ':' @2 '{' Instrucoes . '}' SENAO @3 '{' Instrucoes '}'
+
+    ID        shift, and go to state 13
+    SE        shift, and go to state 16
+    ENQUANTO  shift, and go to state 17
+    ENVIA     shift, and go to state 18
+    RECEBE    shift, and go to state 19
+    '}'       shift, and go to state 99
+
+    Variavel    go to state 20
+    Instrucao   go to state 41
+    Atribuicao  go to state 23
+    Condicao    go to state 24
+    Ciclo       go to state 25
+    IO          go to state 26
+    Output      go to state 27
+    Input       go to state 28
+
+
+state 97
+
+   25 Condicao: SE @4 '(' Operacao ')' ':' '{' Instrucoes '}' .
+
+    $default  reduce using rule 25 (Condicao)
+
+
+state 98
+
+   13 Instrucoes: Instrucoes . Instrucao
+   28 Ciclo: ENQUANTO @5 '(' Operacao ')' ':' @6 '{' Instrucoes . '}'
+
+    ID        shift, and go to state 13
+    SE        shift, and go to state 16
+    ENQUANTO  shift, and go to state 17
+    ENVIA     shift, and go to state 18
+    RECEBE    shift, and go to state 19
+    '}'       shift, and go to state 100
+
+    Variavel    go to state 20
+    Instrucao   go to state 41
+    Atribuicao  go to state 23
+    Condicao    go to state 24
+    Ciclo       go to state 25
+    IO          go to state 26
+    Output      go to state 27
+    Input       go to state 28
+
+
+state 99
+
+   23 Condicao: SE @1 '(' Operacao ')' ':' @2 '{' Instrucoes '}' . SENAO @3 '{' Instrucoes '}'
+
+    SENAO  shift, and go to state 101
+
+
+state 100
+
+   28 Ciclo: ENQUANTO @5 '(' Operacao ')' ':' @6 '{' Instrucoes '}' .
+
+    $default  reduce using rule 28 (Ciclo)
+
+
+state 101
+
+   23 Condicao: SE @1 '(' Operacao ')' ':' @2 '{' Instrucoes '}' SENAO . @3 '{' Instrucoes '}'
+
+    $default  reduce using rule 22 (@3)
+
+    @3  go to state 102
+
+
+state 102
+
+   23 Condicao: SE @1 '(' Operacao ')' ':' @2 '{' Instrucoes '}' SENAO @3 . '{' Instrucoes '}'
+
+    '{'  shift, and go to state 103
+
+
+state 103
+
+   23 Condicao: SE @1 '(' Operacao ')' ':' @2 '{' Instrucoes '}' SENAO @3 '{' . Instrucoes '}'
+
+    ID        shift, and go to state 13
+    SE        shift, and go to state 16
+    ENQUANTO  shift, and go to state 17
+    ENVIA     shift, and go to state 18
+    RECEBE    shift, and go to state 19
+
+    Variavel    go to state 20
+    Instrucoes  go to state 104
+    Instrucao   go to state 22
+    Atribuicao  go to state 23
+    Condicao    go to state 24
+    Ciclo       go to state 25
+    IO          go to state 26
+    Output      go to state 27
+    Input       go to state 28
+
+
+state 104
+
+   13 Instrucoes: Instrucoes . Instrucao
+   23 Condicao: SE @1 '(' Operacao ')' ':' @2 '{' Instrucoes '}' SENAO @3 '{' Instrucoes . '}'
+
+    ID        shift, and go to state 13
+    SE        shift, and go to state 16
+    ENQUANTO  shift, and go to state 17
+    ENVIA     shift, and go to state 18
+    RECEBE    shift, and go to state 19
+    '}'       shift, and go to state 105
+
+    Variavel    go to state 20
+    Instrucao   go to state 41
+    Atribuicao  go to state 23
+    Condicao    go to state 24
+    Ciclo       go to state 25
+    IO          go to state 26
+    Output      go to state 27
+    Input       go to state 28
+
+
+state 105
+
+   23 Condicao: SE @1 '(' Operacao ')' ':' @2 '{' Instrucoes '}' SENAO @3 '{' Instrucoes '}' .
+
+    $default  reduce using rule 23 (Condicao)

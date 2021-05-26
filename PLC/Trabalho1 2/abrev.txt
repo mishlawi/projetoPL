@@ -1,0 +1,20 @@
+\ng    ->  \textbf         		  =  negrito
+\it     ->  \textit          		  = italico
+\sub    ->  \underline      		  = sublinhado
+\sec    ->  \section        		  = secção
+\ssec   ->  \subsection  		 	  = subsecção 
+\cap    ->  \chapter        	      = capitulo
+
+:D{     ->  \begin{description}       = abre descrição
+:D}     ->  \end{description}         = fecha descrição
+:I{	    ->  \begin{itemize}           = abre pontinhos ("enumerar")
+:I} 	->  \end{itemize}			  = fecha pontinhos
+:N{     ->  \begin{enumerate}		  = começa enumeração 
+:N}	    ->	\end{enumerate}			  =	fecha enumeração
+:C{ 	->	\begin{center}			  =	começa centrado
+:C}		->	\end{center} 			  =	fecha centrado
+
+
+
+\np     -> \newpage                   = nova pagina
+

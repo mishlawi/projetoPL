@@ -1,0 +1,32 @@
+\documentclass{report}
+\usepackage[utf8]{inputenc}
+\begin{document}
+
+\begin{center}
+
+\ti{O Adamastor }
+
+\neg{Porém} já cinco \sub{Sóis} eram passados
+Que dali nos partíramos, cortando
+Os mares \sub{nunca d' outrem navegados},
+Prosperamente os ventos assoprando,
+Quando ũa noute, estando descuidados
+Na cortadora proa vigiando,
+Ũa nuvem que os ares escurece,
+Sobre nossas cabeças aparece.
+
+\neg{Luís de Camões}, \it{in Lusíadas, Canto V}
+
+\end{center}
+
+
+\chapter {Glossário:}
+
+\begin{enumerate}
+\item ũa noute: uma noite 
+\item Ũa nuvem: uma nuvem 
+\end{description}
+
+
+
+\end{document}

@@ -15,7 +15,7 @@ declaradas
 * Escrita stdout
 * Condições e Ciclos Repetir
 
----------------------------------------------------------------
+---------------------------------------------------------
 TOP-GENERIC
 
 Programa -> Function
@@ -41,8 +41,7 @@ Comand -> Atribution
        | Conditional
        | Cycle
 
-********************************************************************
-
+*********************************************************
 TIPO DE EXECUCOES
 
 
@@ -60,12 +59,19 @@ Conditions -> Neg '(' Condition ')' LogicSymb Conditions
 Neg -> NOT          #  !
      |  $ 
 
-LogicSymb -> OR     # ||
-           | AND    # &&
 
+cond -> cond or cond2
+       | cond2
 
-Condition -> Expression OpRel Expression
-		   | Expression
+cond2 -> cond2 and cond3
+ 		| cond3
+
+cond3 -> NOT cond 
+       | RelExpression
+       | '(' cond ')'
+
+RelExpression -> Expression OpRel Expression
+		       | Expression
 
 
 OpRel -> GoE     # >=
@@ -82,34 +88,30 @@ Atribuicao -> TIPO Var '=' Exp
 ++CICLO
 CYCLE : WHILE '(' Conditions ')' '{' Comands '}'
 
-**************************************************************************
+*********************************************************
 TRIVIALIDADE
 
-Expression -> Vals
-            | Expression '+' Vals
-            | Expression '-' Vals
+Expression -> Values
+            | Expression '+' Values
+            | Expression '-' Values
 
 
-Vals -> Nature
-      | Vals '*' Nature
-      | Vals '/' Nature
+Values -> Value
+      | Values '*' Value
+      | Values '/' Value
+      | Values '%' Value
 
-
-****************************************************************************
-DEFINICOES ELEMENTARES
-
-
-Fator -> Nint
+Value  -> Nint
 		| VAR
         | '(' Expression')'
 
 
-Tipo -> INT
+#########################################################IO
 
 IO -> INPUT
-   | OUTPUT
+    | OUTPUT
 
 
 OUTPUT -> PRINT Exp
 
-INPUT -> SCAN VAR
+INPUT -> SCAN Exp
