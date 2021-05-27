@@ -18,19 +18,6 @@ declaradas
 ---------------------------------------------------------
 TOP-GENERIC
 
-Programa -> Function
-          | Expression
-
-Function -> Header Instrucoes
-
-
-Header -> TIPO NAME '(' Argumento ')'
-          | TIPO NAME '(' ')'
-
-
-Argumento -> TIPO ARG ',' Argumento
-		   | TIPO ARG
-
 Instrucoes -> '{' Comands '}' 
 		
 
@@ -42,37 +29,29 @@ Comand -> Atribution
        | Cycle
 
 *********************************************************
-TIPO DE EXECUCOES
+Conditional
+
+Conditional -> 'if' ( Conditon ) { Comandos } Extension
+
+Extension -> 'else' { Comandos }
+           | $
+
+Condition -> Condition && Condition2
+           | Condition2
 
 
-++CONDICIONAIS
-Conditional -> if '(' Conditions ')' '{' Comands '}' else '{'Comands '}'
-             | if '(' Conditions ')' '{' Comands '}'
+Condition2 -> Condition2 || Condition3
+           | Condition3 
 
-##if ((b>c) && (d<g) || h>i)
+Condition3 -> '(' Condition ')'
+            | ExpRelacional
+            | '!' Condition
 
-
-Conditions -> Neg '(' Condition ')' LogicSymb Conditions
-            | Neg '(' Condition ')'   # !(a>b)|| a
-
-
-Neg -> NOT          #  !
-     |  $ 
+RelExpression -> Expression Continuation
 
 
-cond -> cond or cond2
-       | cond2
-
-cond2 -> cond2 and cond3
- 		| cond3
-
-cond3 -> NOT cond 
-       | RelExpression
-       | '(' cond ')'
-
-RelExpression -> Expression OpRel Expression
-		       | Expression
-
+Continuation -> OpRel Expression
+              |  $
 
 OpRel -> GoE     # >=
 	   | LoE     # <= 
@@ -108,10 +87,6 @@ Value  -> Nint
 
 #########################################################IO
 
-IO -> INPUT
-    | OUTPUT
+INPUT -> 
 
-
-OUTPUT -> PRINT Exp
-
-INPUT -> SCAN Exp
+OUTPUT -> 'print' VAR 

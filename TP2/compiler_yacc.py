@@ -2,22 +2,18 @@ import ply.yacc as yacc
 import sys
 from compiler_lex import tokens
 
-
-
 stack = {}
 sp = -1
 pointer = 0
-
-
 
 ##########################################################COMANDOS
 
 #Comands -> Comand Comands
 #        | Comand
+
 def p_program(p):
 	"Program : Comands"
 	p[0] = p[1]
-
 
 def p_comands(p):
 	"Comands : Comand Comands"
@@ -35,14 +31,8 @@ def p_comand_atb (p):
 	"Comand : Atribuition"
 	p[0] = p[1]
 
-###alterado mudar para conditional
 def p_comand_cond (p):
 	"Comand : Conditional"
-	p[0] = p[1]
-	
-
-def p_comand_Exp (p):
-	"Comand : Expression"
 	p[0] = p[1]
 	
 
@@ -53,48 +43,60 @@ def p_comand_Exp (p):
 def p_comand_IO(p):
 	"Comand : IO"
 	p[0] = p[1]
-    
+  
+"""
+def comandos_open(p):
+	"Comandos : Aberto "
+
+def comandos_closed(p):
+	"Comandos : Fechado"
+
+def open_1 (p):
+	"Aberto : IF PA Condition PF AC Comandos FC"
+
+def open_2(p):
+	"Aberto: IF PA Condition PF AC Fechado FC ELSE AC Aberto FC"
+
+
+def closed_1(p):
+	"Fechado : Atribuition"
+
+def closed_2(p):
+	"Fechado : IF PA Condition PF Fechado ELSE Fechado"
+"""
+
 ############################################################CONDICIONAL
 
 
-#Conditional -> if '(' Conditions ')' '{' Comands '}' else '{'Comands '}'
-#             | if '(' Conditions ')' '{' Comands '}'
+#Conditional -> if '(' Conditions ')' '{' Comands '}' Extension
 
-def p_conditional (p):
-	"Conditional : IF AP Condition FP AC Comands FC ELSE AC Comands FC"
+#Extension -> else '{' Comands '}'
+#			| $ 
+
+
+
+
+def p_conditional_simple(p):
+	"Conditional : IF AP Condition FP AC Comands FC Extension" 
 	global sp
 	global stack
 	global pointer
-	p[0] = p[3] + '\n' + f"JZ ELSE_{pointer}\n" + p[6] + f'JUMP ENDIF_{pointer}\n' + f'ELSE_{pointer}\n' + p[10] + f'ENDIF_{pointer}\n' + 'STOP\n'
+	print("kajshfkajsfh")
+	p[0] = p[3] + '\n' + f"JZ ELSE_{pointer}\n" + p[6] + p[8]
 	pointer += 1
 
-def p_conditional_simple(p):
-	"Conditional : IF AP Condition FP AC Comands FC"
+
+def p_extension (p):
+	"Extension :  ELSE AC Comands FC"
 	global sp
 	global stack
 	global pointer
-	p[0] = p[3] + '\n' + f"JZ ELSE_{pointer}\n" + p[6] + f'JUMP ENDIF_{pointer}\n'  + 'STOP\n'
-	pointer += 1
+	p[0] = f'JUMP ENDIF_{pointer}\n' + f'ELSE_{pointer}\n' + p[3] + f'ENDIF_{pointer}\n' + 'STOP\n'
+	#pointer += 1
 
-	
-
-
-#Conditions ->  Condition Conditions
-#            |  Condition  # !(a>b)|| a
-
-#def p_conditions(p):
-#	"Conditions :  Condition Conditions"
-#	print("condicao")
-#	p[0] =  p[1] + p[2]
-
-#def p_conditions_simple(p):
-#	"Conditions :  Condition"
-#	p[0] = p[1]
-
-
-
-# Condition -> Condition OR Condition2
-#            | Condition2
+def p_extension_empty (p):
+	"Extension : "
+	p[0] = ''
 
 
 def p_condition_or(p):
@@ -136,24 +138,24 @@ def p_condition3_priority(p):
 	"Condition3 : AP Condition FP"
 	p[0] = p[2]
 
-#ExpRelacional -> Expression OpRel Expression
-#		        | Expression
-	
+#RelExpression -> Expression Continuation
+
+# Continuation -> OpRel Expression
+#				| $
 
 def p_RelExpression_complex(p):
-	"RelExpression : Expression OpRel Expression"
-	p[0] = p[1] + '\n' + p[3] + '\n' + p[2] + '\n'
+	"RelExpression : Expression Continuation"
+	p[0] = p[1] + '\n' + p[2] 
 
+def p_continuation(p):
+	"Continuation : OpRel Expression"
+	p[0] = p[1] + p[2]
 
-def p_RelExpression_simple(p):
-	"RelExpression : Expression"
-	p[0] = p[1]
+def p_continuation_empty(p):
+	"Continuation : "
+	p[0] = ''
 
 ###################################################SIMBOLOS CONDICIONAIS
-
-#Neg -> NOT          #  !
-#     |  $ 
-
 
 #OpRel -> GoE        >=
 #	   | LoE         <= 
@@ -197,39 +199,59 @@ def p_opRel_Diff(p):
 
 ############################################################ATRIBUICAO
 
-
-#ATT -> INT VAR '=' EXP
-#     | VAR '=' EXP
-#     | INT VAR
+         
 
 
-def p_atribuition_first(p):
 
-	"Atribuition : INT VAR EQUAL Expression"
+def p_atribuition_array_numbered(p):
+	"Atribuition : VAR PRA Nint PRF EQUAL Expression"
+	global stack
+	global sp
+	p[0] = 'PUSHGP\nPUSHI ' + stack[p[1]]+ '\n' + 'PADD\nPUSHI ' + p[3] + '\n' + p[6] +'\nSTOREN '
+	for n in range(int(p[4])):
+		sp+=1
+		stack[f'{p[2]} [{n}]'] = (sp,'array'+p[1],int(p[4]))
+	
+
+
+def p_atribuition_array_numbered(p):
+	"Atribuition : INT VAR PRA Nint PRF"
+	p[0] = 'PUSHN ' + p[4] + '\n' 
+
+
+#falta definir para variaveis 
+
+#ATT -> INT VAR Rest
+#	  | INT VAR [Nint] 
+#     | VAR '=' Expression
+
+
+#Rest -> '=' Expression
+#      | 
+#	   | $  
+
+def p_atribuition (p):
+	"Atribuition : INT VAR Rest"
 	global stack
 	global sp
 	sp+=1
-	stack[p[2]] = (sp,p[1])
-	print(stack)
-	
-	p[0] =  p[4] +'\n'
+	stack[p[2]] = (sp,p[1],None)
+	p[0] = p[3] + '\n'
+
+def p_rest(p):
+	"Rest : EQUAL Expression "
+	p[0] = p[2] + '\n'
+
+def p_rest_empty(p):
+	"Rest : "
+	p[0] = 'PUSHI 0\n'
 
 def p_atribuition_second(p):
-	"Atribuition :  VAR EQUAL Expression "
-	
+	"Atribuition : VAR EQUAL Expression"
 	p[0] = p[3] + '\n' + 'storeg ' + str(stack[p[1]][0]) +'\n'
 
 
 
-def p_atribuition_simple(p):
-	"Atribuition : INT VAR"
-	global stack
-	global sp
-	sp+=1
-	stack[p[2]] = (sp,p[1])
-	print(stack)
-	
-	p[0] = 'PUSHI 0\n'
 
 ############################################################EXPRESSAO
 
@@ -261,7 +283,7 @@ def p_expression_simple(p):
 
 def p_Values_simple(p):
 	"Values : Value"
-	p[0] = p[1]
+	p[0] = p[1] 
 
 
 def p_Values_1(p):
@@ -289,6 +311,7 @@ def p_Value_int(p):
 def p_Value_var(p):	
 	"Value : VAR"
 	p[0] = "PUSHG " + str(stack[p[1]][0]) +'\n'
+	 
 
 
 def p_Value_complex(p):
@@ -318,12 +341,14 @@ def p_INPUT(p):
 
 # OUTPUT  -> PRINT VAR
 #          | PRINT Exp
+#		   | 
+
 
 
 ##################################################OUTPUT
 
 def p_OUTPUT_var(p):
-	"OUTPUT : PRINT VAR"
+	"OUTPUT : PRINT Expression"
 	global sp
 	global stack
 	if sp==stack[p[2]][0]:
@@ -334,6 +359,12 @@ def p_OUTPUT_var(p):
 		p[0] = "PUSHG " + str(stack[p[2]][0]) + '\n' + "WRITEI \n"
 		
 
+def p_OUTPUT_array(p):
+	"OUTPUT : PRINT VAR PRA Nint PRF"
+	print(stack)
+	P[0] = 'PUSHGP1\nPUSHI ' + str(stack[p[2]][0]) + '\nPADD\nPUSHG' + p[4] + '\nLOADN\nWRITEI'
+
+
 #def p_OUTPUT_Exp(p):
 #	"OUTPUT : PRINT Expression"
 #	p[0] = p[2] + "WRITEI \n"
@@ -342,7 +373,6 @@ def p_OUTPUT_var(p):
 def p_error(p):
     print("erro")
     print(p)
-
 
 
 
@@ -364,3 +394,11 @@ file.flush()
 #	print(linha)
 #   result = parser.parse(linha)
 #	print(result)
+
+
+
+#TODO:
+#->corrigir erros
+#->definir e ACABAR CICLOS
+#->CHECKAR VARIAVEIS EM ARRAYS
+ 

@@ -59,7 +59,7 @@ add     | int      | 13   |         |
 ____________________________________|
 
     pushn 3
-    pshn 10
+    pushn 10
     pushi 0
 start
     pushgp

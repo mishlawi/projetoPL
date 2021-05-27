@@ -4,7 +4,7 @@ import ply.lex as lex
 
 reserved = {'if': 'IF', 'else':'ELSE','int':'INT', 'while':'WHILE', 'print':'PRINT','scan':'SCAN'}
 
-tokens = ['AP','FP','AC','FC',
+tokens = ['AP','FP','AC','FC', 'PRA' , 'PRF',
 'ADD','MUL', 'DIV', 'SUB', 'MOD',
 'OR','AND',
 'GoE','LoE','Lower','Greater',
@@ -19,6 +19,10 @@ t_FP = r'\)'
 t_AC = r'\{'
 
 t_FC = r'\}'
+
+t_PRA = r'\['
+
+t_PRF = r'\]'
 
 t_ADD = r'\+'
 
