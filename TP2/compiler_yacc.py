@@ -2,9 +2,23 @@ import ply.yacc as yacc
 import sys
 from compiler_lex import tokens
 
+
+class Valor:
+	def __init__(self,tipo,offset,size):
+		self.tipo = tipo
+		self.offset = offset
+		self.size = size
+		
+
+
 stack = {}
-sp = -1
-pointer = 0
+
+
+
+sp = 0
+gp = 0
+pc = 0
+#Described in 1.2.7 in VMdocpt
 
 ##########################################################COMANDOS
 
@@ -13,7 +27,7 @@ pointer = 0
 
 def p_program(p):
 	"Program : Comands"
-	p[0] = p[1]
+	p[0] = 'START\n' + p[1] + 'STOP\n'
 
 def p_comands(p):
 	"Comands : Comand Comands"
@@ -79,20 +93,20 @@ def closed_2(p):
 def p_conditional_simple(p):
 	"Conditional : IF AP Condition FP AC Comands FC Extension" 
 	global sp
-	global stack
-	global pointer
+	global stack 
+	global gp
 	print("kajshfkajsfh")
-	p[0] = p[3] + '\n' + f"JZ ELSE_{pointer}\n" + p[6] + p[8]
-	pointer += 1
+	p[0] = p[3] + '\n' + f"JZ ELSE_{gp}\n" + p[6] + p[8]
+	gp += 1
 
 
 def p_extension (p):
 	"Extension :  ELSE AC Comands FC"
 	global sp
 	global stack
-	global pointer
-	p[0] = f'JUMP ENDIF_{pointer}\n' + f'ELSE_{pointer}\n' + p[3] + f'ENDIF_{pointer}\n' + 'STOP\n'
-	#pointer += 1
+	global gp
+	p[0] = f'JUMP ENDIF_{gp}\n' + f'ELSE_{gp}\n' + p[3] + f'ENDIF_{gp}\n' + 'STOP\n'
+	#gp += 1
 
 def p_extension_empty (p):
 	"Extension : "
@@ -167,56 +181,58 @@ def p_continuation_empty(p):
 
 def p_opRel_GoE(p):
 	"OpRel : GoE"	
-	p[0] = 'SUPEQ' 
+	p[0] = 'SUPEQ\n' 
 
 def p_opRel_LoE(p):
 	"OpRel : LoE"
-	p[0] = 'INFEQ'
+	p[0] = 'INFEQ\n'
 
 def p_opRel_Lower(p):
 	"OpRel : Lower"
-	p[0] = 'INF'
+	p[0] = 'INF\n'
 
 def p_opRel_Greater(p):
 	"OpRel : Greater"
-	p[0] = 'SUP'
+	p[0] = 'SUP\n'
 
 def p_opRel_Equal(p):
 	"OpRel : IGUAL"
-	p[0] = 'EQUAL'
+	p[0] = 'EQUAL\n'
 
 def p_opRel_Diff(p):
 	"OpRel : DIFF"	
-	p[0] = 'DIFF NOT'
+	p[0] = 'DIFF NOT\n'
          
 
 ############################################################CICLOS
 
-#def p_cycle(p):
+def p_cycle(p):
 	
-#	"Cycle : WHILE AP Condition FP AC Comands FC"
+	"Cycle : WHILE AP Condition FP AC Comands FC"
 	
 
 ############################################################ATRIBUICAO
 
          
 
+# a[2] = 4
+def p_rest_array(p):
+	"Atribuition : INT VAR PRA Nint PRF"
+	global stack
+	global sp
+	p[0] = 'PUSHN ' + p[4] + '\n'
+	stack[f'{p[2]}'] = (sp,'array'+p[1], p[4])
+	sp+=int(p[4])
 
 
 def p_atribuition_array_numbered(p):
-	"Atribuition : VAR PRA Nint PRF EQUAL Expression"
+	"Atribuition : VAR PRA Nint PRF EQUAL Nint"
 	global stack
-	global sp
-	p[0] = 'PUSHGP\nPUSHI ' + stack[p[1]]+ '\n' + 'PADD\nPUSHI ' + p[3] + '\n' + p[6] +'\nSTOREN '
-	for n in range(int(p[4])):
-		sp+=1
-		stack[f'{p[2]} [{n}]'] = (sp,'array'+p[1],int(p[4]))
+	print("ty")
+	p[0] = 'PUSHGP\nPUSHI ' + str(stack[f'{p[1]}'][0])+ '\n' + 'PADD\nPUSHI ' + p[3] + '\nPUSHI ' + p[6] +'\nSTOREN\n'
 	
 
 
-def p_atribuition_array_numbered(p):
-	"Atribuition : INT VAR PRA Nint PRF"
-	p[0] = 'PUSHN ' + p[4] + '\n' 
 
 
 #falta definir para variaveis 
@@ -230,17 +246,33 @@ def p_atribuition_array_numbered(p):
 #      | 
 #	   | $  
 
+
+
+
 def p_atribuition (p):
 	"Atribuition : INT VAR Rest"
+	print("atribuition of " + p[2])
 	global stack
 	global sp
-	sp+=1
 	stack[p[2]] = (sp,p[1],None)
 	p[0] = p[3] + '\n'
+	sp+=1
 
+#int a = 4
 def p_rest(p):
 	"Rest : EQUAL Expression "
 	p[0] = p[2] + '\n'
+
+#int b
+"""
+def p_rest_array(p):
+	"Atribuition : INT VAR PRA Nint PRF"
+	global stack
+	global sp
+	p[0] = 'PUSHN ' + p[4] + '\n'
+	sp+=int(p[4])
+	stack[f'{p[2]}'] = (sp,'array'+p[1], p[4])
+"""
 
 def p_rest_empty(p):
 	"Rest : "
@@ -254,8 +286,6 @@ def p_atribuition_second(p):
 
 
 ############################################################EXPRESSAO
-
-
 
 #Expression -> Values
 #            | Expression '+' Values
@@ -336,47 +366,43 @@ def p_IO_OUTPUT(p):
 # INPUT -> SCAN Exp
 
 def p_INPUT(p):
-	"INPUT : SCAN Expression"
-	p[0] = p[2]
+	"INPUT : SCAN AP Expression FP"
+	p[0] = p[3]
+
+
+
+
+##################################################OUTPUT
 
 # OUTPUT  -> PRINT VAR
 #          | PRINT Exp
 #		   | 
 
 
-
-##################################################OUTPUT
+#print a * 7 + 2
 
 def p_OUTPUT_var(p):
-	"OUTPUT : PRINT Expression"
+	"OUTPUT : PRINT AP Expression FP"
 	global sp
 	global stack
-	if sp==stack[p[2]][0]:
-		p[0] = "WRITEI \n"
-
-	else:
-		sp = stack[p[2]][0]
-		p[0] = "PUSHG " + str(stack[p[2]][0]) + '\n' + "WRITEI \n"
+	print(p[2])
+	p[0] = p[2] + "WRITEI \n"
 		
-
+#print ( a[ 14 ] )
 def p_OUTPUT_array(p):
-	"OUTPUT : PRINT VAR PRA Nint PRF"
+	"OUTPUT : PRINT AP VAR PRA Nint PRF FP"
+	print("yo")
 	print(stack)
-	P[0] = 'PUSHGP1\nPUSHI ' + str(stack[p[2]][0]) + '\nPADD\nPUSHG' + p[4] + '\nLOADN\nWRITEI'
+	p[0] = 'PUSHGP\nPUSHI ' + str(stack[p[3]][0]) + '\nPADD\nPUSHI ' + p[5] + '\nLOADN\nWRITEI\n'
 
 
-#def p_OUTPUT_Exp(p):
-#	"OUTPUT : PRINT Expression"
-#	p[0] = p[2] + "WRITEI \n"
-
+#######################################DefinicaoYACC
 
 def p_error(p):
     print("erro")
     print(p)
 
 
-
-#######################################DefinicaoYACC
 
 parser = yacc.yacc() 
 fo = open("teste.txt").read()

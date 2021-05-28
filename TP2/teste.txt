@@ -1,4 +1,8 @@
-int dummy[3]
-int lista[10]
-print lista[2]
-print dummy[1]
+int a,b
+scan(a)
+scan(b)
+if(a>b){
+    print add
+}
+else {
+    print b}
