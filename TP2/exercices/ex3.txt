@@ -1,0 +1,10 @@
+int N
+int prod = 1
+int i = 0
+int num
+scan(N)
+while(i<N){
+	scan(num)
+	prod = prod * num
+	i = i+1
+}

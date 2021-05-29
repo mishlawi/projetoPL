@@ -1,13 +1,15 @@
-int a
-int b
-int c
-int d
-int res = 0
+int i = 0
 
-if (a == b && a == c && !(a == d)){
-	res = 1
-	print(res)
+int lista[N]
+while(i<4){
+    scan(lista[i])
+    i = i + 1
+    print(i)
+
 }
-else{
-	print(res)
+while(i>0){
+    i = i - 1   
+	print(lista[i])
+
 }
+
