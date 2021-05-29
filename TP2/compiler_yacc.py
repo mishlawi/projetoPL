@@ -74,7 +74,7 @@ def p_cycle(p):
 	print("ciclo")
 	global pc 
 	pc += 1
-	p[0] = f"Ciclo{pc}:\n" + p[3] + '\n' + f"JZ ENDC{pc}\n" + p[6] +f'JUMP Ciclo{pc}'
+	p[0] = f"Ciclo{pc}:\n" + p[3] + '\n' + f"JZ ENDC{pc}\n" + p[6] +f'JUMP Ciclo{pc}\nENDC{pc}:\n'
 	
 ############################################################CONDICIONAL
 
@@ -103,7 +103,7 @@ def p_extension_empty (p):
 
 def p_condition_or(p):
 	"Condition : Condition OR Condition2"
-	p[0] = p[1] +'ADD\n' + p[3] 
+	p[0] = p[1]  + p[3] + 'ADD\n'
 	print("condition ||")
 
 def p_condition_simple(p):
@@ -116,7 +116,7 @@ def p_condition_simple(p):
 def p_condition2_and (p):
 	"Condition2 : Condition2 AND Condition3"
 	print("condition &&")
-	p[0] = p[1] + 'MUL\n' +  p[3] 
+	p[0] = p[1] +  p[3]  + 'MUL\n'
 
 
 def p_condition2_simple(p):
@@ -130,7 +130,7 @@ def p_condition2_simple(p):
 def p_condition3 (p):
 	"Condition3 : NOT Condition"
 	print("neg condition")
-	p[0] = p[2]
+	p[0] = p[2] + 'NOT'
 
 def p_condition3_exp(p):
 	"Condition3 : RelExpression"

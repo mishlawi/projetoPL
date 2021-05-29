@@ -1,6 +1,13 @@
-int i = 0
-int lista[10]
-while(i<10){
-    scan(lista[i])
-    i = i + 1
+int a
+int b
+int c
+int d
+int res = 0
+
+if (a == b && a == c && !(a == d)){
+	res = 1
+	print(res)
+}
+else{
+	print(res)
 }
