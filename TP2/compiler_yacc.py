@@ -5,8 +5,7 @@ from compiler_lex import tokens
 
 
 stack = {}
-
-
+#(sp,tipo,valor)
 
 sp = 0
 gp = 0
@@ -16,13 +15,28 @@ pc = 0
 #Comands -> Comand Comands
 #        | Comand
 
-def p_program(p):
-	"Program : Comands"
-	p[0] = 'START\n' + p[1] + 'STOP\n'
 
+
+def p_program(p):
+	"Program : Inits Comands"
+	print("aaa")
+	p[0] =  p[1] + 'START\n'  + p[2] + 'STOP\n'
+
+def p_program_noInstructions(p):
+	"Program : Comands"
+	p[0] = 'START\n' + p[1]+ 'STOP\n'
+
+def p_init(p):
+	"Inits : Inicialization Inits"
+	p[0] = p[1] + p[2]
+
+def p_init_simple(p):
+	"Inits : Inicialization"
+	p[0] = p[1]
 
 def p_comands(p):
 	"Comands : Comand Comands"
+	print("aaa")
 	p[0] = p[1] + p[2]
 
 def p_comands_simple(p):
@@ -42,62 +56,44 @@ def p_comand_cond (p):
 	p[0] = p[1]
 	
 
-#def p_comand_cycle (p):
-#    "Comand : Cycle"
-#    p[0] = p[1]
+def p_comand_cycle (p):
+    "Comand : Cycle"
+    p[0] = p[1]
 
 def p_comand_IO(p):
 	"Comand : IO"
 	p[0] = p[1]
   
-"""
-def comandos_open(p):
-	"Comandos : Aberto "
-
-def comandos_closed(p):
-	"Comandos : Fechado"
-
-def open_1 (p):
-	"Aberto : IF PA Condition PF AC Comandos FC"
-
-def open_2(p):
-	"Aberto: IF PA Condition PF AC Fechado FC ELSE AC Aberto FC"
 
 
-def closed_1(p):
-	"Fechado : Atribuition"
 
-def closed_2(p):
-	"Fechado : IF PA Condition PF Fechado ELSE Fechado"
-"""
+############################################################CICLOS
 
+def p_cycle(p):
+	"Cycle : WHILE AP Condition FP AC Comands FC"
+	print("ciclo")
+	global pc 
+	pc += 1
+	p[0] = f"Ciclo{pc}:\n" + p[3] + '\n' + f"JZ ENDC{pc}\n" + p[6] +f'JUMP Ciclo{pc}'
+	
 ############################################################CONDICIONAL
-
-
-#Conditional -> if '(' Conditions ')' '{' Comands '}' Extension
-
-#Extension -> else '{' Comands '}'
-#			| $ 
-
-
-
 
 def p_conditional_simple(p):
 	"Conditional : IF AP Condition FP AC Comands FC Extension" 
 	global sp
 	global stack 
 	global gp
-	gp += 1
-	p[0] = p[3] + '\n' + f"JZ ELSE_{gp}\n" + p[6] + p[8]
 	
-
+	p[0] = p[3] + '\n' + f"JZ ELSE{gp}\n" + p[6] + p[8]
+	
 
 def p_extension (p):
 	"Extension :  ELSE AC Comands FC"
 	global sp
 	global stack
 	global gp
-	p[0] = f'JUMP ENDIF_{gp}\n' + f'ELSE_{gp}\n' + p[3] + f'ENDIF_{gp}\n' + 'STOP\n'
+	gp += 1
+	p[0] = f'JUMP ENDIF{gp}\n' + f'ELSE{gp}:\n' + p[3] + f'ENDIF{gp}:\n'
 	
 
 def p_extension_empty (p):
@@ -155,7 +151,7 @@ def p_RelExpression_complex(p):
 
 def p_continuation(p):
 	"Continuation : OpRel Expression"
-	p[0] = p[1] + p[2]
+	p[0] = p[2] + p[1]
 
 def p_continuation_empty(p):
 	"Continuation : "
@@ -196,50 +192,56 @@ def p_opRel_Diff(p):
 	p[0] = 'DIFF NOT\n'
          
 
-############################################################CICLOS
-
-#def p_cycle(p):
-	
-#	"Cycle : WHILE AP Condition FP AC Comands FC"
-#	gp+=1
-#	p[0] = p[3] + p[6]
-	
 	
 
 ############################################################ATRIBUICAO
 
-         
 
-#a[2] = 4
-def p_rest_array(p):
-	"Atribuition : VAR PRA Nint PRF"
+
+
+def p_Inicialization_integer(p) : 
+	"Inicialization : INT VAR Rest"
+	print("Inicialization of " + p[2])
+	global stack
+	global sp
+	stack[p[2]] = (sp,p[1],None)
+	p[0] = p[3] + '\n'
+	sp+=1
+
+def p_Inicialization_array(p) :
+	"Inicialization : INT VAR PRA Nint PRF"
+	global stack
+	global sp
+	print(stack)
+	print("array entrou na stack")
+	p[0] = 'PUSHN ' + p[4] + '\n'
+	stack[f'{p[2]}'] = (sp,'array'+p[1], p[4])
+	sp+=int(p[4])
+
+#int a[2] 
+"""
+def p_atribuition_array(p):
+	"Atribuition : INT VAR PRA Nint PRF"
 	global stack
 	global sp
 	p[0] = 'PUSHN ' + p[4] + '\n'
 	stack[f'{p[2]}'] = (sp,'array'+p[1], p[4])
 	sp+=int(p[4])
+"""
+
+#def p_array_var(p):
+#	"Atribuition : VAR PRA VAR PRF EQUAL Expression"
+
 
 # int a[4] = 3
 def p_atribuition_array_numbered(p):
-	"Atribuition : INT VAR PRA Nint PRF EQUAL Nint"
+	"Atribuition : VAR PRA Nint PRF EQUAL Expression"
 	global stack
-	p[0] = 'PUSHGP\nPUSHI ' + str(stack[f'{p[1]}'][0])+ '\n' + 'PADD\nPUSHI ' + p[3] + '\nPUSHI ' + p[6] +'\nSTOREN\n'
+	print(stack)
+	p[0] = 'PUSHGP\nPUSHI ' + str(stack[f'{p[1]}'][0])+ '\n' + 'PADD\nPUSHI ' + p[3] + '\n' + p[6] +'\nSTOREN\n'
 	
-
-
-
-#falta definir para variaveis 
-
-#ATT -> INT VAR Rest
-#	  | INT VAR [Nint] 
-#     | VAR '=' Expression
-
-
-#Rest -> '=' Expression
-#      | 
-#	   | $  
-
-
+#int a = ...
+"""
 def p_atribuition (p):
 	"Atribuition : INT VAR Rest"
 	print("atribuition of " + p[2])
@@ -248,21 +250,22 @@ def p_atribuition (p):
 	stack[p[2]] = (sp,p[1],None)
 	p[0] = p[3] + '\n'
 	sp+=1
+"""
+# a = 3
+def p_atribuition_second(p):
+	"Atribuition : VAR EQUAL Expression"
+	p[0] = p[3] + '\n' + 'STOREG ' + str(stack[p[1]][0]) +'\n'
+
 
 #int a = 4
 def p_rest(p):
 	"Rest : EQUAL Expression "
 	p[0] = p[2] + '\n'
 
-
+#int a
 def p_rest_empty(p):
 	"Rest : "
-	p[0] = 'PUSHI 0\n'
-
-def p_atribuition_second(p):
-	"Atribuition : VAR EQUAL Expression"
-	p[0] = p[3] + '\n' + 'STOREG ' + str(stack[p[1]][0]) +'\n'
-
+	p[0] = 'PUSHI 0'
 
 
 
@@ -316,12 +319,12 @@ def p_Values_3(p):
 
 def p_Value_int(p):
 	"Value : Nint"
-	p[0] = "PUSHI " + p[1] + '\n'
+	p[0] = "PUSHI " + p[1] 
 
 
 def p_Value_var(p):	
 	"Value : VAR"
-	p[0] = "PUSHG " + str(stack[p[1]][0]) +'\n'
+	p[0] = "\nPUSHG " + str(stack[p[1]][0]) +'\n'
 	 
 
 
@@ -331,9 +334,8 @@ def p_Value_complex(p):
 
 ############################################INPUT OUTPUT
 
-
-#IO -> INPUT
-#   | OUTPUT
+# IO -> INPUT
+#     | OUTPUT
 
 def p_IO_INPUT(p):
 	"IO : INPUT"
@@ -345,10 +347,11 @@ def p_IO_OUTPUT(p):
 
 ##################################################INPUT
 # INPUT -> SCAN Exp
-
+# scan ( int a[x] ) 
 def p_INPUT(p):
-	"INPUT : SCAN AP Expression FP"
-	p[0] = p[3] + 'READ\nATOI\nSTOREN\n'
+	"INPUT : SCAN AP VAR PRA Expression PRF FP"
+	x = stack[p[3]][0]
+	p[0] = 'PUSHGP\n' + 'PUSHI '+ str(x) + 'PADD\n' + p[5] + 'READ\nATOI\nSTOREN\n'
 
 ##################################################OUTPUT
 
@@ -360,17 +363,25 @@ def p_INPUT(p):
 
 def p_OUTPUT_exp(p):
 	"OUTPUT : PRINT AP Expression FP"
+	print("yo")
 	global sp
 	global stack
-	p[0] = p[3] + "WRITEI \n"
-		
-#print ( a[ 14 ] )
+	p[0] = p[3] + "WRITEI\n"
+
+#print(a[10])
+#print(a[i])
 def p_OUTPUT_array(p):
-	"OUTPUT : PRINT AP VAR PRA Nint PRF FP"
-	p[0] = 'PUSHGP\nPUSHI ' + str(stack[p[3]][0]) + '\nPADD\nPUSHI ' + p[5] + '\nLOADN\nWRITEI\n'
+	"OUTPUT : PRINT AP VAR PRA Expression PRF FP"
+	p[0] = 'PUSHGP\nPUSHI ' + str(stack[p[3]][0]) + '\nPADD\nPUSHG ' + p[5] +'\nLOADN\nWRITEI'
 
 
-#######################################DefinicaoYACC
+#print ( a[ 14 ] )
+#def p_OUTPUT_array(p):
+#	"OUTPUT : PRINT AP VAR PRA Nint PRF FP"
+#	p[0] = 'PUSHGP\nPUSHI ' + str(stack[p[3]][0]) + '\nPADD\nPUSHI ' + p[5] + '\nLOADN\nWRITEI\n'
+
+
+################################################DefinicaoYACC
 
 def p_error(p):
     print("erro")
@@ -385,8 +396,7 @@ with open('teste.txt', 'r') as myfile:
     for line in myfile:
         m = re.search(r'while', line)
         if m is not None:
-            m.group(0)
-            print("aaa")
+            print("while found")
         
 
 result = parser.parse(fo)

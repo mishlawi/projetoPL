@@ -28,20 +28,20 @@ Comand -> Atribution
 *********************************************************
 Conditional
 
-Conditional -> 'if' ( Conditon ) { Comandos } Extension
+Conditional -> 'if' '(' Conditon ')' '{' Comandos '}' Extension
 
-Extension -> 'else' { Comandos }
+Extension -> 'else' '{' Comandos '}'
            | $
 
-Condition -> Condition && Condition2
+Condition -> Condition AND Condition2
            | Condition2
 
 
-Condition2 -> Condition2 || Condition3
+Condition2 -> Condition2 OR Condition3
            | Condition3 
 
 Condition3 -> '(' Condition ')'
-            | ExpRelacional
+            | RelExpression
             | '!' Condition
 
 RelExpression -> Expression Continuation
@@ -57,9 +57,19 @@ OpRel -> GoE     # >=
 	   | Equal   # ==
 	   | Diff    # != 
 
+
+
 ++ATRIBUICOES
 
-Atribuicao -> TIPO Var '=' Exp
+Atribuicao -> INT VAR '[' Nint ']'
+            | VAR '[' Nint ']' '=' Expression
+            | VAR '=' Expression
+            | INT VAR Rest
+
+Rest -> '=' Expression
+      | $
+
+
 
 ++CICLO
 CYCLE : WHILE '(' Conditions ')' '{' Comands '}'

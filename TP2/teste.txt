@@ -1,1 +1,6 @@
-print (7-2*3+9)
+int i = 0
+int lista[10]
+while(i<10){
+    scan(lista[i])
+    i = i + 1
+}
