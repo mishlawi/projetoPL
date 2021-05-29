@@ -1,8 +1,1 @@
-int a,b
-scan(a)
-scan(b)
-if(a>b){
-    print add
-}
-else {
-    print b}
+print (7-2*3+9)

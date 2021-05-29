@@ -1,14 +1,7 @@
 import ply.yacc as yacc
 import sys
+import re
 from compiler_lex import tokens
-
-
-class Valor:
-	def __init__(self,tipo,offset,size):
-		self.tipo = tipo
-		self.offset = offset
-		self.size = size
-		
 
 
 stack = {}
@@ -18,8 +11,6 @@ stack = {}
 sp = 0
 gp = 0
 pc = 0
-#Described in 1.2.7 in VMdocpt
-
 ##########################################################COMANDOS
 
 #Comands -> Comand Comands
@@ -28,6 +19,7 @@ pc = 0
 def p_program(p):
 	"Program : Comands"
 	p[0] = 'START\n' + p[1] + 'STOP\n'
+
 
 def p_comands(p):
 	"Comands : Comand Comands"
@@ -95,9 +87,9 @@ def p_conditional_simple(p):
 	global sp
 	global stack 
 	global gp
-	print("kajshfkajsfh")
-	p[0] = p[3] + '\n' + f"JZ ELSE_{gp}\n" + p[6] + p[8]
 	gp += 1
+	p[0] = p[3] + '\n' + f"JZ ELSE_{gp}\n" + p[6] + p[8]
+	
 
 
 def p_extension (p):
@@ -106,7 +98,7 @@ def p_extension (p):
 	global stack
 	global gp
 	p[0] = f'JUMP ENDIF_{gp}\n' + f'ELSE_{gp}\n' + p[3] + f'ENDIF_{gp}\n' + 'STOP\n'
-	#gp += 1
+	
 
 def p_extension_empty (p):
 	"Extension : "
@@ -116,7 +108,7 @@ def p_extension_empty (p):
 def p_condition_or(p):
 	"Condition : Condition OR Condition2"
 	p[0] = p[1] +'ADD\n' + p[3] 
-	print("condition ou")
+	print("condition ||")
 
 def p_condition_simple(p):
 	"Condition : Condition2"
@@ -127,7 +119,7 @@ def p_condition_simple(p):
 
 def p_condition2_and (p):
 	"Condition2 : Condition2 AND Condition3"
-	print("condition e")
+	print("condition &&")
 	p[0] = p[1] + 'MUL\n' +  p[3] 
 
 
@@ -206,32 +198,33 @@ def p_opRel_Diff(p):
 
 ############################################################CICLOS
 
-def p_cycle(p):
+#def p_cycle(p):
 	
-	"Cycle : WHILE AP Condition FP AC Comands FC"
+#	"Cycle : WHILE AP Condition FP AC Comands FC"
+#	gp+=1
+#	p[0] = p[3] + p[6]
+	
 	
 
 ############################################################ATRIBUICAO
 
          
 
-# a[2] = 4
+#a[2] = 4
 def p_rest_array(p):
-	"Atribuition : INT VAR PRA Nint PRF"
+	"Atribuition : VAR PRA Nint PRF"
 	global stack
 	global sp
 	p[0] = 'PUSHN ' + p[4] + '\n'
 	stack[f'{p[2]}'] = (sp,'array'+p[1], p[4])
 	sp+=int(p[4])
 
-
+# int a[4] = 3
 def p_atribuition_array_numbered(p):
-	"Atribuition : VAR PRA Nint PRF EQUAL Nint"
+	"Atribuition : INT VAR PRA Nint PRF EQUAL Nint"
 	global stack
-	print("ty")
 	p[0] = 'PUSHGP\nPUSHI ' + str(stack[f'{p[1]}'][0])+ '\n' + 'PADD\nPUSHI ' + p[3] + '\nPUSHI ' + p[6] +'\nSTOREN\n'
 	
-
 
 
 
@@ -245,8 +238,6 @@ def p_atribuition_array_numbered(p):
 #Rest -> '=' Expression
 #      | 
 #	   | $  
-
-
 
 
 def p_atribuition (p):
@@ -263,16 +254,6 @@ def p_rest(p):
 	"Rest : EQUAL Expression "
 	p[0] = p[2] + '\n'
 
-#int b
-"""
-def p_rest_array(p):
-	"Atribuition : INT VAR PRA Nint PRF"
-	global stack
-	global sp
-	p[0] = 'PUSHN ' + p[4] + '\n'
-	sp+=int(p[4])
-	stack[f'{p[2]}'] = (sp,'array'+p[1], p[4])
-"""
 
 def p_rest_empty(p):
 	"Rest : "
@@ -280,7 +261,7 @@ def p_rest_empty(p):
 
 def p_atribuition_second(p):
 	"Atribuition : VAR EQUAL Expression"
-	p[0] = p[3] + '\n' + 'storeg ' + str(stack[p[1]][0]) +'\n'
+	p[0] = p[3] + '\n' + 'STOREG ' + str(stack[p[1]][0]) +'\n'
 
 
 
@@ -367,10 +348,7 @@ def p_IO_OUTPUT(p):
 
 def p_INPUT(p):
 	"INPUT : SCAN AP Expression FP"
-	p[0] = p[3]
-
-
-
+	p[0] = p[3] + 'READ\nATOI\nSTOREN\n'
 
 ##################################################OUTPUT
 
@@ -378,21 +356,17 @@ def p_INPUT(p):
 #          | PRINT Exp
 #		   | 
 
-
 #print a * 7 + 2
 
-def p_OUTPUT_var(p):
+def p_OUTPUT_exp(p):
 	"OUTPUT : PRINT AP Expression FP"
 	global sp
 	global stack
-	print(p[2])
-	p[0] = p[2] + "WRITEI \n"
+	p[0] = p[3] + "WRITEI \n"
 		
 #print ( a[ 14 ] )
 def p_OUTPUT_array(p):
 	"OUTPUT : PRINT AP VAR PRA Nint PRF FP"
-	print("yo")
-	print(stack)
 	p[0] = 'PUSHGP\nPUSHI ' + str(stack[p[3]][0]) + '\nPADD\nPUSHI ' + p[5] + '\nLOADN\nWRITEI\n'
 
 
@@ -407,24 +381,27 @@ def p_error(p):
 parser = yacc.yacc() 
 fo = open("teste.txt").read()
 
+with open('teste.txt', 'r') as myfile:
+    for line in myfile:
+        m = re.search(r'while', line)
+        if m is not None:
+            m.group(0)
+            print("aaa")
+        
 
 result = parser.parse(fo)
 
-file = open('kanye.txt',"w")
+file = open('kanye.vm',"w")
 
 file.write(result)
 file.flush()
 
 
-#for linha in fo:
-#	print(linha)
-#   result = parser.parse(linha)
-#	print(result)
-
 
 
 #TODO:
-#->corrigir erros
+
+# scan
 #->definir e ACABAR CICLOS
 #->CHECKAR VARIAVEIS EM ARRAYS
  

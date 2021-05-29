@@ -2,9 +2,6 @@ Tue.17:50.05.2021
 mishlawi
 
 
-ficheiros .y e .l
-
-
 ------------------------------------------------
 Description:
 Definir uma Linguagem de Programação Imperativa que permita declarar:

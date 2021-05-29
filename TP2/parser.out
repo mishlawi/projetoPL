@@ -1,5 +1,9 @@
 Created by PLY version 3.11 (http://www.dabeaz.com/ply)
 
+Unused terminals:
+
+    WHILE
+
 Grammar
 
 Rule 0     S' -> Program
@@ -28,84 +32,82 @@ Rule 22    OpRel -> Lower
 Rule 23    OpRel -> Greater
 Rule 24    OpRel -> IGUAL
 Rule 25    OpRel -> DIFF
-Rule 26    Cycle -> WHILE AP Condition FP AC Comands FC
-Rule 27    Atribuition -> INT VAR PRA Nint PRF
-Rule 28    Atribuition -> VAR PRA Nint PRF EQUAL Nint
-Rule 29    Atribuition -> INT VAR Rest
-Rule 30    Rest -> EQUAL Expression
-Rule 31    Rest -> <empty>
-Rule 32    Atribuition -> VAR EQUAL Expression
-Rule 33    Expression -> Expression ADD Values
-Rule 34    Expression -> Expression SUB Values
-Rule 35    Expression -> Values
-Rule 36    Values -> Value
-Rule 37    Values -> Values MUL Value
-Rule 38    Values -> Values DIV Value
-Rule 39    Values -> Values MOD Value
-Rule 40    Value -> Nint
-Rule 41    Value -> VAR
-Rule 42    Value -> AP Expression FP
-Rule 43    IO -> INPUT
-Rule 44    IO -> OUTPUT
-Rule 45    INPUT -> SCAN AP Expression FP
-Rule 46    OUTPUT -> PRINT AP Expression FP
-Rule 47    OUTPUT -> PRINT AP VAR PRA Nint PRF FP
+Rule 26    Atribuition -> VAR PRA Nint PRF
+Rule 27    Atribuition -> INT VAR PRA Nint PRF EQUAL Nint
+Rule 28    Atribuition -> INT VAR Rest
+Rule 29    Rest -> EQUAL Expression
+Rule 30    Rest -> <empty>
+Rule 31    Atribuition -> VAR EQUAL Expression
+Rule 32    Expression -> Expression ADD Values
+Rule 33    Expression -> Expression SUB Values
+Rule 34    Expression -> Values
+Rule 35    Values -> Value
+Rule 36    Values -> Values MUL Value
+Rule 37    Values -> Values DIV Value
+Rule 38    Values -> Values MOD Value
+Rule 39    Value -> Nint
+Rule 40    Value -> VAR
+Rule 41    Value -> AP Expression FP
+Rule 42    IO -> INPUT
+Rule 43    IO -> OUTPUT
+Rule 44    INPUT -> SCAN AP Expression FP
+Rule 45    OUTPUT -> PRINT AP Expression FP
+Rule 46    OUTPUT -> PRINT AP VAR PRA Nint PRF FP
 
 Terminals, with rules where they appear
 
-AC                   : 7 8 26
-ADD                  : 33
+AC                   : 7 8
+ADD                  : 32
 AND                  : 12
-AP                   : 7 16 26 42 45 46 47
+AP                   : 7 16 41 44 45 46
 DIFF                 : 25
-DIV                  : 38
+DIV                  : 37
 ELSE                 : 8
-EQUAL                : 28 30 32
-FC                   : 7 8 26
-FP                   : 7 16 26 42 45 46 47
+EQUAL                : 27 29 31
+FC                   : 7 8
+FP                   : 7 16 41 44 45 46
 GoE                  : 20
 Greater              : 23
 IF                   : 7
 IGUAL                : 24
-INT                  : 27 29
+INT                  : 27 28
 LoE                  : 21
 Lower                : 22
-MOD                  : 39
-MUL                  : 37
+MOD                  : 38
+MUL                  : 36
 NOT                  : 14
-Nint                 : 27 28 28 40 47
+Nint                 : 26 27 27 39 46
 OR                   : 10
-PRA                  : 27 28 47
-PRF                  : 27 28 47
-PRINT                : 46 47
-SCAN                 : 45
-SUB                  : 34
-VAR                  : 27 28 29 32 41 47
-WHILE                : 26
+PRA                  : 26 27 46
+PRF                  : 26 27 46
+PRINT                : 45 46
+SCAN                 : 44
+SUB                  : 33
+VAR                  : 26 27 28 31 40 46
+WHILE                : 
 error                : 
 
 Nonterminals, with rules where they appear
 
 Atribuition          : 4
 Comand               : 2 3
-Comands              : 1 2 7 8 26
-Condition            : 7 10 14 16 26
+Comands              : 1 2 7 8
+Condition            : 7 10 14 16
 Condition2           : 10 11 12
 Condition3           : 12 13
 Conditional          : 5
 Continuation         : 17
-Cycle                : 
-Expression           : 17 18 30 32 33 34 42 45 46
+Expression           : 17 18 29 31 32 33 41 44 45
 Extension            : 7
-INPUT                : 43
+INPUT                : 42
 IO                   : 6
-OUTPUT               : 44
+OUTPUT               : 43
 OpRel                : 18
 Program              : 0
 RelExpression        : 15
-Rest                 : 29
-Value                : 36 37 38 39
-Values               : 33 34 35 37 38 39
+Rest                 : 28
+Value                : 35 36 37 38
+Values               : 32 33 34 36 37 38
 
 Parsing method: LALR
 
@@ -118,19 +120,19 @@ state 0
     (4) Comand -> . Atribuition
     (5) Comand -> . Conditional
     (6) Comand -> . IO
-    (27) Atribuition -> . INT VAR PRA Nint PRF
-    (28) Atribuition -> . VAR PRA Nint PRF EQUAL Nint
-    (29) Atribuition -> . INT VAR Rest
-    (32) Atribuition -> . VAR EQUAL Expression
+    (26) Atribuition -> . VAR PRA Nint PRF
+    (27) Atribuition -> . INT VAR PRA Nint PRF EQUAL Nint
+    (28) Atribuition -> . INT VAR Rest
+    (31) Atribuition -> . VAR EQUAL Expression
     (7) Conditional -> . IF AP Condition FP AC Comands FC Extension
-    (43) IO -> . INPUT
-    (44) IO -> . OUTPUT
-    (45) INPUT -> . SCAN AP Expression FP
-    (46) OUTPUT -> . PRINT AP Expression FP
-    (47) OUTPUT -> . PRINT AP VAR PRA Nint PRF FP
+    (42) IO -> . INPUT
+    (43) IO -> . OUTPUT
+    (44) INPUT -> . SCAN AP Expression FP
+    (45) OUTPUT -> . PRINT AP Expression FP
+    (46) OUTPUT -> . PRINT AP VAR PRA Nint PRF FP
 
-    INT             shift and go to state 7
-    VAR             shift and go to state 8
+    VAR             shift and go to state 7
+    INT             shift and go to state 8
     IF              shift and go to state 9
     SCAN            shift and go to state 12
     PRINT           shift and go to state 13
@@ -166,21 +168,21 @@ state 3
     (4) Comand -> . Atribuition
     (5) Comand -> . Conditional
     (6) Comand -> . IO
-    (27) Atribuition -> . INT VAR PRA Nint PRF
-    (28) Atribuition -> . VAR PRA Nint PRF EQUAL Nint
-    (29) Atribuition -> . INT VAR Rest
-    (32) Atribuition -> . VAR EQUAL Expression
+    (26) Atribuition -> . VAR PRA Nint PRF
+    (27) Atribuition -> . INT VAR PRA Nint PRF EQUAL Nint
+    (28) Atribuition -> . INT VAR Rest
+    (31) Atribuition -> . VAR EQUAL Expression
     (7) Conditional -> . IF AP Condition FP AC Comands FC Extension
-    (43) IO -> . INPUT
-    (44) IO -> . OUTPUT
-    (45) INPUT -> . SCAN AP Expression FP
-    (46) OUTPUT -> . PRINT AP Expression FP
-    (47) OUTPUT -> . PRINT AP VAR PRA Nint PRF FP
+    (42) IO -> . INPUT
+    (43) IO -> . OUTPUT
+    (44) INPUT -> . SCAN AP Expression FP
+    (45) OUTPUT -> . PRINT AP Expression FP
+    (46) OUTPUT -> . PRINT AP VAR PRA Nint PRF FP
 
     $end            reduce using rule 3 (Comands -> Comand .)
     FC              reduce using rule 3 (Comands -> Comand .)
-    INT             shift and go to state 7
-    VAR             shift and go to state 8
+    VAR             shift and go to state 7
+    INT             shift and go to state 8
     IF              shift and go to state 9
     SCAN            shift and go to state 12
     PRINT           shift and go to state 13
@@ -197,8 +199,8 @@ state 4
 
     (4) Comand -> Atribuition .
 
-    INT             reduce using rule 4 (Comand -> Atribuition .)
     VAR             reduce using rule 4 (Comand -> Atribuition .)
+    INT             reduce using rule 4 (Comand -> Atribuition .)
     IF              reduce using rule 4 (Comand -> Atribuition .)
     SCAN            reduce using rule 4 (Comand -> Atribuition .)
     PRINT           reduce using rule 4 (Comand -> Atribuition .)
@@ -210,8 +212,8 @@ state 5
 
     (5) Comand -> Conditional .
 
-    INT             reduce using rule 5 (Comand -> Conditional .)
     VAR             reduce using rule 5 (Comand -> Conditional .)
+    INT             reduce using rule 5 (Comand -> Conditional .)
     IF              reduce using rule 5 (Comand -> Conditional .)
     SCAN            reduce using rule 5 (Comand -> Conditional .)
     PRINT           reduce using rule 5 (Comand -> Conditional .)
@@ -223,8 +225,8 @@ state 6
 
     (6) Comand -> IO .
 
-    INT             reduce using rule 6 (Comand -> IO .)
     VAR             reduce using rule 6 (Comand -> IO .)
+    INT             reduce using rule 6 (Comand -> IO .)
     IF              reduce using rule 6 (Comand -> IO .)
     SCAN            reduce using rule 6 (Comand -> IO .)
     PRINT           reduce using rule 6 (Comand -> IO .)
@@ -234,19 +236,19 @@ state 6
 
 state 7
 
-    (27) Atribuition -> INT . VAR PRA Nint PRF
-    (29) Atribuition -> INT . VAR Rest
+    (26) Atribuition -> VAR . PRA Nint PRF
+    (31) Atribuition -> VAR . EQUAL Expression
 
-    VAR             shift and go to state 15
+    PRA             shift and go to state 15
+    EQUAL           shift and go to state 16
 
 
 state 8
 
-    (28) Atribuition -> VAR . PRA Nint PRF EQUAL Nint
-    (32) Atribuition -> VAR . EQUAL Expression
+    (27) Atribuition -> INT . VAR PRA Nint PRF EQUAL Nint
+    (28) Atribuition -> INT . VAR Rest
 
-    PRA             shift and go to state 16
-    EQUAL           shift and go to state 17
+    VAR             shift and go to state 17
 
 
 state 9
@@ -258,41 +260,41 @@ state 9
 
 state 10
 
-    (43) IO -> INPUT .
+    (42) IO -> INPUT .
 
-    INT             reduce using rule 43 (IO -> INPUT .)
-    VAR             reduce using rule 43 (IO -> INPUT .)
-    IF              reduce using rule 43 (IO -> INPUT .)
-    SCAN            reduce using rule 43 (IO -> INPUT .)
-    PRINT           reduce using rule 43 (IO -> INPUT .)
-    $end            reduce using rule 43 (IO -> INPUT .)
-    FC              reduce using rule 43 (IO -> INPUT .)
+    VAR             reduce using rule 42 (IO -> INPUT .)
+    INT             reduce using rule 42 (IO -> INPUT .)
+    IF              reduce using rule 42 (IO -> INPUT .)
+    SCAN            reduce using rule 42 (IO -> INPUT .)
+    PRINT           reduce using rule 42 (IO -> INPUT .)
+    $end            reduce using rule 42 (IO -> INPUT .)
+    FC              reduce using rule 42 (IO -> INPUT .)
 
 
 state 11
 
-    (44) IO -> OUTPUT .
+    (43) IO -> OUTPUT .
 
-    INT             reduce using rule 44 (IO -> OUTPUT .)
-    VAR             reduce using rule 44 (IO -> OUTPUT .)
-    IF              reduce using rule 44 (IO -> OUTPUT .)
-    SCAN            reduce using rule 44 (IO -> OUTPUT .)
-    PRINT           reduce using rule 44 (IO -> OUTPUT .)
-    $end            reduce using rule 44 (IO -> OUTPUT .)
-    FC              reduce using rule 44 (IO -> OUTPUT .)
+    VAR             reduce using rule 43 (IO -> OUTPUT .)
+    INT             reduce using rule 43 (IO -> OUTPUT .)
+    IF              reduce using rule 43 (IO -> OUTPUT .)
+    SCAN            reduce using rule 43 (IO -> OUTPUT .)
+    PRINT           reduce using rule 43 (IO -> OUTPUT .)
+    $end            reduce using rule 43 (IO -> OUTPUT .)
+    FC              reduce using rule 43 (IO -> OUTPUT .)
 
 
 state 12
 
-    (45) INPUT -> SCAN . AP Expression FP
+    (44) INPUT -> SCAN . AP Expression FP
 
     AP              shift and go to state 19
 
 
 state 13
 
-    (46) OUTPUT -> PRINT . AP Expression FP
-    (47) OUTPUT -> PRINT . AP VAR PRA Nint PRF FP
+    (45) OUTPUT -> PRINT . AP Expression FP
+    (46) OUTPUT -> PRINT . AP VAR PRA Nint PRF FP
 
     AP              shift and go to state 20
 
@@ -307,51 +309,51 @@ state 14
 
 state 15
 
-    (27) Atribuition -> INT VAR . PRA Nint PRF
-    (29) Atribuition -> INT VAR . Rest
-    (30) Rest -> . EQUAL Expression
-    (31) Rest -> .
+    (26) Atribuition -> VAR PRA . Nint PRF
 
-    PRA             shift and go to state 21
-    EQUAL           shift and go to state 23
-    INT             reduce using rule 31 (Rest -> .)
-    VAR             reduce using rule 31 (Rest -> .)
-    IF              reduce using rule 31 (Rest -> .)
-    SCAN            reduce using rule 31 (Rest -> .)
-    PRINT           reduce using rule 31 (Rest -> .)
-    $end            reduce using rule 31 (Rest -> .)
-    FC              reduce using rule 31 (Rest -> .)
+    Nint            shift and go to state 21
 
-    Rest                           shift and go to state 22
 
 state 16
 
-    (28) Atribuition -> VAR PRA . Nint PRF EQUAL Nint
+    (31) Atribuition -> VAR EQUAL . Expression
+    (32) Expression -> . Expression ADD Values
+    (33) Expression -> . Expression SUB Values
+    (34) Expression -> . Values
+    (35) Values -> . Value
+    (36) Values -> . Values MUL Value
+    (37) Values -> . Values DIV Value
+    (38) Values -> . Values MOD Value
+    (39) Value -> . Nint
+    (40) Value -> . VAR
+    (41) Value -> . AP Expression FP
 
-    Nint            shift and go to state 24
+    Nint            shift and go to state 26
+    VAR             shift and go to state 22
+    AP              shift and go to state 27
 
+    Expression                     shift and go to state 23
+    Values                         shift and go to state 24
+    Value                          shift and go to state 25
 
 state 17
 
-    (32) Atribuition -> VAR EQUAL . Expression
-    (33) Expression -> . Expression ADD Values
-    (34) Expression -> . Expression SUB Values
-    (35) Expression -> . Values
-    (36) Values -> . Value
-    (37) Values -> . Values MUL Value
-    (38) Values -> . Values DIV Value
-    (39) Values -> . Values MOD Value
-    (40) Value -> . Nint
-    (41) Value -> . VAR
-    (42) Value -> . AP Expression FP
+    (27) Atribuition -> INT VAR . PRA Nint PRF EQUAL Nint
+    (28) Atribuition -> INT VAR . Rest
+    (29) Rest -> . EQUAL Expression
+    (30) Rest -> .
 
-    Nint            shift and go to state 29
-    VAR             shift and go to state 25
-    AP              shift and go to state 30
+    PRA             shift and go to state 28
+    EQUAL           shift and go to state 29
+    VAR             reduce using rule 30 (Rest -> .)
+    INT             reduce using rule 30 (Rest -> .)
+    IF              reduce using rule 30 (Rest -> .)
+    SCAN            reduce using rule 30 (Rest -> .)
+    PRINT           reduce using rule 30 (Rest -> .)
+    $end            reduce using rule 30 (Rest -> .)
+    FC              reduce using rule 30 (Rest -> .)
 
-    Expression                     shift and go to state 26
-    Values                         shift and go to state 27
-    Value                          shift and go to state 28
+    Rest                           shift and go to state 30
 
 state 18
 
@@ -364,308 +366,308 @@ state 18
     (15) Condition3 -> . RelExpression
     (16) Condition3 -> . AP Condition FP
     (17) RelExpression -> . Expression Continuation
-    (33) Expression -> . Expression ADD Values
-    (34) Expression -> . Expression SUB Values
-    (35) Expression -> . Values
-    (36) Values -> . Value
-    (37) Values -> . Values MUL Value
-    (38) Values -> . Values DIV Value
-    (39) Values -> . Values MOD Value
-    (40) Value -> . Nint
-    (41) Value -> . VAR
-    (42) Value -> . AP Expression FP
+    (32) Expression -> . Expression ADD Values
+    (33) Expression -> . Expression SUB Values
+    (34) Expression -> . Values
+    (35) Values -> . Value
+    (36) Values -> . Values MUL Value
+    (37) Values -> . Values DIV Value
+    (38) Values -> . Values MOD Value
+    (39) Value -> . Nint
+    (40) Value -> . VAR
+    (41) Value -> . AP Expression FP
 
     NOT             shift and go to state 35
     AP              shift and go to state 31
-    Nint            shift and go to state 29
-    VAR             shift and go to state 25
+    Nint            shift and go to state 26
+    VAR             shift and go to state 22
 
     Condition                      shift and go to state 32
     Condition2                     shift and go to state 33
     Condition3                     shift and go to state 34
     RelExpression                  shift and go to state 36
     Expression                     shift and go to state 37
-    Values                         shift and go to state 27
-    Value                          shift and go to state 28
+    Values                         shift and go to state 24
+    Value                          shift and go to state 25
 
 state 19
 
-    (45) INPUT -> SCAN AP . Expression FP
-    (33) Expression -> . Expression ADD Values
-    (34) Expression -> . Expression SUB Values
-    (35) Expression -> . Values
-    (36) Values -> . Value
-    (37) Values -> . Values MUL Value
-    (38) Values -> . Values DIV Value
-    (39) Values -> . Values MOD Value
-    (40) Value -> . Nint
-    (41) Value -> . VAR
-    (42) Value -> . AP Expression FP
+    (44) INPUT -> SCAN AP . Expression FP
+    (32) Expression -> . Expression ADD Values
+    (33) Expression -> . Expression SUB Values
+    (34) Expression -> . Values
+    (35) Values -> . Value
+    (36) Values -> . Values MUL Value
+    (37) Values -> . Values DIV Value
+    (38) Values -> . Values MOD Value
+    (39) Value -> . Nint
+    (40) Value -> . VAR
+    (41) Value -> . AP Expression FP
 
-    Nint            shift and go to state 29
-    VAR             shift and go to state 25
-    AP              shift and go to state 30
+    Nint            shift and go to state 26
+    VAR             shift and go to state 22
+    AP              shift and go to state 27
 
     Expression                     shift and go to state 38
-    Values                         shift and go to state 27
-    Value                          shift and go to state 28
+    Values                         shift and go to state 24
+    Value                          shift and go to state 25
 
 state 20
 
-    (46) OUTPUT -> PRINT AP . Expression FP
-    (47) OUTPUT -> PRINT AP . VAR PRA Nint PRF FP
-    (33) Expression -> . Expression ADD Values
-    (34) Expression -> . Expression SUB Values
-    (35) Expression -> . Values
-    (36) Values -> . Value
-    (37) Values -> . Values MUL Value
-    (38) Values -> . Values DIV Value
-    (39) Values -> . Values MOD Value
-    (40) Value -> . Nint
-    (41) Value -> . VAR
-    (42) Value -> . AP Expression FP
+    (45) OUTPUT -> PRINT AP . Expression FP
+    (46) OUTPUT -> PRINT AP . VAR PRA Nint PRF FP
+    (32) Expression -> . Expression ADD Values
+    (33) Expression -> . Expression SUB Values
+    (34) Expression -> . Values
+    (35) Values -> . Value
+    (36) Values -> . Values MUL Value
+    (37) Values -> . Values DIV Value
+    (38) Values -> . Values MOD Value
+    (39) Value -> . Nint
+    (40) Value -> . VAR
+    (41) Value -> . AP Expression FP
 
     VAR             shift and go to state 40
-    Nint            shift and go to state 29
-    AP              shift and go to state 30
+    Nint            shift and go to state 26
+    AP              shift and go to state 27
 
     Expression                     shift and go to state 39
-    Values                         shift and go to state 27
-    Value                          shift and go to state 28
+    Values                         shift and go to state 24
+    Value                          shift and go to state 25
 
 state 21
 
-    (27) Atribuition -> INT VAR PRA . Nint PRF
+    (26) Atribuition -> VAR PRA Nint . PRF
 
-    Nint            shift and go to state 41
+    PRF             shift and go to state 41
 
 
 state 22
 
-    (29) Atribuition -> INT VAR Rest .
+    (40) Value -> VAR .
 
-    INT             reduce using rule 29 (Atribuition -> INT VAR Rest .)
-    VAR             reduce using rule 29 (Atribuition -> INT VAR Rest .)
-    IF              reduce using rule 29 (Atribuition -> INT VAR Rest .)
-    SCAN            reduce using rule 29 (Atribuition -> INT VAR Rest .)
-    PRINT           reduce using rule 29 (Atribuition -> INT VAR Rest .)
-    $end            reduce using rule 29 (Atribuition -> INT VAR Rest .)
-    FC              reduce using rule 29 (Atribuition -> INT VAR Rest .)
+    MUL             reduce using rule 40 (Value -> VAR .)
+    DIV             reduce using rule 40 (Value -> VAR .)
+    MOD             reduce using rule 40 (Value -> VAR .)
+    ADD             reduce using rule 40 (Value -> VAR .)
+    SUB             reduce using rule 40 (Value -> VAR .)
+    VAR             reduce using rule 40 (Value -> VAR .)
+    INT             reduce using rule 40 (Value -> VAR .)
+    IF              reduce using rule 40 (Value -> VAR .)
+    SCAN            reduce using rule 40 (Value -> VAR .)
+    PRINT           reduce using rule 40 (Value -> VAR .)
+    $end            reduce using rule 40 (Value -> VAR .)
+    FC              reduce using rule 40 (Value -> VAR .)
+    GoE             reduce using rule 40 (Value -> VAR .)
+    LoE             reduce using rule 40 (Value -> VAR .)
+    Lower           reduce using rule 40 (Value -> VAR .)
+    Greater         reduce using rule 40 (Value -> VAR .)
+    IGUAL           reduce using rule 40 (Value -> VAR .)
+    DIFF            reduce using rule 40 (Value -> VAR .)
+    AND             reduce using rule 40 (Value -> VAR .)
+    FP              reduce using rule 40 (Value -> VAR .)
+    OR              reduce using rule 40 (Value -> VAR .)
 
 
 state 23
 
-    (30) Rest -> EQUAL . Expression
-    (33) Expression -> . Expression ADD Values
-    (34) Expression -> . Expression SUB Values
-    (35) Expression -> . Values
-    (36) Values -> . Value
-    (37) Values -> . Values MUL Value
-    (38) Values -> . Values DIV Value
-    (39) Values -> . Values MOD Value
-    (40) Value -> . Nint
-    (41) Value -> . VAR
-    (42) Value -> . AP Expression FP
+    (31) Atribuition -> VAR EQUAL Expression .
+    (32) Expression -> Expression . ADD Values
+    (33) Expression -> Expression . SUB Values
 
-    Nint            shift and go to state 29
-    VAR             shift and go to state 25
-    AP              shift and go to state 30
+    VAR             reduce using rule 31 (Atribuition -> VAR EQUAL Expression .)
+    INT             reduce using rule 31 (Atribuition -> VAR EQUAL Expression .)
+    IF              reduce using rule 31 (Atribuition -> VAR EQUAL Expression .)
+    SCAN            reduce using rule 31 (Atribuition -> VAR EQUAL Expression .)
+    PRINT           reduce using rule 31 (Atribuition -> VAR EQUAL Expression .)
+    $end            reduce using rule 31 (Atribuition -> VAR EQUAL Expression .)
+    FC              reduce using rule 31 (Atribuition -> VAR EQUAL Expression .)
+    ADD             shift and go to state 42
+    SUB             shift and go to state 43
 
-    Expression                     shift and go to state 42
-    Values                         shift and go to state 27
-    Value                          shift and go to state 28
 
 state 24
 
-    (28) Atribuition -> VAR PRA Nint . PRF EQUAL Nint
+    (34) Expression -> Values .
+    (36) Values -> Values . MUL Value
+    (37) Values -> Values . DIV Value
+    (38) Values -> Values . MOD Value
 
-    PRF             shift and go to state 43
+    ADD             reduce using rule 34 (Expression -> Values .)
+    SUB             reduce using rule 34 (Expression -> Values .)
+    VAR             reduce using rule 34 (Expression -> Values .)
+    INT             reduce using rule 34 (Expression -> Values .)
+    IF              reduce using rule 34 (Expression -> Values .)
+    SCAN            reduce using rule 34 (Expression -> Values .)
+    PRINT           reduce using rule 34 (Expression -> Values .)
+    $end            reduce using rule 34 (Expression -> Values .)
+    FC              reduce using rule 34 (Expression -> Values .)
+    GoE             reduce using rule 34 (Expression -> Values .)
+    LoE             reduce using rule 34 (Expression -> Values .)
+    Lower           reduce using rule 34 (Expression -> Values .)
+    Greater         reduce using rule 34 (Expression -> Values .)
+    IGUAL           reduce using rule 34 (Expression -> Values .)
+    DIFF            reduce using rule 34 (Expression -> Values .)
+    AND             reduce using rule 34 (Expression -> Values .)
+    FP              reduce using rule 34 (Expression -> Values .)
+    OR              reduce using rule 34 (Expression -> Values .)
+    MUL             shift and go to state 44
+    DIV             shift and go to state 45
+    MOD             shift and go to state 46
 
 
 state 25
 
-    (41) Value -> VAR .
+    (35) Values -> Value .
 
-    MUL             reduce using rule 41 (Value -> VAR .)
-    DIV             reduce using rule 41 (Value -> VAR .)
-    MOD             reduce using rule 41 (Value -> VAR .)
-    ADD             reduce using rule 41 (Value -> VAR .)
-    SUB             reduce using rule 41 (Value -> VAR .)
-    INT             reduce using rule 41 (Value -> VAR .)
-    VAR             reduce using rule 41 (Value -> VAR .)
-    IF              reduce using rule 41 (Value -> VAR .)
-    SCAN            reduce using rule 41 (Value -> VAR .)
-    PRINT           reduce using rule 41 (Value -> VAR .)
-    $end            reduce using rule 41 (Value -> VAR .)
-    FC              reduce using rule 41 (Value -> VAR .)
-    GoE             reduce using rule 41 (Value -> VAR .)
-    LoE             reduce using rule 41 (Value -> VAR .)
-    Lower           reduce using rule 41 (Value -> VAR .)
-    Greater         reduce using rule 41 (Value -> VAR .)
-    IGUAL           reduce using rule 41 (Value -> VAR .)
-    DIFF            reduce using rule 41 (Value -> VAR .)
-    AND             reduce using rule 41 (Value -> VAR .)
-    FP              reduce using rule 41 (Value -> VAR .)
-    OR              reduce using rule 41 (Value -> VAR .)
+    MUL             reduce using rule 35 (Values -> Value .)
+    DIV             reduce using rule 35 (Values -> Value .)
+    MOD             reduce using rule 35 (Values -> Value .)
+    ADD             reduce using rule 35 (Values -> Value .)
+    SUB             reduce using rule 35 (Values -> Value .)
+    VAR             reduce using rule 35 (Values -> Value .)
+    INT             reduce using rule 35 (Values -> Value .)
+    IF              reduce using rule 35 (Values -> Value .)
+    SCAN            reduce using rule 35 (Values -> Value .)
+    PRINT           reduce using rule 35 (Values -> Value .)
+    $end            reduce using rule 35 (Values -> Value .)
+    FC              reduce using rule 35 (Values -> Value .)
+    GoE             reduce using rule 35 (Values -> Value .)
+    LoE             reduce using rule 35 (Values -> Value .)
+    Lower           reduce using rule 35 (Values -> Value .)
+    Greater         reduce using rule 35 (Values -> Value .)
+    IGUAL           reduce using rule 35 (Values -> Value .)
+    DIFF            reduce using rule 35 (Values -> Value .)
+    AND             reduce using rule 35 (Values -> Value .)
+    FP              reduce using rule 35 (Values -> Value .)
+    OR              reduce using rule 35 (Values -> Value .)
 
 
 state 26
 
-    (32) Atribuition -> VAR EQUAL Expression .
-    (33) Expression -> Expression . ADD Values
-    (34) Expression -> Expression . SUB Values
+    (39) Value -> Nint .
 
-    INT             reduce using rule 32 (Atribuition -> VAR EQUAL Expression .)
-    VAR             reduce using rule 32 (Atribuition -> VAR EQUAL Expression .)
-    IF              reduce using rule 32 (Atribuition -> VAR EQUAL Expression .)
-    SCAN            reduce using rule 32 (Atribuition -> VAR EQUAL Expression .)
-    PRINT           reduce using rule 32 (Atribuition -> VAR EQUAL Expression .)
-    $end            reduce using rule 32 (Atribuition -> VAR EQUAL Expression .)
-    FC              reduce using rule 32 (Atribuition -> VAR EQUAL Expression .)
-    ADD             shift and go to state 44
-    SUB             shift and go to state 45
+    MUL             reduce using rule 39 (Value -> Nint .)
+    DIV             reduce using rule 39 (Value -> Nint .)
+    MOD             reduce using rule 39 (Value -> Nint .)
+    ADD             reduce using rule 39 (Value -> Nint .)
+    SUB             reduce using rule 39 (Value -> Nint .)
+    VAR             reduce using rule 39 (Value -> Nint .)
+    INT             reduce using rule 39 (Value -> Nint .)
+    IF              reduce using rule 39 (Value -> Nint .)
+    SCAN            reduce using rule 39 (Value -> Nint .)
+    PRINT           reduce using rule 39 (Value -> Nint .)
+    $end            reduce using rule 39 (Value -> Nint .)
+    FC              reduce using rule 39 (Value -> Nint .)
+    GoE             reduce using rule 39 (Value -> Nint .)
+    LoE             reduce using rule 39 (Value -> Nint .)
+    Lower           reduce using rule 39 (Value -> Nint .)
+    Greater         reduce using rule 39 (Value -> Nint .)
+    IGUAL           reduce using rule 39 (Value -> Nint .)
+    DIFF            reduce using rule 39 (Value -> Nint .)
+    AND             reduce using rule 39 (Value -> Nint .)
+    FP              reduce using rule 39 (Value -> Nint .)
+    OR              reduce using rule 39 (Value -> Nint .)
 
 
 state 27
 
-    (35) Expression -> Values .
-    (37) Values -> Values . MUL Value
-    (38) Values -> Values . DIV Value
-    (39) Values -> Values . MOD Value
+    (41) Value -> AP . Expression FP
+    (32) Expression -> . Expression ADD Values
+    (33) Expression -> . Expression SUB Values
+    (34) Expression -> . Values
+    (35) Values -> . Value
+    (36) Values -> . Values MUL Value
+    (37) Values -> . Values DIV Value
+    (38) Values -> . Values MOD Value
+    (39) Value -> . Nint
+    (40) Value -> . VAR
+    (41) Value -> . AP Expression FP
 
-    ADD             reduce using rule 35 (Expression -> Values .)
-    SUB             reduce using rule 35 (Expression -> Values .)
-    INT             reduce using rule 35 (Expression -> Values .)
-    VAR             reduce using rule 35 (Expression -> Values .)
-    IF              reduce using rule 35 (Expression -> Values .)
-    SCAN            reduce using rule 35 (Expression -> Values .)
-    PRINT           reduce using rule 35 (Expression -> Values .)
-    $end            reduce using rule 35 (Expression -> Values .)
-    FC              reduce using rule 35 (Expression -> Values .)
-    GoE             reduce using rule 35 (Expression -> Values .)
-    LoE             reduce using rule 35 (Expression -> Values .)
-    Lower           reduce using rule 35 (Expression -> Values .)
-    Greater         reduce using rule 35 (Expression -> Values .)
-    IGUAL           reduce using rule 35 (Expression -> Values .)
-    DIFF            reduce using rule 35 (Expression -> Values .)
-    AND             reduce using rule 35 (Expression -> Values .)
-    FP              reduce using rule 35 (Expression -> Values .)
-    OR              reduce using rule 35 (Expression -> Values .)
-    MUL             shift and go to state 46
-    DIV             shift and go to state 47
-    MOD             shift and go to state 48
+    Nint            shift and go to state 26
+    VAR             shift and go to state 22
+    AP              shift and go to state 27
 
+    Expression                     shift and go to state 47
+    Values                         shift and go to state 24
+    Value                          shift and go to state 25
 
 state 28
 
-    (36) Values -> Value .
+    (27) Atribuition -> INT VAR PRA . Nint PRF EQUAL Nint
 
-    MUL             reduce using rule 36 (Values -> Value .)
-    DIV             reduce using rule 36 (Values -> Value .)
-    MOD             reduce using rule 36 (Values -> Value .)
-    ADD             reduce using rule 36 (Values -> Value .)
-    SUB             reduce using rule 36 (Values -> Value .)
-    INT             reduce using rule 36 (Values -> Value .)
-    VAR             reduce using rule 36 (Values -> Value .)
-    IF              reduce using rule 36 (Values -> Value .)
-    SCAN            reduce using rule 36 (Values -> Value .)
-    PRINT           reduce using rule 36 (Values -> Value .)
-    $end            reduce using rule 36 (Values -> Value .)
-    FC              reduce using rule 36 (Values -> Value .)
-    GoE             reduce using rule 36 (Values -> Value .)
-    LoE             reduce using rule 36 (Values -> Value .)
-    Lower           reduce using rule 36 (Values -> Value .)
-    Greater         reduce using rule 36 (Values -> Value .)
-    IGUAL           reduce using rule 36 (Values -> Value .)
-    DIFF            reduce using rule 36 (Values -> Value .)
-    AND             reduce using rule 36 (Values -> Value .)
-    FP              reduce using rule 36 (Values -> Value .)
-    OR              reduce using rule 36 (Values -> Value .)
+    Nint            shift and go to state 48
 
 
 state 29
 
-    (40) Value -> Nint .
+    (29) Rest -> EQUAL . Expression
+    (32) Expression -> . Expression ADD Values
+    (33) Expression -> . Expression SUB Values
+    (34) Expression -> . Values
+    (35) Values -> . Value
+    (36) Values -> . Values MUL Value
+    (37) Values -> . Values DIV Value
+    (38) Values -> . Values MOD Value
+    (39) Value -> . Nint
+    (40) Value -> . VAR
+    (41) Value -> . AP Expression FP
 
-    MUL             reduce using rule 40 (Value -> Nint .)
-    DIV             reduce using rule 40 (Value -> Nint .)
-    MOD             reduce using rule 40 (Value -> Nint .)
-    ADD             reduce using rule 40 (Value -> Nint .)
-    SUB             reduce using rule 40 (Value -> Nint .)
-    INT             reduce using rule 40 (Value -> Nint .)
-    VAR             reduce using rule 40 (Value -> Nint .)
-    IF              reduce using rule 40 (Value -> Nint .)
-    SCAN            reduce using rule 40 (Value -> Nint .)
-    PRINT           reduce using rule 40 (Value -> Nint .)
-    $end            reduce using rule 40 (Value -> Nint .)
-    FC              reduce using rule 40 (Value -> Nint .)
-    GoE             reduce using rule 40 (Value -> Nint .)
-    LoE             reduce using rule 40 (Value -> Nint .)
-    Lower           reduce using rule 40 (Value -> Nint .)
-    Greater         reduce using rule 40 (Value -> Nint .)
-    IGUAL           reduce using rule 40 (Value -> Nint .)
-    DIFF            reduce using rule 40 (Value -> Nint .)
-    AND             reduce using rule 40 (Value -> Nint .)
-    FP              reduce using rule 40 (Value -> Nint .)
-    OR              reduce using rule 40 (Value -> Nint .)
+    Nint            shift and go to state 26
+    VAR             shift and go to state 22
+    AP              shift and go to state 27
 
+    Expression                     shift and go to state 49
+    Values                         shift and go to state 24
+    Value                          shift and go to state 25
 
 state 30
 
-    (42) Value -> AP . Expression FP
-    (33) Expression -> . Expression ADD Values
-    (34) Expression -> . Expression SUB Values
-    (35) Expression -> . Values
-    (36) Values -> . Value
-    (37) Values -> . Values MUL Value
-    (38) Values -> . Values DIV Value
-    (39) Values -> . Values MOD Value
-    (40) Value -> . Nint
-    (41) Value -> . VAR
-    (42) Value -> . AP Expression FP
+    (28) Atribuition -> INT VAR Rest .
 
-    Nint            shift and go to state 29
-    VAR             shift and go to state 25
-    AP              shift and go to state 30
+    VAR             reduce using rule 28 (Atribuition -> INT VAR Rest .)
+    INT             reduce using rule 28 (Atribuition -> INT VAR Rest .)
+    IF              reduce using rule 28 (Atribuition -> INT VAR Rest .)
+    SCAN            reduce using rule 28 (Atribuition -> INT VAR Rest .)
+    PRINT           reduce using rule 28 (Atribuition -> INT VAR Rest .)
+    $end            reduce using rule 28 (Atribuition -> INT VAR Rest .)
+    FC              reduce using rule 28 (Atribuition -> INT VAR Rest .)
 
-    Expression                     shift and go to state 49
-    Values                         shift and go to state 27
-    Value                          shift and go to state 28
 
 state 31
 
     (16) Condition3 -> AP . Condition FP
-    (42) Value -> AP . Expression FP
+    (41) Value -> AP . Expression FP
     (10) Condition -> . Condition OR Condition2
     (11) Condition -> . Condition2
-    (33) Expression -> . Expression ADD Values
-    (34) Expression -> . Expression SUB Values
-    (35) Expression -> . Values
+    (32) Expression -> . Expression ADD Values
+    (33) Expression -> . Expression SUB Values
+    (34) Expression -> . Values
     (12) Condition2 -> . Condition2 AND Condition3
     (13) Condition2 -> . Condition3
-    (36) Values -> . Value
-    (37) Values -> . Values MUL Value
-    (38) Values -> . Values DIV Value
-    (39) Values -> . Values MOD Value
+    (35) Values -> . Value
+    (36) Values -> . Values MUL Value
+    (37) Values -> . Values DIV Value
+    (38) Values -> . Values MOD Value
     (14) Condition3 -> . NOT Condition
     (15) Condition3 -> . RelExpression
     (16) Condition3 -> . AP Condition FP
-    (40) Value -> . Nint
-    (41) Value -> . VAR
-    (42) Value -> . AP Expression FP
+    (39) Value -> . Nint
+    (40) Value -> . VAR
+    (41) Value -> . AP Expression FP
     (17) RelExpression -> . Expression Continuation
 
     NOT             shift and go to state 35
     AP              shift and go to state 31
-    Nint            shift and go to state 29
-    VAR             shift and go to state 25
+    Nint            shift and go to state 26
+    VAR             shift and go to state 22
 
     Condition                      shift and go to state 50
     Expression                     shift and go to state 51
     Condition2                     shift and go to state 33
-    Values                         shift and go to state 27
+    Values                         shift and go to state 24
     Condition3                     shift and go to state 34
-    Value                          shift and go to state 28
+    Value                          shift and go to state 25
     RelExpression                  shift and go to state 36
 
 state 32
@@ -710,29 +712,29 @@ state 35
     (15) Condition3 -> . RelExpression
     (16) Condition3 -> . AP Condition FP
     (17) RelExpression -> . Expression Continuation
-    (33) Expression -> . Expression ADD Values
-    (34) Expression -> . Expression SUB Values
-    (35) Expression -> . Values
-    (36) Values -> . Value
-    (37) Values -> . Values MUL Value
-    (38) Values -> . Values DIV Value
-    (39) Values -> . Values MOD Value
-    (40) Value -> . Nint
-    (41) Value -> . VAR
-    (42) Value -> . AP Expression FP
+    (32) Expression -> . Expression ADD Values
+    (33) Expression -> . Expression SUB Values
+    (34) Expression -> . Values
+    (35) Values -> . Value
+    (36) Values -> . Values MUL Value
+    (37) Values -> . Values DIV Value
+    (38) Values -> . Values MOD Value
+    (39) Value -> . Nint
+    (40) Value -> . VAR
+    (41) Value -> . AP Expression FP
 
     NOT             shift and go to state 35
     AP              shift and go to state 31
-    Nint            shift and go to state 29
-    VAR             shift and go to state 25
+    Nint            shift and go to state 26
+    VAR             shift and go to state 22
 
     Condition                      shift and go to state 55
     Condition2                     shift and go to state 33
     Condition3                     shift and go to state 34
     RelExpression                  shift and go to state 36
     Expression                     shift and go to state 37
-    Values                         shift and go to state 27
-    Value                          shift and go to state 28
+    Values                         shift and go to state 24
+    Value                          shift and go to state 25
 
 state 36
 
@@ -746,8 +748,8 @@ state 36
 state 37
 
     (17) RelExpression -> Expression . Continuation
-    (33) Expression -> Expression . ADD Values
-    (34) Expression -> Expression . SUB Values
+    (32) Expression -> Expression . ADD Values
+    (33) Expression -> Expression . SUB Values
     (18) Continuation -> . OpRel Expression
     (19) Continuation -> .
     (20) OpRel -> . GoE
@@ -757,8 +759,8 @@ state 37
     (24) OpRel -> . IGUAL
     (25) OpRel -> . DIFF
 
-    ADD             shift and go to state 44
-    SUB             shift and go to state 45
+    ADD             shift and go to state 42
+    SUB             shift and go to state 43
     AND             reduce using rule 19 (Continuation -> .)
     FP              reduce using rule 19 (Continuation -> .)
     OR              reduce using rule 19 (Continuation -> .)
@@ -774,155 +776,161 @@ state 37
 
 state 38
 
-    (45) INPUT -> SCAN AP Expression . FP
-    (33) Expression -> Expression . ADD Values
-    (34) Expression -> Expression . SUB Values
+    (44) INPUT -> SCAN AP Expression . FP
+    (32) Expression -> Expression . ADD Values
+    (33) Expression -> Expression . SUB Values
 
     FP              shift and go to state 64
-    ADD             shift and go to state 44
-    SUB             shift and go to state 45
+    ADD             shift and go to state 42
+    SUB             shift and go to state 43
 
 
 state 39
 
-    (46) OUTPUT -> PRINT AP Expression . FP
-    (33) Expression -> Expression . ADD Values
-    (34) Expression -> Expression . SUB Values
+    (45) OUTPUT -> PRINT AP Expression . FP
+    (32) Expression -> Expression . ADD Values
+    (33) Expression -> Expression . SUB Values
 
     FP              shift and go to state 65
-    ADD             shift and go to state 44
-    SUB             shift and go to state 45
+    ADD             shift and go to state 42
+    SUB             shift and go to state 43
 
 
 state 40
 
-    (47) OUTPUT -> PRINT AP VAR . PRA Nint PRF FP
-    (41) Value -> VAR .
+    (46) OUTPUT -> PRINT AP VAR . PRA Nint PRF FP
+    (40) Value -> VAR .
 
     PRA             shift and go to state 66
-    MUL             reduce using rule 41 (Value -> VAR .)
-    DIV             reduce using rule 41 (Value -> VAR .)
-    MOD             reduce using rule 41 (Value -> VAR .)
-    FP              reduce using rule 41 (Value -> VAR .)
-    ADD             reduce using rule 41 (Value -> VAR .)
-    SUB             reduce using rule 41 (Value -> VAR .)
+    MUL             reduce using rule 40 (Value -> VAR .)
+    DIV             reduce using rule 40 (Value -> VAR .)
+    MOD             reduce using rule 40 (Value -> VAR .)
+    FP              reduce using rule 40 (Value -> VAR .)
+    ADD             reduce using rule 40 (Value -> VAR .)
+    SUB             reduce using rule 40 (Value -> VAR .)
 
 
 state 41
 
-    (27) Atribuition -> INT VAR PRA Nint . PRF
+    (26) Atribuition -> VAR PRA Nint PRF .
 
-    PRF             shift and go to state 67
+    VAR             reduce using rule 26 (Atribuition -> VAR PRA Nint PRF .)
+    INT             reduce using rule 26 (Atribuition -> VAR PRA Nint PRF .)
+    IF              reduce using rule 26 (Atribuition -> VAR PRA Nint PRF .)
+    SCAN            reduce using rule 26 (Atribuition -> VAR PRA Nint PRF .)
+    PRINT           reduce using rule 26 (Atribuition -> VAR PRA Nint PRF .)
+    $end            reduce using rule 26 (Atribuition -> VAR PRA Nint PRF .)
+    FC              reduce using rule 26 (Atribuition -> VAR PRA Nint PRF .)
 
 
 state 42
 
-    (30) Rest -> EQUAL Expression .
-    (33) Expression -> Expression . ADD Values
-    (34) Expression -> Expression . SUB Values
+    (32) Expression -> Expression ADD . Values
+    (35) Values -> . Value
+    (36) Values -> . Values MUL Value
+    (37) Values -> . Values DIV Value
+    (38) Values -> . Values MOD Value
+    (39) Value -> . Nint
+    (40) Value -> . VAR
+    (41) Value -> . AP Expression FP
 
-    INT             reduce using rule 30 (Rest -> EQUAL Expression .)
-    VAR             reduce using rule 30 (Rest -> EQUAL Expression .)
-    IF              reduce using rule 30 (Rest -> EQUAL Expression .)
-    SCAN            reduce using rule 30 (Rest -> EQUAL Expression .)
-    PRINT           reduce using rule 30 (Rest -> EQUAL Expression .)
-    $end            reduce using rule 30 (Rest -> EQUAL Expression .)
-    FC              reduce using rule 30 (Rest -> EQUAL Expression .)
-    ADD             shift and go to state 44
-    SUB             shift and go to state 45
+    Nint            shift and go to state 26
+    VAR             shift and go to state 22
+    AP              shift and go to state 27
 
+    Values                         shift and go to state 67
+    Value                          shift and go to state 25
 
 state 43
 
-    (28) Atribuition -> VAR PRA Nint PRF . EQUAL Nint
+    (33) Expression -> Expression SUB . Values
+    (35) Values -> . Value
+    (36) Values -> . Values MUL Value
+    (37) Values -> . Values DIV Value
+    (38) Values -> . Values MOD Value
+    (39) Value -> . Nint
+    (40) Value -> . VAR
+    (41) Value -> . AP Expression FP
 
-    EQUAL           shift and go to state 68
+    Nint            shift and go to state 26
+    VAR             shift and go to state 22
+    AP              shift and go to state 27
 
+    Values                         shift and go to state 68
+    Value                          shift and go to state 25
 
 state 44
 
-    (33) Expression -> Expression ADD . Values
-    (36) Values -> . Value
-    (37) Values -> . Values MUL Value
-    (38) Values -> . Values DIV Value
-    (39) Values -> . Values MOD Value
-    (40) Value -> . Nint
-    (41) Value -> . VAR
-    (42) Value -> . AP Expression FP
+    (36) Values -> Values MUL . Value
+    (39) Value -> . Nint
+    (40) Value -> . VAR
+    (41) Value -> . AP Expression FP
 
-    Nint            shift and go to state 29
-    VAR             shift and go to state 25
-    AP              shift and go to state 30
+    Nint            shift and go to state 26
+    VAR             shift and go to state 22
+    AP              shift and go to state 27
 
-    Values                         shift and go to state 69
-    Value                          shift and go to state 28
+    Value                          shift and go to state 69
 
 state 45
 
-    (34) Expression -> Expression SUB . Values
-    (36) Values -> . Value
-    (37) Values -> . Values MUL Value
-    (38) Values -> . Values DIV Value
-    (39) Values -> . Values MOD Value
-    (40) Value -> . Nint
-    (41) Value -> . VAR
-    (42) Value -> . AP Expression FP
+    (37) Values -> Values DIV . Value
+    (39) Value -> . Nint
+    (40) Value -> . VAR
+    (41) Value -> . AP Expression FP
 
-    Nint            shift and go to state 29
-    VAR             shift and go to state 25
-    AP              shift and go to state 30
+    Nint            shift and go to state 26
+    VAR             shift and go to state 22
+    AP              shift and go to state 27
 
-    Values                         shift and go to state 70
-    Value                          shift and go to state 28
+    Value                          shift and go to state 70
 
 state 46
 
-    (37) Values -> Values MUL . Value
-    (40) Value -> . Nint
-    (41) Value -> . VAR
-    (42) Value -> . AP Expression FP
+    (38) Values -> Values MOD . Value
+    (39) Value -> . Nint
+    (40) Value -> . VAR
+    (41) Value -> . AP Expression FP
 
-    Nint            shift and go to state 29
-    VAR             shift and go to state 25
-    AP              shift and go to state 30
+    Nint            shift and go to state 26
+    VAR             shift and go to state 22
+    AP              shift and go to state 27
 
     Value                          shift and go to state 71
 
 state 47
 
-    (38) Values -> Values DIV . Value
-    (40) Value -> . Nint
-    (41) Value -> . VAR
-    (42) Value -> . AP Expression FP
+    (41) Value -> AP Expression . FP
+    (32) Expression -> Expression . ADD Values
+    (33) Expression -> Expression . SUB Values
 
-    Nint            shift and go to state 29
-    VAR             shift and go to state 25
-    AP              shift and go to state 30
+    FP              shift and go to state 72
+    ADD             shift and go to state 42
+    SUB             shift and go to state 43
 
-    Value                          shift and go to state 72
 
 state 48
 
-    (39) Values -> Values MOD . Value
-    (40) Value -> . Nint
-    (41) Value -> . VAR
-    (42) Value -> . AP Expression FP
+    (27) Atribuition -> INT VAR PRA Nint . PRF EQUAL Nint
 
-    Nint            shift and go to state 29
-    VAR             shift and go to state 25
-    AP              shift and go to state 30
+    PRF             shift and go to state 73
 
-    Value                          shift and go to state 73
 
 state 49
 
-    (42) Value -> AP Expression . FP
-    (33) Expression -> Expression . ADD Values
-    (34) Expression -> Expression . SUB Values
+    (29) Rest -> EQUAL Expression .
+    (32) Expression -> Expression . ADD Values
+    (33) Expression -> Expression . SUB Values
 
-    FP              shift and go to state 74
-    ADD             shift and go to state 44
-    SUB             shift and go to state 45
+    VAR             reduce using rule 29 (Rest -> EQUAL Expression .)
+    INT             reduce using rule 29 (Rest -> EQUAL Expression .)
+    IF              reduce using rule 29 (Rest -> EQUAL Expression .)
+    SCAN            reduce using rule 29 (Rest -> EQUAL Expression .)
+    PRINT           reduce using rule 29 (Rest -> EQUAL Expression .)
+    $end            reduce using rule 29 (Rest -> EQUAL Expression .)
+    FC              reduce using rule 29 (Rest -> EQUAL Expression .)
+    ADD             shift and go to state 42
+    SUB             shift and go to state 43
 
 
 state 50
@@ -930,15 +938,15 @@ state 50
     (16) Condition3 -> AP Condition . FP
     (10) Condition -> Condition . OR Condition2
 
-    FP              shift and go to state 75
+    FP              shift and go to state 74
     OR              shift and go to state 53
 
 
 state 51
 
-    (42) Value -> AP Expression . FP
-    (33) Expression -> Expression . ADD Values
-    (34) Expression -> Expression . SUB Values
+    (41) Value -> AP Expression . FP
+    (32) Expression -> Expression . ADD Values
+    (33) Expression -> Expression . SUB Values
     (17) RelExpression -> Expression . Continuation
     (18) Continuation -> . OpRel Expression
     (19) Continuation -> .
@@ -950,9 +958,9 @@ state 51
     (25) OpRel -> . DIFF
 
   ! shift/reduce conflict for FP resolved as shift
-    FP              shift and go to state 74
-    ADD             shift and go to state 44
-    SUB             shift and go to state 45
+    FP              shift and go to state 72
+    ADD             shift and go to state 42
+    SUB             shift and go to state 43
     AND             reduce using rule 19 (Continuation -> .)
     OR              reduce using rule 19 (Continuation -> .)
     GoE             shift and go to state 58
@@ -971,7 +979,7 @@ state 52
 
     (7) Conditional -> IF AP Condition FP . AC Comands FC Extension
 
-    AC              shift and go to state 76
+    AC              shift and go to state 75
 
 
 state 53
@@ -983,28 +991,28 @@ state 53
     (15) Condition3 -> . RelExpression
     (16) Condition3 -> . AP Condition FP
     (17) RelExpression -> . Expression Continuation
-    (33) Expression -> . Expression ADD Values
-    (34) Expression -> . Expression SUB Values
-    (35) Expression -> . Values
-    (36) Values -> . Value
-    (37) Values -> . Values MUL Value
-    (38) Values -> . Values DIV Value
-    (39) Values -> . Values MOD Value
-    (40) Value -> . Nint
-    (41) Value -> . VAR
-    (42) Value -> . AP Expression FP
+    (32) Expression -> . Expression ADD Values
+    (33) Expression -> . Expression SUB Values
+    (34) Expression -> . Values
+    (35) Values -> . Value
+    (36) Values -> . Values MUL Value
+    (37) Values -> . Values DIV Value
+    (38) Values -> . Values MOD Value
+    (39) Value -> . Nint
+    (40) Value -> . VAR
+    (41) Value -> . AP Expression FP
 
     NOT             shift and go to state 35
     AP              shift and go to state 31
-    Nint            shift and go to state 29
-    VAR             shift and go to state 25
+    Nint            shift and go to state 26
+    VAR             shift and go to state 22
 
-    Condition2                     shift and go to state 77
+    Condition2                     shift and go to state 76
     Condition3                     shift and go to state 34
     RelExpression                  shift and go to state 36
     Expression                     shift and go to state 37
-    Values                         shift and go to state 27
-    Value                          shift and go to state 28
+    Values                         shift and go to state 24
+    Value                          shift and go to state 25
 
 state 54
 
@@ -1013,27 +1021,27 @@ state 54
     (15) Condition3 -> . RelExpression
     (16) Condition3 -> . AP Condition FP
     (17) RelExpression -> . Expression Continuation
-    (33) Expression -> . Expression ADD Values
-    (34) Expression -> . Expression SUB Values
-    (35) Expression -> . Values
-    (36) Values -> . Value
-    (37) Values -> . Values MUL Value
-    (38) Values -> . Values DIV Value
-    (39) Values -> . Values MOD Value
-    (40) Value -> . Nint
-    (41) Value -> . VAR
-    (42) Value -> . AP Expression FP
+    (32) Expression -> . Expression ADD Values
+    (33) Expression -> . Expression SUB Values
+    (34) Expression -> . Values
+    (35) Values -> . Value
+    (36) Values -> . Values MUL Value
+    (37) Values -> . Values DIV Value
+    (38) Values -> . Values MOD Value
+    (39) Value -> . Nint
+    (40) Value -> . VAR
+    (41) Value -> . AP Expression FP
 
     NOT             shift and go to state 35
     AP              shift and go to state 31
-    Nint            shift and go to state 29
-    VAR             shift and go to state 25
+    Nint            shift and go to state 26
+    VAR             shift and go to state 22
 
-    Condition3                     shift and go to state 78
+    Condition3                     shift and go to state 77
     RelExpression                  shift and go to state 36
     Expression                     shift and go to state 37
-    Values                         shift and go to state 27
-    Value                          shift and go to state 28
+    Values                         shift and go to state 24
+    Value                          shift and go to state 25
 
 state 55
 
@@ -1060,24 +1068,24 @@ state 56
 state 57
 
     (18) Continuation -> OpRel . Expression
-    (33) Expression -> . Expression ADD Values
-    (34) Expression -> . Expression SUB Values
-    (35) Expression -> . Values
-    (36) Values -> . Value
-    (37) Values -> . Values MUL Value
-    (38) Values -> . Values DIV Value
-    (39) Values -> . Values MOD Value
-    (40) Value -> . Nint
-    (41) Value -> . VAR
-    (42) Value -> . AP Expression FP
+    (32) Expression -> . Expression ADD Values
+    (33) Expression -> . Expression SUB Values
+    (34) Expression -> . Values
+    (35) Values -> . Value
+    (36) Values -> . Values MUL Value
+    (37) Values -> . Values DIV Value
+    (38) Values -> . Values MOD Value
+    (39) Value -> . Nint
+    (40) Value -> . VAR
+    (41) Value -> . AP Expression FP
 
-    Nint            shift and go to state 29
-    VAR             shift and go to state 25
-    AP              shift and go to state 30
+    Nint            shift and go to state 26
+    VAR             shift and go to state 22
+    AP              shift and go to state 27
 
-    Expression                     shift and go to state 79
-    Values                         shift and go to state 27
-    Value                          shift and go to state 28
+    Expression                     shift and go to state 78
+    Values                         shift and go to state 24
+    Value                          shift and go to state 25
 
 state 58
 
@@ -1135,226 +1143,213 @@ state 63
 
 state 64
 
-    (45) INPUT -> SCAN AP Expression FP .
+    (44) INPUT -> SCAN AP Expression FP .
 
-    INT             reduce using rule 45 (INPUT -> SCAN AP Expression FP .)
-    VAR             reduce using rule 45 (INPUT -> SCAN AP Expression FP .)
-    IF              reduce using rule 45 (INPUT -> SCAN AP Expression FP .)
-    SCAN            reduce using rule 45 (INPUT -> SCAN AP Expression FP .)
-    PRINT           reduce using rule 45 (INPUT -> SCAN AP Expression FP .)
-    $end            reduce using rule 45 (INPUT -> SCAN AP Expression FP .)
-    FC              reduce using rule 45 (INPUT -> SCAN AP Expression FP .)
+    VAR             reduce using rule 44 (INPUT -> SCAN AP Expression FP .)
+    INT             reduce using rule 44 (INPUT -> SCAN AP Expression FP .)
+    IF              reduce using rule 44 (INPUT -> SCAN AP Expression FP .)
+    SCAN            reduce using rule 44 (INPUT -> SCAN AP Expression FP .)
+    PRINT           reduce using rule 44 (INPUT -> SCAN AP Expression FP .)
+    $end            reduce using rule 44 (INPUT -> SCAN AP Expression FP .)
+    FC              reduce using rule 44 (INPUT -> SCAN AP Expression FP .)
 
 
 state 65
 
-    (46) OUTPUT -> PRINT AP Expression FP .
+    (45) OUTPUT -> PRINT AP Expression FP .
 
-    INT             reduce using rule 46 (OUTPUT -> PRINT AP Expression FP .)
-    VAR             reduce using rule 46 (OUTPUT -> PRINT AP Expression FP .)
-    IF              reduce using rule 46 (OUTPUT -> PRINT AP Expression FP .)
-    SCAN            reduce using rule 46 (OUTPUT -> PRINT AP Expression FP .)
-    PRINT           reduce using rule 46 (OUTPUT -> PRINT AP Expression FP .)
-    $end            reduce using rule 46 (OUTPUT -> PRINT AP Expression FP .)
-    FC              reduce using rule 46 (OUTPUT -> PRINT AP Expression FP .)
+    VAR             reduce using rule 45 (OUTPUT -> PRINT AP Expression FP .)
+    INT             reduce using rule 45 (OUTPUT -> PRINT AP Expression FP .)
+    IF              reduce using rule 45 (OUTPUT -> PRINT AP Expression FP .)
+    SCAN            reduce using rule 45 (OUTPUT -> PRINT AP Expression FP .)
+    PRINT           reduce using rule 45 (OUTPUT -> PRINT AP Expression FP .)
+    $end            reduce using rule 45 (OUTPUT -> PRINT AP Expression FP .)
+    FC              reduce using rule 45 (OUTPUT -> PRINT AP Expression FP .)
 
 
 state 66
 
-    (47) OUTPUT -> PRINT AP VAR PRA . Nint PRF FP
+    (46) OUTPUT -> PRINT AP VAR PRA . Nint PRF FP
 
-    Nint            shift and go to state 80
+    Nint            shift and go to state 79
 
 
 state 67
 
-    (27) Atribuition -> INT VAR PRA Nint PRF .
+    (32) Expression -> Expression ADD Values .
+    (36) Values -> Values . MUL Value
+    (37) Values -> Values . DIV Value
+    (38) Values -> Values . MOD Value
 
-    INT             reduce using rule 27 (Atribuition -> INT VAR PRA Nint PRF .)
-    VAR             reduce using rule 27 (Atribuition -> INT VAR PRA Nint PRF .)
-    IF              reduce using rule 27 (Atribuition -> INT VAR PRA Nint PRF .)
-    SCAN            reduce using rule 27 (Atribuition -> INT VAR PRA Nint PRF .)
-    PRINT           reduce using rule 27 (Atribuition -> INT VAR PRA Nint PRF .)
-    $end            reduce using rule 27 (Atribuition -> INT VAR PRA Nint PRF .)
-    FC              reduce using rule 27 (Atribuition -> INT VAR PRA Nint PRF .)
+    ADD             reduce using rule 32 (Expression -> Expression ADD Values .)
+    SUB             reduce using rule 32 (Expression -> Expression ADD Values .)
+    VAR             reduce using rule 32 (Expression -> Expression ADD Values .)
+    INT             reduce using rule 32 (Expression -> Expression ADD Values .)
+    IF              reduce using rule 32 (Expression -> Expression ADD Values .)
+    SCAN            reduce using rule 32 (Expression -> Expression ADD Values .)
+    PRINT           reduce using rule 32 (Expression -> Expression ADD Values .)
+    $end            reduce using rule 32 (Expression -> Expression ADD Values .)
+    FC              reduce using rule 32 (Expression -> Expression ADD Values .)
+    GoE             reduce using rule 32 (Expression -> Expression ADD Values .)
+    LoE             reduce using rule 32 (Expression -> Expression ADD Values .)
+    Lower           reduce using rule 32 (Expression -> Expression ADD Values .)
+    Greater         reduce using rule 32 (Expression -> Expression ADD Values .)
+    IGUAL           reduce using rule 32 (Expression -> Expression ADD Values .)
+    DIFF            reduce using rule 32 (Expression -> Expression ADD Values .)
+    AND             reduce using rule 32 (Expression -> Expression ADD Values .)
+    FP              reduce using rule 32 (Expression -> Expression ADD Values .)
+    OR              reduce using rule 32 (Expression -> Expression ADD Values .)
+    MUL             shift and go to state 44
+    DIV             shift and go to state 45
+    MOD             shift and go to state 46
 
 
 state 68
 
-    (28) Atribuition -> VAR PRA Nint PRF EQUAL . Nint
+    (33) Expression -> Expression SUB Values .
+    (36) Values -> Values . MUL Value
+    (37) Values -> Values . DIV Value
+    (38) Values -> Values . MOD Value
 
-    Nint            shift and go to state 81
+    ADD             reduce using rule 33 (Expression -> Expression SUB Values .)
+    SUB             reduce using rule 33 (Expression -> Expression SUB Values .)
+    VAR             reduce using rule 33 (Expression -> Expression SUB Values .)
+    INT             reduce using rule 33 (Expression -> Expression SUB Values .)
+    IF              reduce using rule 33 (Expression -> Expression SUB Values .)
+    SCAN            reduce using rule 33 (Expression -> Expression SUB Values .)
+    PRINT           reduce using rule 33 (Expression -> Expression SUB Values .)
+    $end            reduce using rule 33 (Expression -> Expression SUB Values .)
+    FC              reduce using rule 33 (Expression -> Expression SUB Values .)
+    GoE             reduce using rule 33 (Expression -> Expression SUB Values .)
+    LoE             reduce using rule 33 (Expression -> Expression SUB Values .)
+    Lower           reduce using rule 33 (Expression -> Expression SUB Values .)
+    Greater         reduce using rule 33 (Expression -> Expression SUB Values .)
+    IGUAL           reduce using rule 33 (Expression -> Expression SUB Values .)
+    DIFF            reduce using rule 33 (Expression -> Expression SUB Values .)
+    AND             reduce using rule 33 (Expression -> Expression SUB Values .)
+    FP              reduce using rule 33 (Expression -> Expression SUB Values .)
+    OR              reduce using rule 33 (Expression -> Expression SUB Values .)
+    MUL             shift and go to state 44
+    DIV             shift and go to state 45
+    MOD             shift and go to state 46
 
 
 state 69
 
-    (33) Expression -> Expression ADD Values .
-    (37) Values -> Values . MUL Value
-    (38) Values -> Values . DIV Value
-    (39) Values -> Values . MOD Value
+    (36) Values -> Values MUL Value .
 
-    ADD             reduce using rule 33 (Expression -> Expression ADD Values .)
-    SUB             reduce using rule 33 (Expression -> Expression ADD Values .)
-    INT             reduce using rule 33 (Expression -> Expression ADD Values .)
-    VAR             reduce using rule 33 (Expression -> Expression ADD Values .)
-    IF              reduce using rule 33 (Expression -> Expression ADD Values .)
-    SCAN            reduce using rule 33 (Expression -> Expression ADD Values .)
-    PRINT           reduce using rule 33 (Expression -> Expression ADD Values .)
-    $end            reduce using rule 33 (Expression -> Expression ADD Values .)
-    FC              reduce using rule 33 (Expression -> Expression ADD Values .)
-    GoE             reduce using rule 33 (Expression -> Expression ADD Values .)
-    LoE             reduce using rule 33 (Expression -> Expression ADD Values .)
-    Lower           reduce using rule 33 (Expression -> Expression ADD Values .)
-    Greater         reduce using rule 33 (Expression -> Expression ADD Values .)
-    IGUAL           reduce using rule 33 (Expression -> Expression ADD Values .)
-    DIFF            reduce using rule 33 (Expression -> Expression ADD Values .)
-    AND             reduce using rule 33 (Expression -> Expression ADD Values .)
-    FP              reduce using rule 33 (Expression -> Expression ADD Values .)
-    OR              reduce using rule 33 (Expression -> Expression ADD Values .)
-    MUL             shift and go to state 46
-    DIV             shift and go to state 47
-    MOD             shift and go to state 48
+    MUL             reduce using rule 36 (Values -> Values MUL Value .)
+    DIV             reduce using rule 36 (Values -> Values MUL Value .)
+    MOD             reduce using rule 36 (Values -> Values MUL Value .)
+    ADD             reduce using rule 36 (Values -> Values MUL Value .)
+    SUB             reduce using rule 36 (Values -> Values MUL Value .)
+    VAR             reduce using rule 36 (Values -> Values MUL Value .)
+    INT             reduce using rule 36 (Values -> Values MUL Value .)
+    IF              reduce using rule 36 (Values -> Values MUL Value .)
+    SCAN            reduce using rule 36 (Values -> Values MUL Value .)
+    PRINT           reduce using rule 36 (Values -> Values MUL Value .)
+    $end            reduce using rule 36 (Values -> Values MUL Value .)
+    FC              reduce using rule 36 (Values -> Values MUL Value .)
+    GoE             reduce using rule 36 (Values -> Values MUL Value .)
+    LoE             reduce using rule 36 (Values -> Values MUL Value .)
+    Lower           reduce using rule 36 (Values -> Values MUL Value .)
+    Greater         reduce using rule 36 (Values -> Values MUL Value .)
+    IGUAL           reduce using rule 36 (Values -> Values MUL Value .)
+    DIFF            reduce using rule 36 (Values -> Values MUL Value .)
+    AND             reduce using rule 36 (Values -> Values MUL Value .)
+    FP              reduce using rule 36 (Values -> Values MUL Value .)
+    OR              reduce using rule 36 (Values -> Values MUL Value .)
 
 
 state 70
 
-    (34) Expression -> Expression SUB Values .
-    (37) Values -> Values . MUL Value
-    (38) Values -> Values . DIV Value
-    (39) Values -> Values . MOD Value
+    (37) Values -> Values DIV Value .
 
-    ADD             reduce using rule 34 (Expression -> Expression SUB Values .)
-    SUB             reduce using rule 34 (Expression -> Expression SUB Values .)
-    INT             reduce using rule 34 (Expression -> Expression SUB Values .)
-    VAR             reduce using rule 34 (Expression -> Expression SUB Values .)
-    IF              reduce using rule 34 (Expression -> Expression SUB Values .)
-    SCAN            reduce using rule 34 (Expression -> Expression SUB Values .)
-    PRINT           reduce using rule 34 (Expression -> Expression SUB Values .)
-    $end            reduce using rule 34 (Expression -> Expression SUB Values .)
-    FC              reduce using rule 34 (Expression -> Expression SUB Values .)
-    GoE             reduce using rule 34 (Expression -> Expression SUB Values .)
-    LoE             reduce using rule 34 (Expression -> Expression SUB Values .)
-    Lower           reduce using rule 34 (Expression -> Expression SUB Values .)
-    Greater         reduce using rule 34 (Expression -> Expression SUB Values .)
-    IGUAL           reduce using rule 34 (Expression -> Expression SUB Values .)
-    DIFF            reduce using rule 34 (Expression -> Expression SUB Values .)
-    AND             reduce using rule 34 (Expression -> Expression SUB Values .)
-    FP              reduce using rule 34 (Expression -> Expression SUB Values .)
-    OR              reduce using rule 34 (Expression -> Expression SUB Values .)
-    MUL             shift and go to state 46
-    DIV             shift and go to state 47
-    MOD             shift and go to state 48
+    MUL             reduce using rule 37 (Values -> Values DIV Value .)
+    DIV             reduce using rule 37 (Values -> Values DIV Value .)
+    MOD             reduce using rule 37 (Values -> Values DIV Value .)
+    ADD             reduce using rule 37 (Values -> Values DIV Value .)
+    SUB             reduce using rule 37 (Values -> Values DIV Value .)
+    VAR             reduce using rule 37 (Values -> Values DIV Value .)
+    INT             reduce using rule 37 (Values -> Values DIV Value .)
+    IF              reduce using rule 37 (Values -> Values DIV Value .)
+    SCAN            reduce using rule 37 (Values -> Values DIV Value .)
+    PRINT           reduce using rule 37 (Values -> Values DIV Value .)
+    $end            reduce using rule 37 (Values -> Values DIV Value .)
+    FC              reduce using rule 37 (Values -> Values DIV Value .)
+    GoE             reduce using rule 37 (Values -> Values DIV Value .)
+    LoE             reduce using rule 37 (Values -> Values DIV Value .)
+    Lower           reduce using rule 37 (Values -> Values DIV Value .)
+    Greater         reduce using rule 37 (Values -> Values DIV Value .)
+    IGUAL           reduce using rule 37 (Values -> Values DIV Value .)
+    DIFF            reduce using rule 37 (Values -> Values DIV Value .)
+    AND             reduce using rule 37 (Values -> Values DIV Value .)
+    FP              reduce using rule 37 (Values -> Values DIV Value .)
+    OR              reduce using rule 37 (Values -> Values DIV Value .)
 
 
 state 71
 
-    (37) Values -> Values MUL Value .
+    (38) Values -> Values MOD Value .
 
-    MUL             reduce using rule 37 (Values -> Values MUL Value .)
-    DIV             reduce using rule 37 (Values -> Values MUL Value .)
-    MOD             reduce using rule 37 (Values -> Values MUL Value .)
-    ADD             reduce using rule 37 (Values -> Values MUL Value .)
-    SUB             reduce using rule 37 (Values -> Values MUL Value .)
-    INT             reduce using rule 37 (Values -> Values MUL Value .)
-    VAR             reduce using rule 37 (Values -> Values MUL Value .)
-    IF              reduce using rule 37 (Values -> Values MUL Value .)
-    SCAN            reduce using rule 37 (Values -> Values MUL Value .)
-    PRINT           reduce using rule 37 (Values -> Values MUL Value .)
-    $end            reduce using rule 37 (Values -> Values MUL Value .)
-    FC              reduce using rule 37 (Values -> Values MUL Value .)
-    GoE             reduce using rule 37 (Values -> Values MUL Value .)
-    LoE             reduce using rule 37 (Values -> Values MUL Value .)
-    Lower           reduce using rule 37 (Values -> Values MUL Value .)
-    Greater         reduce using rule 37 (Values -> Values MUL Value .)
-    IGUAL           reduce using rule 37 (Values -> Values MUL Value .)
-    DIFF            reduce using rule 37 (Values -> Values MUL Value .)
-    AND             reduce using rule 37 (Values -> Values MUL Value .)
-    FP              reduce using rule 37 (Values -> Values MUL Value .)
-    OR              reduce using rule 37 (Values -> Values MUL Value .)
+    MUL             reduce using rule 38 (Values -> Values MOD Value .)
+    DIV             reduce using rule 38 (Values -> Values MOD Value .)
+    MOD             reduce using rule 38 (Values -> Values MOD Value .)
+    ADD             reduce using rule 38 (Values -> Values MOD Value .)
+    SUB             reduce using rule 38 (Values -> Values MOD Value .)
+    VAR             reduce using rule 38 (Values -> Values MOD Value .)
+    INT             reduce using rule 38 (Values -> Values MOD Value .)
+    IF              reduce using rule 38 (Values -> Values MOD Value .)
+    SCAN            reduce using rule 38 (Values -> Values MOD Value .)
+    PRINT           reduce using rule 38 (Values -> Values MOD Value .)
+    $end            reduce using rule 38 (Values -> Values MOD Value .)
+    FC              reduce using rule 38 (Values -> Values MOD Value .)
+    GoE             reduce using rule 38 (Values -> Values MOD Value .)
+    LoE             reduce using rule 38 (Values -> Values MOD Value .)
+    Lower           reduce using rule 38 (Values -> Values MOD Value .)
+    Greater         reduce using rule 38 (Values -> Values MOD Value .)
+    IGUAL           reduce using rule 38 (Values -> Values MOD Value .)
+    DIFF            reduce using rule 38 (Values -> Values MOD Value .)
+    AND             reduce using rule 38 (Values -> Values MOD Value .)
+    FP              reduce using rule 38 (Values -> Values MOD Value .)
+    OR              reduce using rule 38 (Values -> Values MOD Value .)
 
 
 state 72
 
-    (38) Values -> Values DIV Value .
+    (41) Value -> AP Expression FP .
 
-    MUL             reduce using rule 38 (Values -> Values DIV Value .)
-    DIV             reduce using rule 38 (Values -> Values DIV Value .)
-    MOD             reduce using rule 38 (Values -> Values DIV Value .)
-    ADD             reduce using rule 38 (Values -> Values DIV Value .)
-    SUB             reduce using rule 38 (Values -> Values DIV Value .)
-    INT             reduce using rule 38 (Values -> Values DIV Value .)
-    VAR             reduce using rule 38 (Values -> Values DIV Value .)
-    IF              reduce using rule 38 (Values -> Values DIV Value .)
-    SCAN            reduce using rule 38 (Values -> Values DIV Value .)
-    PRINT           reduce using rule 38 (Values -> Values DIV Value .)
-    $end            reduce using rule 38 (Values -> Values DIV Value .)
-    FC              reduce using rule 38 (Values -> Values DIV Value .)
-    GoE             reduce using rule 38 (Values -> Values DIV Value .)
-    LoE             reduce using rule 38 (Values -> Values DIV Value .)
-    Lower           reduce using rule 38 (Values -> Values DIV Value .)
-    Greater         reduce using rule 38 (Values -> Values DIV Value .)
-    IGUAL           reduce using rule 38 (Values -> Values DIV Value .)
-    DIFF            reduce using rule 38 (Values -> Values DIV Value .)
-    AND             reduce using rule 38 (Values -> Values DIV Value .)
-    FP              reduce using rule 38 (Values -> Values DIV Value .)
-    OR              reduce using rule 38 (Values -> Values DIV Value .)
+    MUL             reduce using rule 41 (Value -> AP Expression FP .)
+    DIV             reduce using rule 41 (Value -> AP Expression FP .)
+    MOD             reduce using rule 41 (Value -> AP Expression FP .)
+    ADD             reduce using rule 41 (Value -> AP Expression FP .)
+    SUB             reduce using rule 41 (Value -> AP Expression FP .)
+    VAR             reduce using rule 41 (Value -> AP Expression FP .)
+    INT             reduce using rule 41 (Value -> AP Expression FP .)
+    IF              reduce using rule 41 (Value -> AP Expression FP .)
+    SCAN            reduce using rule 41 (Value -> AP Expression FP .)
+    PRINT           reduce using rule 41 (Value -> AP Expression FP .)
+    $end            reduce using rule 41 (Value -> AP Expression FP .)
+    FC              reduce using rule 41 (Value -> AP Expression FP .)
+    GoE             reduce using rule 41 (Value -> AP Expression FP .)
+    LoE             reduce using rule 41 (Value -> AP Expression FP .)
+    Lower           reduce using rule 41 (Value -> AP Expression FP .)
+    Greater         reduce using rule 41 (Value -> AP Expression FP .)
+    IGUAL           reduce using rule 41 (Value -> AP Expression FP .)
+    DIFF            reduce using rule 41 (Value -> AP Expression FP .)
+    AND             reduce using rule 41 (Value -> AP Expression FP .)
+    FP              reduce using rule 41 (Value -> AP Expression FP .)
+    OR              reduce using rule 41 (Value -> AP Expression FP .)
 
 
 state 73
 
-    (39) Values -> Values MOD Value .
+    (27) Atribuition -> INT VAR PRA Nint PRF . EQUAL Nint
 
-    MUL             reduce using rule 39 (Values -> Values MOD Value .)
-    DIV             reduce using rule 39 (Values -> Values MOD Value .)
-    MOD             reduce using rule 39 (Values -> Values MOD Value .)
-    ADD             reduce using rule 39 (Values -> Values MOD Value .)
-    SUB             reduce using rule 39 (Values -> Values MOD Value .)
-    INT             reduce using rule 39 (Values -> Values MOD Value .)
-    VAR             reduce using rule 39 (Values -> Values MOD Value .)
-    IF              reduce using rule 39 (Values -> Values MOD Value .)
-    SCAN            reduce using rule 39 (Values -> Values MOD Value .)
-    PRINT           reduce using rule 39 (Values -> Values MOD Value .)
-    $end            reduce using rule 39 (Values -> Values MOD Value .)
-    FC              reduce using rule 39 (Values -> Values MOD Value .)
-    GoE             reduce using rule 39 (Values -> Values MOD Value .)
-    LoE             reduce using rule 39 (Values -> Values MOD Value .)
-    Lower           reduce using rule 39 (Values -> Values MOD Value .)
-    Greater         reduce using rule 39 (Values -> Values MOD Value .)
-    IGUAL           reduce using rule 39 (Values -> Values MOD Value .)
-    DIFF            reduce using rule 39 (Values -> Values MOD Value .)
-    AND             reduce using rule 39 (Values -> Values MOD Value .)
-    FP              reduce using rule 39 (Values -> Values MOD Value .)
-    OR              reduce using rule 39 (Values -> Values MOD Value .)
+    EQUAL           shift and go to state 80
 
 
 state 74
-
-    (42) Value -> AP Expression FP .
-
-    MUL             reduce using rule 42 (Value -> AP Expression FP .)
-    DIV             reduce using rule 42 (Value -> AP Expression FP .)
-    MOD             reduce using rule 42 (Value -> AP Expression FP .)
-    ADD             reduce using rule 42 (Value -> AP Expression FP .)
-    SUB             reduce using rule 42 (Value -> AP Expression FP .)
-    INT             reduce using rule 42 (Value -> AP Expression FP .)
-    VAR             reduce using rule 42 (Value -> AP Expression FP .)
-    IF              reduce using rule 42 (Value -> AP Expression FP .)
-    SCAN            reduce using rule 42 (Value -> AP Expression FP .)
-    PRINT           reduce using rule 42 (Value -> AP Expression FP .)
-    $end            reduce using rule 42 (Value -> AP Expression FP .)
-    FC              reduce using rule 42 (Value -> AP Expression FP .)
-    GoE             reduce using rule 42 (Value -> AP Expression FP .)
-    LoE             reduce using rule 42 (Value -> AP Expression FP .)
-    Lower           reduce using rule 42 (Value -> AP Expression FP .)
-    Greater         reduce using rule 42 (Value -> AP Expression FP .)
-    IGUAL           reduce using rule 42 (Value -> AP Expression FP .)
-    DIFF            reduce using rule 42 (Value -> AP Expression FP .)
-    AND             reduce using rule 42 (Value -> AP Expression FP .)
-    FP              reduce using rule 42 (Value -> AP Expression FP .)
-    OR              reduce using rule 42 (Value -> AP Expression FP .)
-
-
-state 75
 
     (16) Condition3 -> AP Condition FP .
 
@@ -1363,7 +1358,7 @@ state 75
     OR              reduce using rule 16 (Condition3 -> AP Condition FP .)
 
 
-state 76
+state 75
 
     (7) Conditional -> IF AP Condition FP AC . Comands FC Extension
     (2) Comands -> . Comand Comands
@@ -1371,24 +1366,24 @@ state 76
     (4) Comand -> . Atribuition
     (5) Comand -> . Conditional
     (6) Comand -> . IO
-    (27) Atribuition -> . INT VAR PRA Nint PRF
-    (28) Atribuition -> . VAR PRA Nint PRF EQUAL Nint
-    (29) Atribuition -> . INT VAR Rest
-    (32) Atribuition -> . VAR EQUAL Expression
+    (26) Atribuition -> . VAR PRA Nint PRF
+    (27) Atribuition -> . INT VAR PRA Nint PRF EQUAL Nint
+    (28) Atribuition -> . INT VAR Rest
+    (31) Atribuition -> . VAR EQUAL Expression
     (7) Conditional -> . IF AP Condition FP AC Comands FC Extension
-    (43) IO -> . INPUT
-    (44) IO -> . OUTPUT
-    (45) INPUT -> . SCAN AP Expression FP
-    (46) OUTPUT -> . PRINT AP Expression FP
-    (47) OUTPUT -> . PRINT AP VAR PRA Nint PRF FP
+    (42) IO -> . INPUT
+    (43) IO -> . OUTPUT
+    (44) INPUT -> . SCAN AP Expression FP
+    (45) OUTPUT -> . PRINT AP Expression FP
+    (46) OUTPUT -> . PRINT AP VAR PRA Nint PRF FP
 
-    INT             shift and go to state 7
-    VAR             shift and go to state 8
+    VAR             shift and go to state 7
+    INT             shift and go to state 8
     IF              shift and go to state 9
     SCAN            shift and go to state 12
     PRINT           shift and go to state 13
 
-    Comands                        shift and go to state 82
+    Comands                        shift and go to state 81
     Comand                         shift and go to state 3
     Atribuition                    shift and go to state 4
     Conditional                    shift and go to state 5
@@ -1396,7 +1391,7 @@ state 76
     INPUT                          shift and go to state 10
     OUTPUT                         shift and go to state 11
 
-state 77
+state 76
 
     (10) Condition -> Condition OR Condition2 .
     (12) Condition2 -> Condition2 . AND Condition3
@@ -1409,7 +1404,7 @@ state 77
   ! AND             [ reduce using rule 10 (Condition -> Condition OR Condition2 .) ]
 
 
-state 78
+state 77
 
     (12) Condition2 -> Condition2 AND Condition3 .
 
@@ -1418,51 +1413,58 @@ state 78
     OR              reduce using rule 12 (Condition2 -> Condition2 AND Condition3 .)
 
 
-state 79
+state 78
 
     (18) Continuation -> OpRel Expression .
-    (33) Expression -> Expression . ADD Values
-    (34) Expression -> Expression . SUB Values
+    (32) Expression -> Expression . ADD Values
+    (33) Expression -> Expression . SUB Values
 
     AND             reduce using rule 18 (Continuation -> OpRel Expression .)
     FP              reduce using rule 18 (Continuation -> OpRel Expression .)
     OR              reduce using rule 18 (Continuation -> OpRel Expression .)
-    ADD             shift and go to state 44
-    SUB             shift and go to state 45
+    ADD             shift and go to state 42
+    SUB             shift and go to state 43
+
+
+state 79
+
+    (46) OUTPUT -> PRINT AP VAR PRA Nint . PRF FP
+
+    PRF             shift and go to state 82
 
 
 state 80
 
-    (47) OUTPUT -> PRINT AP VAR PRA Nint . PRF FP
+    (27) Atribuition -> INT VAR PRA Nint PRF EQUAL . Nint
 
-    PRF             shift and go to state 83
+    Nint            shift and go to state 83
 
 
 state 81
-
-    (28) Atribuition -> VAR PRA Nint PRF EQUAL Nint .
-
-    INT             reduce using rule 28 (Atribuition -> VAR PRA Nint PRF EQUAL Nint .)
-    VAR             reduce using rule 28 (Atribuition -> VAR PRA Nint PRF EQUAL Nint .)
-    IF              reduce using rule 28 (Atribuition -> VAR PRA Nint PRF EQUAL Nint .)
-    SCAN            reduce using rule 28 (Atribuition -> VAR PRA Nint PRF EQUAL Nint .)
-    PRINT           reduce using rule 28 (Atribuition -> VAR PRA Nint PRF EQUAL Nint .)
-    $end            reduce using rule 28 (Atribuition -> VAR PRA Nint PRF EQUAL Nint .)
-    FC              reduce using rule 28 (Atribuition -> VAR PRA Nint PRF EQUAL Nint .)
-
-
-state 82
 
     (7) Conditional -> IF AP Condition FP AC Comands . FC Extension
 
     FC              shift and go to state 84
 
 
-state 83
+state 82
 
-    (47) OUTPUT -> PRINT AP VAR PRA Nint PRF . FP
+    (46) OUTPUT -> PRINT AP VAR PRA Nint PRF . FP
 
     FP              shift and go to state 85
+
+
+state 83
+
+    (27) Atribuition -> INT VAR PRA Nint PRF EQUAL Nint .
+
+    VAR             reduce using rule 27 (Atribuition -> INT VAR PRA Nint PRF EQUAL Nint .)
+    INT             reduce using rule 27 (Atribuition -> INT VAR PRA Nint PRF EQUAL Nint .)
+    IF              reduce using rule 27 (Atribuition -> INT VAR PRA Nint PRF EQUAL Nint .)
+    SCAN            reduce using rule 27 (Atribuition -> INT VAR PRA Nint PRF EQUAL Nint .)
+    PRINT           reduce using rule 27 (Atribuition -> INT VAR PRA Nint PRF EQUAL Nint .)
+    $end            reduce using rule 27 (Atribuition -> INT VAR PRA Nint PRF EQUAL Nint .)
+    FC              reduce using rule 27 (Atribuition -> INT VAR PRA Nint PRF EQUAL Nint .)
 
 
 state 84
@@ -1472,8 +1474,8 @@ state 84
     (9) Extension -> .
 
     ELSE            shift and go to state 87
-    INT             reduce using rule 9 (Extension -> .)
     VAR             reduce using rule 9 (Extension -> .)
+    INT             reduce using rule 9 (Extension -> .)
     IF              reduce using rule 9 (Extension -> .)
     SCAN            reduce using rule 9 (Extension -> .)
     PRINT           reduce using rule 9 (Extension -> .)
@@ -1484,23 +1486,23 @@ state 84
 
 state 85
 
-    (47) OUTPUT -> PRINT AP VAR PRA Nint PRF FP .
+    (46) OUTPUT -> PRINT AP VAR PRA Nint PRF FP .
 
-    INT             reduce using rule 47 (OUTPUT -> PRINT AP VAR PRA Nint PRF FP .)
-    VAR             reduce using rule 47 (OUTPUT -> PRINT AP VAR PRA Nint PRF FP .)
-    IF              reduce using rule 47 (OUTPUT -> PRINT AP VAR PRA Nint PRF FP .)
-    SCAN            reduce using rule 47 (OUTPUT -> PRINT AP VAR PRA Nint PRF FP .)
-    PRINT           reduce using rule 47 (OUTPUT -> PRINT AP VAR PRA Nint PRF FP .)
-    $end            reduce using rule 47 (OUTPUT -> PRINT AP VAR PRA Nint PRF FP .)
-    FC              reduce using rule 47 (OUTPUT -> PRINT AP VAR PRA Nint PRF FP .)
+    VAR             reduce using rule 46 (OUTPUT -> PRINT AP VAR PRA Nint PRF FP .)
+    INT             reduce using rule 46 (OUTPUT -> PRINT AP VAR PRA Nint PRF FP .)
+    IF              reduce using rule 46 (OUTPUT -> PRINT AP VAR PRA Nint PRF FP .)
+    SCAN            reduce using rule 46 (OUTPUT -> PRINT AP VAR PRA Nint PRF FP .)
+    PRINT           reduce using rule 46 (OUTPUT -> PRINT AP VAR PRA Nint PRF FP .)
+    $end            reduce using rule 46 (OUTPUT -> PRINT AP VAR PRA Nint PRF FP .)
+    FC              reduce using rule 46 (OUTPUT -> PRINT AP VAR PRA Nint PRF FP .)
 
 
 state 86
 
     (7) Conditional -> IF AP Condition FP AC Comands FC Extension .
 
-    INT             reduce using rule 7 (Conditional -> IF AP Condition FP AC Comands FC Extension .)
     VAR             reduce using rule 7 (Conditional -> IF AP Condition FP AC Comands FC Extension .)
+    INT             reduce using rule 7 (Conditional -> IF AP Condition FP AC Comands FC Extension .)
     IF              reduce using rule 7 (Conditional -> IF AP Condition FP AC Comands FC Extension .)
     SCAN            reduce using rule 7 (Conditional -> IF AP Condition FP AC Comands FC Extension .)
     PRINT           reduce using rule 7 (Conditional -> IF AP Condition FP AC Comands FC Extension .)
@@ -1523,19 +1525,19 @@ state 88
     (4) Comand -> . Atribuition
     (5) Comand -> . Conditional
     (6) Comand -> . IO
-    (27) Atribuition -> . INT VAR PRA Nint PRF
-    (28) Atribuition -> . VAR PRA Nint PRF EQUAL Nint
-    (29) Atribuition -> . INT VAR Rest
-    (32) Atribuition -> . VAR EQUAL Expression
+    (26) Atribuition -> . VAR PRA Nint PRF
+    (27) Atribuition -> . INT VAR PRA Nint PRF EQUAL Nint
+    (28) Atribuition -> . INT VAR Rest
+    (31) Atribuition -> . VAR EQUAL Expression
     (7) Conditional -> . IF AP Condition FP AC Comands FC Extension
-    (43) IO -> . INPUT
-    (44) IO -> . OUTPUT
-    (45) INPUT -> . SCAN AP Expression FP
-    (46) OUTPUT -> . PRINT AP Expression FP
-    (47) OUTPUT -> . PRINT AP VAR PRA Nint PRF FP
+    (42) IO -> . INPUT
+    (43) IO -> . OUTPUT
+    (44) INPUT -> . SCAN AP Expression FP
+    (45) OUTPUT -> . PRINT AP Expression FP
+    (46) OUTPUT -> . PRINT AP VAR PRA Nint PRF FP
 
-    INT             shift and go to state 7
-    VAR             shift and go to state 8
+    VAR             shift and go to state 7
+    INT             shift and go to state 8
     IF              shift and go to state 9
     SCAN            shift and go to state 12
     PRINT           shift and go to state 13
@@ -1559,8 +1561,8 @@ state 90
 
     (8) Extension -> ELSE AC Comands FC .
 
-    INT             reduce using rule 8 (Extension -> ELSE AC Comands FC .)
     VAR             reduce using rule 8 (Extension -> ELSE AC Comands FC .)
+    INT             reduce using rule 8 (Extension -> ELSE AC Comands FC .)
     IF              reduce using rule 8 (Extension -> ELSE AC Comands FC .)
     SCAN            reduce using rule 8 (Extension -> ELSE AC Comands FC .)
     PRINT           reduce using rule 8 (Extension -> ELSE AC Comands FC .)
@@ -1573,4 +1575,4 @@ WARNING:
 WARNING: shift/reduce conflict for AND in state 33 resolved as shift
 WARNING: shift/reduce conflict for FP in state 51 resolved as shift
 WARNING: shift/reduce conflict for OR in state 55 resolved as shift
-WARNING: shift/reduce conflict for AND in state 77 resolved as shift
+WARNING: shift/reduce conflict for AND in state 76 resolved as shift
