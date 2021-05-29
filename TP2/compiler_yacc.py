@@ -130,7 +130,7 @@ def p_condition2_simple(p):
 def p_condition3 (p):
 	"Condition3 : NOT Condition"
 	print("neg condition")
-	p[0] = p[2] + 'NOT'
+	p[0] = p[2] + 'NOT\n'
 
 def p_condition3_exp(p):
 	"Condition3 : RelExpression"
@@ -196,16 +196,13 @@ def p_opRel_Diff(p):
 
 ############################################################ATRIBUICAO
 
-
-
-
 def p_Inicialization_integer(p) : 
 	"Inicialization : INT VAR Rest"
 	print("Inicialization of " + p[2])
 	global stack
 	global sp
 	stack[p[2]] = (sp,p[1],None)
-	p[0] = p[3] + '\n'
+	p[0] = p[3]
 	sp+=1
 
 def p_Inicialization_array(p) :
@@ -217,6 +214,18 @@ def p_Inicialization_array(p) :
 	p[0] = 'PUSHN ' + p[4] + '\n'
 	stack[f'{p[2]}'] = (sp,'array'+p[1], p[4])
 	sp+=int(p[4])
+
+
+#int a = 4
+def p_rest(p):
+	"Rest : EQUAL Expression "
+	p[0] = p[2]
+
+#int a
+def p_rest_empty(p):
+	"Rest : "
+	p[0] = 'PUSHI 0\n'
+
 
 #int a[2] 
 """
@@ -252,20 +261,12 @@ def p_atribuition (p):
 	sp+=1
 """
 # a = 3
+
 def p_atribuition_second(p):
 	"Atribuition : VAR EQUAL Expression"
-	p[0] = p[3] + '\n' + 'STOREG ' + str(stack[p[1]][0]) +'\n'
+	p[0] = p[3] + 'STOREG ' + str(stack[p[1]][0]) +'\n'
 
 
-#int a = 4
-def p_rest(p):
-	"Rest : EQUAL Expression "
-	p[0] = p[2] + '\n'
-
-#int a
-def p_rest_empty(p):
-	"Rest : "
-	p[0] = 'PUSHI 0'
 
 
 
@@ -302,15 +303,15 @@ def p_Values_simple(p):
 
 def p_Values_1(p):
 	"Values : Values MUL Value"
-	p[0] = p[1] + p[3] + 'MUL' + '\n'
+	p[0] = p[1] + p[3] + 'MUL\n'
 
 def p_Values_2(p):
 	"Values : Values DIV Value"
-	p[0] = p[1] + p[3] + 'DIV' + '\n'
+	p[0] = p[1] + p[3] + 'DIV\n' 
 
 def p_Values_3(p):
 	"Values : Values MOD Value"
-	p[0] = p[1] + p[3] + 'MOD' + '\n'
+	p[0] = p[1] + p[3] + 'MOD\n' 
 
 
 # Value -> Nint
@@ -319,12 +320,12 @@ def p_Values_3(p):
 
 def p_Value_int(p):
 	"Value : Nint"
-	p[0] = "PUSHI " + p[1] 
+	p[0] = "PUSHI " + p[1] + '\n'
 
 
 def p_Value_var(p):	
 	"Value : VAR"
-	p[0] = "\nPUSHG " + str(stack[p[1]][0]) +'\n'
+	p[0] = "PUSHG " + str(stack[p[1]][0]) +'\n'
 	 
 
 

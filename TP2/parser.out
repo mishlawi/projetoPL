@@ -35,10 +35,10 @@ Rule 29    OpRel -> IGUAL
 Rule 30    OpRel -> DIFF
 Rule 31    Inicialization -> INT VAR Rest
 Rule 32    Inicialization -> INT VAR PRA Nint PRF
-Rule 33    Atribuition -> VAR PRA Nint PRF EQUAL Expression
-Rule 34    Atribuition -> VAR EQUAL Expression
-Rule 35    Rest -> EQUAL Expression
-Rule 36    Rest -> <empty>
+Rule 33    Rest -> EQUAL Expression
+Rule 34    Rest -> <empty>
+Rule 35    Atribuition -> VAR PRA Nint PRF EQUAL Expression
+Rule 36    Atribuition -> VAR EQUAL Expression
 Rule 37    Expression -> Expression ADD Values
 Rule 38    Expression -> Expression SUB Values
 Rule 39    Expression -> Values
@@ -64,7 +64,7 @@ AP                   : 11 12 21 46 49 50 51
 DIFF                 : 30
 DIV                  : 42
 ELSE                 : 13
-EQUAL                : 33 34 35
+EQUAL                : 33 35 36
 FC                   : 11 12 13
 FP                   : 11 12 21 46 49 50 51
 GoE                  : 25
@@ -77,14 +77,14 @@ Lower                : 27
 MOD                  : 43
 MUL                  : 41
 NOT                  : 19
-Nint                 : 32 33 44
+Nint                 : 32 35 44
 OR                   : 15
-PRA                  : 32 33 49 51
-PRF                  : 32 33 49 51
+PRA                  : 32 35 49 51
+PRF                  : 32 35 49 51
 PRINT                : 50 51
 SCAN                 : 49
 SUB                  : 38
-VAR                  : 31 32 33 34 45 49 51
+VAR                  : 31 32 35 36 45 49 51
 WHILE                : 11
 error                : 
 
@@ -99,7 +99,7 @@ Condition3           : 17 18
 Conditional          : 8
 Continuation         : 22
 Cycle                : 9
-Expression           : 22 23 33 34 35 37 38 46 49 50 51
+Expression           : 22 23 33 35 36 37 38 46 49 50 51
 Extension            : 12
 INPUT                : 47
 IO                   : 10
@@ -130,8 +130,8 @@ state 0
     (8) Comand -> . Conditional
     (9) Comand -> . Cycle
     (10) Comand -> . IO
-    (33) Atribuition -> . VAR PRA Nint PRF EQUAL Expression
-    (34) Atribuition -> . VAR EQUAL Expression
+    (35) Atribuition -> . VAR PRA Nint PRF EQUAL Expression
+    (36) Atribuition -> . VAR EQUAL Expression
     (12) Conditional -> . IF AP Condition FP AC Comands FC Extension
     (11) Cycle -> . WHILE AP Condition FP AC Comands FC
     (47) IO -> . INPUT
@@ -174,8 +174,8 @@ state 2
     (8) Comand -> . Conditional
     (9) Comand -> . Cycle
     (10) Comand -> . IO
-    (33) Atribuition -> . VAR PRA Nint PRF EQUAL Expression
-    (34) Atribuition -> . VAR EQUAL Expression
+    (35) Atribuition -> . VAR PRA Nint PRF EQUAL Expression
+    (36) Atribuition -> . VAR EQUAL Expression
     (12) Conditional -> . IF AP Condition FP AC Comands FC Extension
     (11) Cycle -> . WHILE AP Condition FP AC Comands FC
     (47) IO -> . INPUT
@@ -235,8 +235,8 @@ state 5
     (8) Comand -> . Conditional
     (9) Comand -> . Cycle
     (10) Comand -> . IO
-    (33) Atribuition -> . VAR PRA Nint PRF EQUAL Expression
-    (34) Atribuition -> . VAR EQUAL Expression
+    (35) Atribuition -> . VAR PRA Nint PRF EQUAL Expression
+    (36) Atribuition -> . VAR EQUAL Expression
     (12) Conditional -> . IF AP Condition FP AC Comands FC Extension
     (11) Cycle -> . WHILE AP Condition FP AC Comands FC
     (47) IO -> . INPUT
@@ -272,8 +272,8 @@ state 6
 
 state 7
 
-    (33) Atribuition -> VAR . PRA Nint PRF EQUAL Expression
-    (34) Atribuition -> VAR . EQUAL Expression
+    (35) Atribuition -> VAR . PRA Nint PRF EQUAL Expression
+    (36) Atribuition -> VAR . EQUAL Expression
 
     PRA             shift and go to state 22
     EQUAL           shift and go to state 23
@@ -416,30 +416,30 @@ state 21
 
     (31) Inicialization -> INT VAR . Rest
     (32) Inicialization -> INT VAR . PRA Nint PRF
-    (35) Rest -> . EQUAL Expression
-    (36) Rest -> .
+    (33) Rest -> . EQUAL Expression
+    (34) Rest -> .
 
     PRA             shift and go to state 29
     EQUAL           shift and go to state 30
-    INT             reduce using rule 36 (Rest -> .)
-    VAR             reduce using rule 36 (Rest -> .)
-    IF              reduce using rule 36 (Rest -> .)
-    WHILE           reduce using rule 36 (Rest -> .)
-    SCAN            reduce using rule 36 (Rest -> .)
-    PRINT           reduce using rule 36 (Rest -> .)
+    INT             reduce using rule 34 (Rest -> .)
+    VAR             reduce using rule 34 (Rest -> .)
+    IF              reduce using rule 34 (Rest -> .)
+    WHILE           reduce using rule 34 (Rest -> .)
+    SCAN            reduce using rule 34 (Rest -> .)
+    PRINT           reduce using rule 34 (Rest -> .)
 
     Rest                           shift and go to state 28
 
 state 22
 
-    (33) Atribuition -> VAR PRA . Nint PRF EQUAL Expression
+    (35) Atribuition -> VAR PRA . Nint PRF EQUAL Expression
 
     Nint            shift and go to state 31
 
 
 state 23
 
-    (34) Atribuition -> VAR EQUAL . Expression
+    (36) Atribuition -> VAR EQUAL . Expression
     (37) Expression -> . Expression ADD Values
     (38) Expression -> . Expression SUB Values
     (39) Expression -> . Values
@@ -580,7 +580,7 @@ state 29
 
 state 30
 
-    (35) Rest -> EQUAL . Expression
+    (33) Rest -> EQUAL . Expression
     (37) Expression -> . Expression ADD Values
     (38) Expression -> . Expression SUB Values
     (39) Expression -> . Values
@@ -602,7 +602,7 @@ state 30
 
 state 31
 
-    (33) Atribuition -> VAR PRA Nint . PRF EQUAL Expression
+    (35) Atribuition -> VAR PRA Nint . PRF EQUAL Expression
 
     PRF             shift and go to state 51
 
@@ -638,17 +638,17 @@ state 32
 
 state 33
 
-    (34) Atribuition -> VAR EQUAL Expression .
+    (36) Atribuition -> VAR EQUAL Expression .
     (37) Expression -> Expression . ADD Values
     (38) Expression -> Expression . SUB Values
 
-    VAR             reduce using rule 34 (Atribuition -> VAR EQUAL Expression .)
-    IF              reduce using rule 34 (Atribuition -> VAR EQUAL Expression .)
-    WHILE           reduce using rule 34 (Atribuition -> VAR EQUAL Expression .)
-    SCAN            reduce using rule 34 (Atribuition -> VAR EQUAL Expression .)
-    PRINT           reduce using rule 34 (Atribuition -> VAR EQUAL Expression .)
-    $end            reduce using rule 34 (Atribuition -> VAR EQUAL Expression .)
-    FC              reduce using rule 34 (Atribuition -> VAR EQUAL Expression .)
+    VAR             reduce using rule 36 (Atribuition -> VAR EQUAL Expression .)
+    IF              reduce using rule 36 (Atribuition -> VAR EQUAL Expression .)
+    WHILE           reduce using rule 36 (Atribuition -> VAR EQUAL Expression .)
+    SCAN            reduce using rule 36 (Atribuition -> VAR EQUAL Expression .)
+    PRINT           reduce using rule 36 (Atribuition -> VAR EQUAL Expression .)
+    $end            reduce using rule 36 (Atribuition -> VAR EQUAL Expression .)
+    FC              reduce using rule 36 (Atribuition -> VAR EQUAL Expression .)
     ADD             shift and go to state 52
     SUB             shift and go to state 53
 
@@ -955,23 +955,23 @@ state 49
 
 state 50
 
-    (35) Rest -> EQUAL Expression .
+    (33) Rest -> EQUAL Expression .
     (37) Expression -> Expression . ADD Values
     (38) Expression -> Expression . SUB Values
 
-    INT             reduce using rule 35 (Rest -> EQUAL Expression .)
-    VAR             reduce using rule 35 (Rest -> EQUAL Expression .)
-    IF              reduce using rule 35 (Rest -> EQUAL Expression .)
-    WHILE           reduce using rule 35 (Rest -> EQUAL Expression .)
-    SCAN            reduce using rule 35 (Rest -> EQUAL Expression .)
-    PRINT           reduce using rule 35 (Rest -> EQUAL Expression .)
+    INT             reduce using rule 33 (Rest -> EQUAL Expression .)
+    VAR             reduce using rule 33 (Rest -> EQUAL Expression .)
+    IF              reduce using rule 33 (Rest -> EQUAL Expression .)
+    WHILE           reduce using rule 33 (Rest -> EQUAL Expression .)
+    SCAN            reduce using rule 33 (Rest -> EQUAL Expression .)
+    PRINT           reduce using rule 33 (Rest -> EQUAL Expression .)
     ADD             shift and go to state 52
     SUB             shift and go to state 53
 
 
 state 51
 
-    (33) Atribuition -> VAR PRA Nint PRF . EQUAL Expression
+    (35) Atribuition -> VAR PRA Nint PRF . EQUAL Expression
 
     EQUAL           shift and go to state 77
 
@@ -1348,7 +1348,7 @@ state 76
 
 state 77
 
-    (33) Atribuition -> VAR PRA Nint PRF EQUAL . Expression
+    (35) Atribuition -> VAR PRA Nint PRF EQUAL . Expression
     (37) Expression -> . Expression ADD Values
     (38) Expression -> . Expression SUB Values
     (39) Expression -> . Values
@@ -1566,8 +1566,8 @@ state 85
     (8) Comand -> . Conditional
     (9) Comand -> . Cycle
     (10) Comand -> . IO
-    (33) Atribuition -> . VAR PRA Nint PRF EQUAL Expression
-    (34) Atribuition -> . VAR EQUAL Expression
+    (35) Atribuition -> . VAR PRA Nint PRF EQUAL Expression
+    (36) Atribuition -> . VAR EQUAL Expression
     (12) Conditional -> . IF AP Condition FP AC Comands FC Extension
     (11) Cycle -> . WHILE AP Condition FP AC Comands FC
     (47) IO -> . INPUT
@@ -1635,8 +1635,8 @@ state 89
     (8) Comand -> . Conditional
     (9) Comand -> . Cycle
     (10) Comand -> . IO
-    (33) Atribuition -> . VAR PRA Nint PRF EQUAL Expression
-    (34) Atribuition -> . VAR EQUAL Expression
+    (35) Atribuition -> . VAR PRA Nint PRF EQUAL Expression
+    (36) Atribuition -> . VAR EQUAL Expression
     (12) Conditional -> . IF AP Condition FP AC Comands FC Extension
     (11) Cycle -> . WHILE AP Condition FP AC Comands FC
     (47) IO -> . INPUT
@@ -1684,17 +1684,17 @@ state 91
 
 state 92
 
-    (33) Atribuition -> VAR PRA Nint PRF EQUAL Expression .
+    (35) Atribuition -> VAR PRA Nint PRF EQUAL Expression .
     (37) Expression -> Expression . ADD Values
     (38) Expression -> Expression . SUB Values
 
-    VAR             reduce using rule 33 (Atribuition -> VAR PRA Nint PRF EQUAL Expression .)
-    IF              reduce using rule 33 (Atribuition -> VAR PRA Nint PRF EQUAL Expression .)
-    WHILE           reduce using rule 33 (Atribuition -> VAR PRA Nint PRF EQUAL Expression .)
-    SCAN            reduce using rule 33 (Atribuition -> VAR PRA Nint PRF EQUAL Expression .)
-    PRINT           reduce using rule 33 (Atribuition -> VAR PRA Nint PRF EQUAL Expression .)
-    $end            reduce using rule 33 (Atribuition -> VAR PRA Nint PRF EQUAL Expression .)
-    FC              reduce using rule 33 (Atribuition -> VAR PRA Nint PRF EQUAL Expression .)
+    VAR             reduce using rule 35 (Atribuition -> VAR PRA Nint PRF EQUAL Expression .)
+    IF              reduce using rule 35 (Atribuition -> VAR PRA Nint PRF EQUAL Expression .)
+    WHILE           reduce using rule 35 (Atribuition -> VAR PRA Nint PRF EQUAL Expression .)
+    SCAN            reduce using rule 35 (Atribuition -> VAR PRA Nint PRF EQUAL Expression .)
+    PRINT           reduce using rule 35 (Atribuition -> VAR PRA Nint PRF EQUAL Expression .)
+    $end            reduce using rule 35 (Atribuition -> VAR PRA Nint PRF EQUAL Expression .)
+    FC              reduce using rule 35 (Atribuition -> VAR PRA Nint PRF EQUAL Expression .)
     ADD             shift and go to state 52
     SUB             shift and go to state 53
 
@@ -1812,8 +1812,8 @@ state 103
     (8) Comand -> . Conditional
     (9) Comand -> . Cycle
     (10) Comand -> . IO
-    (33) Atribuition -> . VAR PRA Nint PRF EQUAL Expression
-    (34) Atribuition -> . VAR EQUAL Expression
+    (35) Atribuition -> . VAR PRA Nint PRF EQUAL Expression
+    (36) Atribuition -> . VAR EQUAL Expression
     (12) Conditional -> . IF AP Condition FP AC Comands FC Extension
     (11) Cycle -> . WHILE AP Condition FP AC Comands FC
     (47) IO -> . INPUT
