@@ -1,15 +1,20 @@
-int N
-int i = 1
-int min = 0
+int menor(int N){
+int i = 0
+int min
+int conta = 1
 int nr
-
-scan(N)
-scan(min)
 while(i<N){
 	scan(nr)
-	if(min>nr){
-		min = nr
+	if (conta==1){
+	min = nr 
+	conta = conta - 1
+	}
+	else{
+		if(min>nr){
+			min = nr
+		}
 	}
 	i = i + 1
 }
 print(min)
+}

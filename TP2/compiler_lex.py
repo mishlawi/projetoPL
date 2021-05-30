@@ -2,7 +2,7 @@
 import ply.lex as lex
 
 
-reserved = {'if': 'IF', 'else':'ELSE','int':'INT', 'while':'WHILE', 'print':'PRINT','scan':'SCAN'}
+reserved = {'if': 'IF', 'else':'ELSE','int':'INT', 'while':'WHILE', 'print':'PRINT','scan':'SCAN','repeat':'REPEAT','until':'UNTIL'}
 
 tokens = ['AP','FP','AC','FC', 'PRA' , 'PRF',
 'ADD','MUL', 'DIV', 'SUB', 'MOD',
@@ -10,6 +10,7 @@ tokens = ['AP','FP','AC','FC', 'PRA' , 'PRF',
 'GoE','LoE','Lower','Greater',
 'EQUAL','DIFF','NOT','IGUAL',
 'Nint','VAR',
+'VIRG',
 ] + list(reserved.values())
 
 t_AP = r'\('
@@ -56,6 +57,8 @@ t_EQUAL = r'\='
 
 t_Nint = r'\d+'
 
+t_VIRG = r'\,'
+
 
 def t_VAR(t):
 	r'[a-zA-Z]+'
@@ -72,9 +75,3 @@ def t_error(t):
 
 
 lexer = lex.lex()
-
-#import sys
-#for linha in sys.stdin:
-#    lexer.input(linha)
-#    for tok in lexer:
-#        print(tok) 

@@ -1,14 +1,11 @@
-int max
-int min 
+int ex(int min,int max){
 int count = 0
-scan(max)
-scan(min)
 while(min<max){
-	if((min%2)!=0){
-	count = count + 1
-	print(min)
-	}
-	min = min + 1
-
+    if((min%2)!=0){
+    count = count + 1
+    print(min)
+    }
+    min = min + 1
 }
 print(count)
+}

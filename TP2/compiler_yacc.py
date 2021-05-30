@@ -5,8 +5,10 @@ from compiler_lex import tokens
 
 
 stack = {}
-#(sp,tipo,valor)
+#(sp,tipo,valor,valor)
+heap = {}
 
+hp = 0
 sp = 0
 gp = 0
 pc = 0
@@ -16,14 +18,43 @@ pc = 0
 #        | Comand
 
 
+def p_Function(p):
+	"Function : INT VAR AP ARGS FP AC Inits Comands FC"
+	global stack
+	global sp
+	p[0] =  p[4] + p[7] + 'START\n'  + p[8] + 'STOP\n'
 
-def p_program(p):
-	"Program : Inits Comands"
-	p[0] =  p[1] + 'START\n'  + p[2] + 'STOP\n'
+def p_Function_noInstructions(p):
+	"Function : INT VAR AP ARGS FP AC Comands FC"
+	print("yo2")
+	p[0] = p[4] + 'START\n' + p[7] + 'STOP\n'
 
-def p_program_noInstructions(p):
-	"Program : Comands"
-	p[0] = 'START\n' + p[1]+ 'STOP\n'
+def p_Function_noCommands(p):
+	"Function : INT VAR AP ARGS FP AC Inits FC"
+	print("yo3")
+	p[0] = p[4] + p[7] + 'START\n' + 'STOP\n'
+
+def p_args(p):
+	"ARGS : ARG VIRG ARGS"
+	p[0] = p[1] + p[3]
+
+def p_args_simple(p):
+	"ARGS : ARG "
+	p[0] = p[1]
+
+def p_arg(p):
+	"ARG : INT VAR"
+	global sp
+	global stack
+	stack[p[2]] = (sp,p[1],None) 
+	x = stack[p[2]][0]
+	y = '\tPUSHI 0\n' + f'\tREAD\n\tATOI\n\tSTOREG {x}\n'
+	p[0] = y
+	sp+=1
+
+def p_arg_empty(p):
+	"ARG : "
+	p[0] = ''
 
 def p_init(p):
 	"Inits : Inicialization Inits"
@@ -81,9 +112,10 @@ def p_IO_OUTPUT(p):
 
 ##################################################INPUT
 # INPUT -> SCAN Exp
-# scan ( int a[x] ) 
+# scan ( a[x] ) 
 def p_INPUT_array(p):
-	"INPUT : SCAN AP VAR PRA Expression PRF FP"
+	"INPUT : SCAN AP VAR PRA Value PRF FP"
+	print("yo")
 	x = stack[p[3]][0]
 	p[0] = '\tPUSHGP\n' + '\tPUSHI '+ str(x) + '\n\tPADD\n' + p[5] + '\tREAD\n\tATOI\n\tSTOREN\n'
 
@@ -111,19 +143,26 @@ def p_OUTPUT_exp(p):
 # print(a[4]) ou print (a[x])
 
 def p_OUTPUT_array(p):
-	"OUTPUT : PRINT AP VAR PRA Expression PRF FP"
+	"OUTPUT : PRINT AP VAR PRA Value PRF FP"
 	p[0] = '\tPUSHGP\n\tPUSHI ' + str(stack[p[3]][0]) + '\n\tPADD\n ' + p[5] +'\tLOADN\n\tWRITEI\n'
 
 
 
 ############################################################CICLOS
 
-def p_cycle(p):
+def p_cycle_while(p):
 	"Cycle : WHILE AP Condition FP AC Comands FC"
 	global pc 
 	pc += 1
 	p[0] = f"Ciclo{pc}:\n" + p[3]  + f"\tJZ ENDC{pc}\n" + p[6] +f'JUMP Ciclo{pc}\nENDC{pc}:\n'
-	
+
+def p_cycle_rep_until(p):
+	"Cycle : REPEAT AC Comands FC UNTIL AP Condition FP"
+	global pc
+	pc+=1
+	p[0] = f"Ciclo{pc}:\n" + p[3] + p[7] + f"\tJZ Ciclo{pc}\n"
+
+
 ############################################################CONDICIONAL
 
 def p_conditional_simple(p):
@@ -247,7 +286,9 @@ def p_Inicialization_integer(p) :
 	stack[p[2]] = (sp,p[1],None)
 	p[0] = p[3]
 	sp+=1
-#
+
+#int a [4]
+
 def p_Inicialization_array(p) :
 	"Inicialization : INT VAR PRA Nint PRF"
 	global stack
@@ -255,6 +296,19 @@ def p_Inicialization_array(p) :
 	p[0] = '\tPUSHN ' + p[4] + '\n'
 	stack[f'{p[2]}'] = (sp,'array'+p[1], p[4])
 	sp+=int(p[4])
+
+#int a[N]
+def p_Inicialization_array_heap(p) :
+	"Inicialization : INT VAR PRA VAR PRF"
+	global stack
+	global sp
+	#heap[f'{p[2]}'] = (hp,'array') 
+	varSp = stack[p[4]][3]
+
+	p[0] = '\tPUSHG ' + str(varSp) + '\n' + '\tALLOCN\n' 
+	stack[f'{p[2]}'] = (sp,'heapPointer',1)
+	sp+=1
+
 
 #int a = 4
 def p_rest(p):
@@ -269,7 +323,7 @@ def p_rest_empty(p):
 
 # int a[4] = 3
 def p_atribuition_array_numbered(p):
-	"Atribuition : VAR PRA Expression PRF EQUAL Expression"
+	"Atribuition : VAR PRA Value PRF EQUAL Expression"
 	global stack
 	print(stack)
 	p[0] = '\tPUSHGP\n\tPUSHI ' + str(stack[f'{p[1]}'][0])+ '\n' + '\tPADD\n' + p[3] + '\n' + p[6] +'\n\tSTOREN\n'
@@ -346,7 +400,6 @@ def p_Value_var(p):
 def p_Value_complex(p):
 	"Value : AP Expression FP"
 	p[0] = p[2]
-
 
 
 ################################################DefinicaoYACC

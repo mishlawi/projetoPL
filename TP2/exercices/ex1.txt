@@ -1,16 +1,10 @@
-int a
-int b
-int c
-int d
+int um(int a,int b,int c, int d){
 int res = 0
-scan(a)
-scan(b)
-scan(c)
-scan(d)
 if(a==b && a==c && a==d){
-	res = 1
-	print(res)
+    res = 1
+    print(res)
 }
 else{
-	print(res)
+    print(res)
+}
 }

@@ -1,0 +1,21 @@
+	PUSHI 0
+	READ
+	ATOI
+	STOREG 0
+ciclo1:
+	PUSHG 0
+	PUSHI 0
+	EQUAL
+	NOT
+	JZ fimciclo1
+	PUSHG 0
+	PUSHI 1
+	SUB
+	STOREG 0
+	PUSHI 0
+	JUMP ciclo1
+fimciclo1:
+
+START
+
+STOP
