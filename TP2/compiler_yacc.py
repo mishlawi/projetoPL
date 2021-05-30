@@ -1,14 +1,14 @@
 import ply.yacc as yacc
 import sys
 import re
+import os
 from compiler_lex import tokens
 
 
 stack = {}
-#(sp,tipo,valor,valor)
-heap = {}
+#(sp,tipo,valor)
 
-hp = 0
+
 sp = 0
 gp = 0
 pc = 0
@@ -24,23 +24,28 @@ def p_Function(p):
 	global sp
 	p[0] =  p[4] + p[7] + 'START\n'  + p[8] + 'STOP\n'
 
+
 def p_Function_noInstructions(p):
 	"Function : INT VAR AP ARGS FP AC Comands FC"
 	print("yo2")
 	p[0] = p[4] + 'START\n' + p[7] + 'STOP\n'
+
 
 def p_Function_noCommands(p):
 	"Function : INT VAR AP ARGS FP AC Inits FC"
 	print("yo3")
 	p[0] = p[4] + p[7] + 'START\n' + 'STOP\n'
 
+
 def p_args(p):
 	"ARGS : ARG VIRG ARGS"
 	p[0] = p[1] + p[3]
 
+
 def p_args_simple(p):
 	"ARGS : ARG "
 	p[0] = p[1]
+
 
 def p_arg(p):
 	"ARG : INT VAR"
@@ -52,25 +57,31 @@ def p_arg(p):
 	p[0] = y
 	sp+=1
 
+
 def p_arg_empty(p):
 	"ARG : "
 	p[0] = ''
+
 
 def p_init(p):
 	"Inits : Inicialization Inits"
 	p[0] = p[1] + p[2]
 
+
 def p_init_simple(p):
 	"Inits : Inicialization"
 	p[0] = p[1]
+
 
 def p_comands(p):
 	"Comands : Comand Comands"
 	p[0] = p[1] + p[2]
 
+
 def p_comands_simple(p):
 	"Comands : Comand"
 	p[0] = p[1]
+
 
 #Comand -> Atribution
 #       | Conditional
@@ -79,6 +90,7 @@ def p_comands_simple(p):
 def p_comand_atb (p):
 	"Comand : Atribuition"
 	p[0] = p[1]
+
 
 def p_comand_cond (p):
 	"Comand : Conditional"
@@ -89,14 +101,11 @@ def p_comand_cycle (p):
     "Comand : Cycle"
     p[0] = p[1]
 
+
 def p_comand_IO(p):
 	"Comand : IO"
 	p[0] = p[1]
   
-
-#BARATA IS THE OG OF THE DEBUG
-
-
 ############################################INPUT OUTPUT
 
 # IO -> INPUT
@@ -105,6 +114,7 @@ def p_comand_IO(p):
 def p_IO_INPUT(p):
 	"IO : INPUT"
 	p[0] = p[1]
+
 
 def p_IO_OUTPUT(p):
 	"IO : OUTPUT"
@@ -119,6 +129,7 @@ def p_INPUT_array(p):
 	x = stack[p[3]][0]
 	p[0] = '\tPUSHGP\n' + '\tPUSHI '+ str(x) + '\n\tPADD\n' + p[5] + '\tREAD\n\tATOI\n\tSTOREN\n'
 
+
 def p_INPUT_var(p):
 	"INPUT : SCAN AP VAR FP"
 	x= stack[p[3]][0]
@@ -131,7 +142,6 @@ def p_INPUT_var(p):
 #          | PRINT Exp
 #		   | 
 
-#print a * 7 + 2
 
 # print(Expression)
 def p_OUTPUT_exp(p):
@@ -142,10 +152,10 @@ def p_OUTPUT_exp(p):
 
 # print(a[4]) ou print (a[x])
 
+
 def p_OUTPUT_array(p):
 	"OUTPUT : PRINT AP VAR PRA Value PRF FP"
 	p[0] = '\tPUSHGP\n\tPUSHI ' + str(stack[p[3]][0]) + '\n\tPADD\n ' + p[5] +'\tLOADN\n\tWRITEI\n'
-
 
 
 ############################################################CICLOS
@@ -156,6 +166,7 @@ def p_cycle_while(p):
 	pc += 1
 	p[0] = f"Ciclo{pc}:\n" + p[3]  + f"\tJZ ENDC{pc}\n" + p[6] +f'JUMP Ciclo{pc}\nENDC{pc}:\n'
 
+
 def p_cycle_rep_until(p):
 	"Cycle : REPEAT AC Comands FC UNTIL AP Condition FP"
 	global pc
@@ -164,6 +175,7 @@ def p_cycle_rep_until(p):
 
 
 ############################################################CONDICIONAL
+
 
 def p_conditional_simple(p):
 	"Conditional : IF AP Condition FP AC Comands FC Extension" 
@@ -192,9 +204,11 @@ def p_condition_or(p):
 	"Condition : Condition OR Condition2"
 	p[0] = p[1]  + p[3] + '\tADD\n'
 
+
 def p_condition_simple(p):
 	"Condition : Condition2"
 	p[0] = p[1]
+
 
 # Condition2 -> Condition2 AND Condition3
 # 		      | Condition3
@@ -208,6 +222,7 @@ def p_condition2_simple(p):
 	"Condition2 : Condition3"
 	p[0] = p[1]
 
+
 #cond3 -> NOT CONDITION 
 #       | RelExpression
 #       | '(' Condition ')'
@@ -216,26 +231,32 @@ def p_condition3 (p):
 	"Condition3 : NOT Condition"
 	p[0] = p[2] + '\tNOT\n'
 
+
 def p_condition3_exp(p):
 	"Condition3 : RelExpression"
 	p[0] = p[1]
 
+
 def p_condition3_priority(p):
 	"Condition3 : AP Condition FP"
 	p[0] = p[2]
+
 
 #RelExpression -> Expression Continuation
 
 # Continuation -> OpRel Expression
 #				| $
 
+
 def p_RelExpression_complex(p):
 	"RelExpression : Expression Continuation"
 	p[0] = p[1] + p[2] 
 
+
 def p_continuation(p):
 	"Continuation : OpRel Expression"
 	p[0] = p[2] + p[1]
+
 
 def p_continuation_empty(p):
 	"Continuation : "
@@ -255,21 +276,26 @@ def p_opRel_GoE(p):
 	"OpRel : GoE"	
 	p[0] = '\tSUPEQ\n' 
 
+
 def p_opRel_LoE(p):
 	"OpRel : LoE"
 	p[0] = '\tINFEQ\n'
+
 
 def p_opRel_Lower(p):
 	"OpRel : Lower"
 	p[0] = '\tINF\n'
 
+
 def p_opRel_Greater(p):
 	"OpRel : Greater"
 	p[0] = '\tSUP\n'
 
+
 def p_opRel_Equal(p):
 	"OpRel : IGUAL"
 	p[0] = '\tEQUAL\n'
+
 
 def p_opRel_Diff(p):
 	"OpRel : DIFF"	
@@ -287,7 +313,9 @@ def p_Inicialization_integer(p) :
 	p[0] = p[3]
 	sp+=1
 
+
 #int a [4]
+
 
 def p_Inicialization_array(p) :
 	"Inicialization : INT VAR PRA Nint PRF"
@@ -296,6 +324,7 @@ def p_Inicialization_array(p) :
 	p[0] = '\tPUSHN ' + p[4] + '\n'
 	stack[f'{p[2]}'] = (sp,'array'+p[1], p[4])
 	sp+=int(p[4])
+
 
 #int a[N]
 def p_Inicialization_array_heap(p) :
@@ -315,6 +344,7 @@ def p_rest(p):
 	"Rest : EQUAL Expression "
 	p[0] = p[2]
 
+
 #int a
 def p_rest_empty(p):
 	"Rest : "
@@ -329,13 +359,9 @@ def p_atribuition_array_numbered(p):
 	p[0] = '\tPUSHGP\n\tPUSHI ' + str(stack[f'{p[1]}'][0])+ '\n' + '\tPADD\n' + p[3] + '\n' + p[6] +'\n\tSTOREN\n'
 	
 
-
 def p_atribuition_second(p):
 	"Atribuition : VAR EQUAL Expression"
 	p[0] = p[3] + '\tSTOREG ' + str(stack[p[1]][0]) +'\n'
-
-
-
 
 
 ############################################################EXPRESSAO
@@ -354,9 +380,11 @@ def p_expression_minus(p):
 	"Expression : Expression SUB Values"
 	p[0] = p[1] + p[3] + '\tSUB\n'
 
+
 def p_expression_simple(p):
 	"Expression : Values "
 	p[0] = p[1]
+
 
 # Values -> Value
 #      | Values '*' Value
@@ -373,9 +401,11 @@ def p_Values_1(p):
 	"Values : Values MUL Value"
 	p[0] = p[1] + p[3] + '\tMUL\n'
 
+
 def p_Values_2(p):
 	"Values : Values DIV Value"
 	p[0] = p[1] + p[3] + '\tDIV\n' 
+
 
 def p_Values_3(p):
 	"Values : Values MOD Value"
@@ -386,6 +416,7 @@ def p_Values_3(p):
 # 		 | VAR
 #        | '(' Expression ')'
 
+
 def p_Value_int(p):
 	"Value : Nint"
 	p[0] = "\tPUSHI " + p[1] + '\n'
@@ -394,7 +425,6 @@ def p_Value_int(p):
 def p_Value_var(p):	
 	"Value : VAR"
 	p[0] = "\tPUSHG " + str(stack[p[1]][0]) +'\n'
-	 
 
 
 def p_Value_complex(p):
@@ -404,18 +434,32 @@ def p_Value_complex(p):
 
 ################################################DefinicaoYACC
 
+
 def p_error(p):
     print("erro")
     print(p)
 
-
-
 parser = yacc.yacc() 
-fo = open("teste.txt").read()     
+
+print("Insira o número do exercício pretendido")
+fileNumber = input("» ")
+fileName = "exercices/ex"
+fileExtension = ".txt"
+
+file = fileName + fileNumber + fileExtension
+
+if os.path.isfile(file):
+	pass
+else:
+	print("O exercício pretendido não existe...")
+	exit()
+
+
+fo = open(file).read()     
 
 result = parser.parse(fo)
 
-file = open('kanye.vm',"w")
+file = open('code.vm',"w")
 
 file.write(result)
 file.flush()
