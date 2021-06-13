@@ -1,7 +1,7 @@
 Tue.17:50.05.2021
 mishlawi
 
-# THIS IS JUST A SCRAP **
+# THIS IS JUST A SCRAP
 ------------------------------------------------
 Description:
 Definir uma Linguagem de Programação Imperativa que permita declarar:
